@@ -3,132 +3,197 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>True Sea Moss — WFM Gap Analysis</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Syne+Mono&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<title>True Sea Moss — WFM Field Intelligence</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <style>
-
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#f5f4f0;--surf:#ffffff;--card:#ffffff;--bdr:#e2dfd8;--bdr2:#ccc9c0;
-  --grn:#0a6e5a;--grn-d:#085041;--grn-l:rgba(10,110,90,.10);--grn-ll:rgba(10,110,90,.05);
-  --amb:#c47a1a;--amb-l:rgba(196,122,26,.10);
-  --red:#b83232;--red-l:rgba(184,50,50,.10);
-  --ink:#1a1a18;--ink2:#4a4a46;--ink3:#8a8a84;--r:8px;
-  --shadow:0 1px 3px rgba(0,0,0,.08);
+  --bg:#f5f4f0;--surf:#ffffff;--bdr:#e2dfd8;--bdr2:#ccc9c0;
+  --grn:#0a6e5a;--grn-d:#085041;--grn-l:rgba(10,110,90,.12);--grn-ll:rgba(10,110,90,.06);
+  --amb:#c47a1a;--amb-l:rgba(196,122,26,.12);
+  --red:#b83232;--red-l:rgba(184,50,50,.12);
+  --ink:#1a1a18;--ink2:#4a4a46;--ink3:#8a8a84;--r:10px;
+  --shadow:0 1px 3px rgba(0,0,0,.07);
 }
 body{font-family:"DM Sans",sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;min-height:100vh}
-.hdr{background:var(--surf);border-bottom:1px solid var(--bdr);padding:14px 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:var(--shadow)}
+
+/* ── HEADER ── */
+.hdr{background:var(--surf);border-bottom:1px solid var(--bdr);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:var(--shadow)}
 .hdr-l{display:flex;align-items:center;gap:10px}
-.hdr-dot{width:28px;height:28px;background:var(--grn);border-radius:6px;flex-shrink:0}
-.hdr-t{font-family:"Syne",sans-serif;font-size:14px;font-weight:700;color:var(--ink);letter-spacing:.02em}
-.hdr-s{font-family:"Syne Mono",monospace;font-size:10px;color:var(--ink3);margin-top:1px}
-.hdr-r{font-family:"Syne Mono",monospace;font-size:11px;color:var(--ink3);text-align:right}
-.hdr-r strong{color:var(--grn);display:block;font-size:13px}
-.shell{display:grid;grid-template-columns:234px 1fr;min-height:calc(100vh - 57px)}
-.sb{background:var(--surf);border-right:1px solid var(--bdr);padding:16px 0;position:sticky;top:57px;height:calc(100vh - 57px);overflow-y:auto}
-.sb-s{padding:0 12px;margin-bottom:14px}
-.sb-lbl{font-family:"Syne Mono",monospace;font-size:10px;color:var(--ink3);letter-spacing:.09em;text-transform:uppercase;padding:0 2px;margin-bottom:5px}
-.sb-inp{width:100%;background:var(--bg);border:1px solid var(--bdr);border-radius:5px;padding:7px 10px;font-size:12px;color:var(--ink);font-family:"DM Sans",sans-serif;outline:none;transition:border-color .15s}
+.hdr-dot{width:26px;height:26px;background:var(--grn);border-radius:6px;flex-shrink:0}
+.hdr-t{font-family:"Syne",sans-serif;font-size:13px;font-weight:700;color:var(--ink)}
+.hdr-s{font-family:"DM Sans",sans-serif;font-size:11px;color:var(--ink3);margin-top:1px}
+.hdr-r{display:flex;align-items:center;gap:8px}
+.hdr-stat{text-align:center;padding:0 12px;border-left:1px solid var(--bdr)}
+.hdr-stat:first-child{border-left:none}
+.hdr-sv{font-family:"DM Sans",sans-serif;font-size:14px;font-weight:600;color:var(--grn)}
+.hdr-sl{font-size:11px;color:var(--ink3)}
+
+/* ── LAYOUT ── */
+.shell{display:grid;grid-template-columns:220px 1fr;min-height:calc(100vh - 53px)}
+
+/* ── SIDEBAR ── */
+.sb{background:var(--surf);border-right:1px solid var(--bdr);padding:14px 0;position:sticky;top:53px;height:calc(100vh - 53px);overflow-y:auto;display:flex;flex-direction:column;gap:0}
+.sb-block{padding:0 12px;margin-bottom:12px}
+.sb-lbl{font-family:"DM Sans",sans-serif;font-size:11px;font-weight:600;color:var(--ink3);padding:0 2px;margin-bottom:5px}
+.sb-inp{width:100%;background:var(--bg);border:1px solid var(--bdr);border-radius:6px;padding:7px 10px;font-size:12px;color:var(--ink);font-family:"DM Sans",sans-serif;outline:none;transition:border-color .15s}
 .sb-inp:focus{border-color:var(--grn);background:#fff}
 .sb-inp::placeholder{color:var(--ink3)}
-.fb{width:100%;background:none;border:none;padding:6px 6px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;border-radius:5px;font-family:"DM Sans",sans-serif;font-size:12px;color:var(--ink2);text-align:left;transition:all .1s}
+.div{height:1px;background:var(--bdr);margin:8px 0}
+.fb{width:100%;background:none;border:none;padding:5px 6px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;border-radius:5px;font-family:"DM Sans",sans-serif;font-size:12px;color:var(--ink2);text-align:left;transition:all .1s}
 .fb:hover{background:var(--bg)}
 .fb.on{background:var(--grn-ll);color:var(--grn)}
-.fc{font-family:"Syne Mono",monospace;font-size:10px;color:var(--ink3);background:var(--bdr);padding:1px 5px;border-radius:100px;flex-shrink:0}
+.fc{font-family:"DM Sans",sans-serif;font-size:10px;color:var(--ink3);background:var(--bdr);padding:1px 5px;border-radius:100px;flex-shrink:0}
 .fb.on .fc{background:var(--grn-l);color:var(--grn)}
-.div{height:1px;background:var(--bdr);margin:12px 0}
-.rr{display:flex;align-items:center;gap:6px;padding:0 2px}
-.rv{font-family:"Syne Mono",monospace;font-size:11px;color:var(--grn);min-width:42px;text-align:right}
-input[type=range]{flex:1;accent-color:var(--grn);cursor:pointer}
-.cb{width:calc(100% - 24px);margin:0 12px;background:none;border:1px solid var(--bdr);border-radius:5px;padding:6px;font-size:12px;color:var(--ink3);cursor:pointer;font-family:"DM Sans",sans-serif;transition:all .15s}
+.cb{width:calc(100% - 24px);margin:4px 12px 0;background:none;border:1px solid var(--bdr);border-radius:5px;padding:5px;font-size:11px;color:var(--ink3);cursor:pointer;font-family:"DM Sans",sans-serif;transition:all .15s}
 .cb:hover{border-color:var(--grn);color:var(--grn)}
-.main{padding:20px 24px;overflow-y:auto}
-.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:18px}
-.kpi{background:var(--surf);border:1px solid var(--bdr);border-radius:var(--r);padding:14px 16px;box-shadow:var(--shadow)}
-.kv{font-family:"Syne",sans-serif;font-size:22px;font-weight:700;line-height:1;margin-bottom:4px;color:var(--ink)}
+.rr{display:flex;align-items:center;gap:6px;padding:0 2px}
+.rv{font-family:"DM Sans",sans-serif;font-size:10px;color:var(--grn);min-width:36px;text-align:right}
+input[type=range]{flex:1;accent-color:var(--grn);cursor:pointer}
+
+/* ── MAIN ── */
+.main{padding:18px 22px;overflow-y:auto;min-width:0}
+
+/* ── ALERT BAND (top priority zone) ── */
+
+
+/* ── KPI ROW ── */
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:14px}
+.kpi{background:var(--surf);border:1px solid var(--bdr);border-radius:var(--r);padding:12px 14px;box-shadow:var(--shadow)}
+.kv{font-family:"Syne",sans-serif;font-size:20px;font-weight:700;line-height:1;margin-bottom:3px;color:var(--ink)}
 .kv.g{color:var(--grn)}.kv.a{color:var(--amb)}.kv.r{color:var(--red)}
-.kl{font-size:11px;color:var(--ink3);line-height:1.4}
-.tabs{display:flex;gap:2px;margin-bottom:14px;border-bottom:1px solid var(--bdr)}
-.tb{background:none;border:none;padding:8px 14px;font-family:"Syne",sans-serif;font-size:12px;font-weight:600;color:var(--ink3);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s;letter-spacing:.02em}
+.kl{font-size:10px;color:var(--ink3);line-height:1.4}
+
+/* ── TABS ── */
+.tabs{display:flex;gap:2px;margin-bottom:12px;border-bottom:1px solid var(--bdr)}
+.tb{background:none;border:none;padding:7px 14px;font-family:"Syne",sans-serif;font-size:12px;font-weight:600;color:var(--ink3);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s;letter-spacing:.02em}
 .tb:hover{color:var(--ink)}
 .tb.on{color:var(--grn);border-bottom-color:var(--grn)}
 .pan{display:none}.pan.on{display:block}
+
+/* ── STORE TABLE ── */
 .tw{background:var(--surf);border:1px solid var(--bdr);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow)}
-.th-row{display:grid;grid-template-columns:28px 185px 108px 80px 80px 80px 88px 90px 26px;padding:8px 12px;background:var(--bg);border-bottom:1px solid var(--bdr)}
-.th{font-family:"Syne Mono",monospace;font-size:10px;color:var(--ink3);letter-spacing:.05em;text-transform:uppercase;cursor:pointer;user-select:none;display:flex;align-items:center;gap:3px;white-space:nowrap}
+.th-row{display:grid;grid-template-columns:8px 190px 110px 80px 88px 88px 28px;padding:8px 14px;background:var(--bg);border-bottom:1px solid var(--bdr);gap:8px;align-items:center}
+.th{font-family:"DM Sans",sans-serif;font-size:11px;font-weight:600;color:var(--ink3);cursor:pointer;user-select:none;display:flex;align-items:center;gap:3px;white-space:nowrap}
 .th:hover,.th.srt{color:var(--grn)}
-.tb-body{max-height:500px;overflow-y:auto}
-.tr{display:grid;grid-template-columns:28px 185px 108px 80px 80px 80px 88px 90px 26px;padding:8px 12px;border-bottom:1px solid var(--bdr);cursor:pointer;align-items:center;transition:background .1s}
+.tb-body{max-height:calc(100vh - 360px);overflow-y:auto}
+.tr{display:grid;grid-template-columns:8px 190px 110px 80px 88px 88px 28px;padding:8px 14px;border-bottom:1px solid var(--bdr);cursor:pointer;align-items:center;transition:background .1s;gap:8px}
 .tr:hover{background:var(--bg)}
 .tr:last-child{border-bottom:none}
 .tc{font-size:12px;color:var(--ink2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.tc.nm{color:var(--ink);font-weight:500;font-size:12px}
-.tc.rg{font-size:11px;color:var(--ink3)}
-.tc.mn{font-family:"Syne Mono",monospace;font-size:11px}
+.tc.nm{color:var(--ink);font-weight:500}
+.tc.rg{font-size:10px;color:var(--ink3)}
+.tc.mn{font-family:"DM Sans",sans-serif;font-size:11px}
 .tc.rt{text-align:right}
-.gb{display:inline-flex;padding:2px 7px;border-radius:100px;font-family:"Syne Mono",monospace;font-size:10px;font-weight:500}
+.gb{display:inline-flex;padding:2px 7px;border-radius:100px;font-family:"DM Sans",sans-serif;font-size:10px;font-weight:500}
 .gp{background:var(--grn-l);color:var(--grn)}
 .ga{background:var(--amb-l);color:var(--amb)}
 .gr{background:var(--red-l);color:var(--red)}
-.dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;display:inline-block}
-.d0{background:#ccc}.d1{background:#0a6e5a}.d2{background:#5a9e72}.d3{background:#c47a1a}.d4{background:#d86e2e}.d5{background:#b83232}
+.dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;display:inline-block}
+.d0{background:#ddd}.d1{background:#0a6e5a}.d2{background:#5a9e72}.d3{background:#c47a1a}.d4{background:#d86e2e}.d5{background:#b83232}
 .empty{padding:36px;text-align:center;color:var(--ink3);font-size:13px}
-.rg-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:11px}
-.rc{background:var(--surf);border:1px solid var(--bdr);border-radius:var(--r);padding:16px;box-shadow:var(--shadow)}
-.rc-name{font-family:"Syne",sans-serif;font-size:14px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;color:var(--ink)}
-.rc-cnt{font-family:"Syne Mono",monospace;font-size:10px;color:var(--ink3);background:var(--bdr);padding:2px 6px;border-radius:100px}
-.rc-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:9px}
-.rs{background:var(--bg);border-radius:5px;padding:8px 9px}
-.rsv{font-family:"Syne Mono",monospace;font-size:13px;color:var(--grn);margin-bottom:1px}
-.rsl{font-size:10px;color:var(--ink3)}
-.rc-out{font-size:11px;border-top:1px solid var(--bdr);padding-top:8px}
+
+/* ── REGIONS ── */
+.rg-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:10px}
+.rc{background:var(--surf);border:1px solid var(--bdr);border-radius:var(--r);padding:14px;box-shadow:var(--shadow)}
+.rc-name{font-family:"Syne",sans-serif;font-size:13px;font-weight:700;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between;color:var(--ink)}
+.rc-cnt{font-family:"DM Sans",sans-serif;font-size:11px;color:var(--ink3);background:var(--bdr);padding:2px 7px;border-radius:100px}
+.rc-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-bottom:8px}
+.rs{background:var(--bg);border-radius:5px;padding:7px 8px}
+.rsv{font-family:"DM Sans",sans-serif;font-size:12px;color:var(--grn);margin-bottom:1px}
+.rsl{font-size:9px;color:var(--ink3)}
+.rc-out{font-size:11px;border-top:1px solid var(--bdr);padding-top:7px}
 .roi{display:flex;justify-content:space-between;padding:2px 0;color:var(--ink2);font-size:11px}
-.cg{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
-.cc{background:var(--surf);border:1px solid var(--bdr);border-radius:var(--r);padding:16px;box-shadow:var(--shadow)}
+
+/* ── CHARTS ── */
+.cg{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.cc{background:var(--surf);border:1px solid var(--bdr);border-radius:var(--r);padding:14px;box-shadow:var(--shadow)}
 .cc.full{grid-column:1/-1}
-.ct{font-family:"Syne",sans-serif;font-size:13px;font-weight:600;margin-bottom:2px;color:var(--ink)}
-.cs{font-size:11px;color:var(--ink3);margin-bottom:12px}
-.cw{position:relative;height:210px}
-.cw.tall{height:260px}
-.ig{display:grid;grid-template-columns:1fr 1fr;gap:11px}
-.ic{background:var(--surf);border:1px solid var(--bdr);border-radius:var(--r);padding:16px;box-shadow:var(--shadow)}
-.itag{font-family:"Syne Mono",monospace;font-size:10px;letter-spacing:.07em;text-transform:uppercase;padding:3px 8px;border-radius:100px;margin-bottom:9px;display:inline-block}
+.ct{font-family:"Syne",sans-serif;font-size:12px;font-weight:600;margin-bottom:1px;color:var(--ink)}
+.cs{font-size:10px;color:var(--ink3);margin-bottom:10px}
+.cw{position:relative;height:190px}
+.cw.tall{height:240px}
+
+/* ── INSIGHTS ── */
+.ig{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.ic{background:var(--surf);border:1px solid var(--bdr);border-radius:var(--r);padding:14px;box-shadow:var(--shadow)}
+.itag{font-family:"DM Sans",sans-serif;font-size:11px;font-weight:600;padding:2px 9px;border-radius:100px;margin-bottom:7px;display:inline-block}
 .itg{background:var(--grn-l);color:var(--grn)}.ita{background:var(--amb-l);color:var(--amb)}.itr{background:var(--red-l);color:var(--red)}
-.ih{font-family:"Syne",sans-serif;font-size:15px;font-weight:700;line-height:1.3;margin-bottom:7px;color:var(--ink)}
-.ip{font-size:12px;color:var(--ink2);line-height:1.6;margin-bottom:10px}
-.isr{display:flex;gap:14px;margin-top:8px;flex-wrap:wrap}
-.isv{font-family:"Syne Mono",monospace;font-size:17px;color:var(--grn)}
+.ih{font-family:"Syne",sans-serif;font-size:14px;font-weight:700;line-height:1.3;margin-bottom:6px;color:var(--ink)}
+.ip{font-size:12px;color:var(--ink2);line-height:1.6;margin-bottom:8px}
+.isr{display:flex;gap:14px;margin-top:6px;flex-wrap:wrap}
+.isv{font-family:"DM Sans",sans-serif;font-size:15px;color:var(--grn)}
 .isl{font-size:10px;color:var(--ink3)}
-.sli{display:flex;justify-content:space-between;align-items:center;padding:6px 8px;background:var(--bg);border-radius:5px;font-size:12px;margin-top:3px}
-.ov{position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:200;display:none;backdrop-filter:blur(2px)}
+.sli{display:flex;justify-content:space-between;align-items:center;padding:5px 8px;background:var(--bg);border-radius:5px;font-size:12px;margin-top:3px}
+
+/* ── DRAWER ── */
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.3);z-index:200;display:none;backdrop-filter:blur(2px)}
 .ov.open{display:block}
-.dw{position:fixed;right:0;top:0;bottom:0;width:400px;background:var(--surf);border-left:1px solid var(--bdr);z-index:201;overflow-y:auto;transform:translateX(100%);transition:transform .22s ease;box-shadow:-4px 0 20px rgba(0,0,0,.1)}
+.dw{position:fixed;right:0;top:0;bottom:0;width:440px;background:var(--surf);border-left:1px solid var(--bdr);z-index:201;overflow-y:auto;transform:translateX(100%);transition:transform .22s ease;box-shadow:-4px 0 24px rgba(0,0,0,.1)}
 .dw.open{transform:translateX(0)}
-.dw-hdr{padding:16px 20px;border-bottom:1px solid var(--bdr);display:flex;align-items:flex-start;justify-content:space-between;position:sticky;top:0;background:var(--surf)}
+.dw-hdr{padding:14px 18px;border-bottom:1px solid var(--bdr);display:flex;align-items:flex-start;justify-content:space-between;position:sticky;top:0;background:var(--surf);z-index:1}
 .dw-x{background:none;border:none;color:var(--ink3);font-size:18px;cursor:pointer;padding:3px;line-height:1}
 .dw-x:hover{color:var(--ink)}
-.dw-body{padding:18px}
-.dnum{font-family:"Syne Mono",monospace;font-size:11px;color:var(--ink3);margin-bottom:3px}
-.dname{font-family:"Syne",sans-serif;font-size:20px;font-weight:700;line-height:1.2;margin-bottom:3px;color:var(--ink)}
-.dreg{font-size:12px;color:var(--ink3);margin-bottom:14px}
-.dkpis{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px}
-.dk{background:var(--bg);border:1px solid var(--bdr);border-radius:6px;padding:12px}
-.dkv{font-family:"Syne Mono",monospace;font-size:17px;color:var(--grn);margin-bottom:2px}
-.dkl{font-size:10px;color:var(--ink3)}
-.dsec h4{font-family:"Syne",sans-serif;font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--ink3);margin-bottom:8px;margin-top:16px}
-.drow{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--bdr);font-size:12px;color:var(--ink2)}
-.drow:last-child{border-bottom:none}
-.drow strong{color:var(--ink);font-family:"Syne Mono",monospace;font-size:11px}
-.pbdg{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:100px;font-size:11px;font-weight:500;margin-bottom:12px}
+.dw-body{padding:16px 18px}
+.dnum{font-family:"DM Sans",sans-serif;font-size:10px;color:var(--ink3);margin-bottom:2px}
+.dname{font-family:"Syne",sans-serif;font-size:18px;font-weight:700;line-height:1.2;margin-bottom:2px;color:var(--ink)}
+.dreg{font-size:11px;color:var(--ink3);margin-bottom:12px}
+.pbdg{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:100px;font-size:10px;font-weight:500;margin-bottom:10px}
 .pb0{background:#eee;color:#888}.pb1,.pb2{background:var(--grn-l);color:var(--grn)}.pb3,.pb4{background:var(--amb-l);color:var(--amb)}.pb5{background:var(--red-l);color:var(--red)}
-.alert{margin-top:8px;padding:9px 11px;border-radius:6px;font-size:12px}
+
+/* ── PHOTO ZONE ── */
+.photo-zone{background:var(--bg);border-radius:8px;padding:10px 12px;margin-bottom:12px;border:1px dashed var(--bdr2)}
+.photo-zone-title{font-size:11px;font-weight:600;color:var(--ink3);margin-bottom:7px;font-family:"DM Sans",sans-serif}
+.photo-slots{display:flex;gap:8px}
+.photo-slot{flex:1;height:72px;background:var(--surf);border:1px solid var(--bdr);border-radius:6px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:all .15s;min-width:0}
+.photo-slot:hover{border-color:var(--grn);background:var(--grn-ll)}
+.photo-slot svg{width:20px;height:20px;stroke:var(--ink3);margin-bottom:3px}
+.photo-slot:hover svg{stroke:var(--grn)}
+.photo-slot-lbl{font-size:9px;color:var(--ink3);text-align:center;line-height:1.3}
+.photo-slot:hover .photo-slot-lbl{color:var(--grn)}
+
+/* ── CLUSTER CALLOUT ── */
+.cluster-box{background:var(--surf);border:1px solid var(--bdr);border-radius:8px;padding:10px 12px;margin-bottom:10px}
+.cluster-title{font-family:"DM Sans",sans-serif;font-size:11px;font-weight:600;color:var(--ink3);margin-bottom:8px}
+.cluster-compare{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.cc-item{background:var(--bg);border-radius:6px;padding:8px 10px}
+.cc-val{font-family:"DM Sans",sans-serif;font-size:16px;font-weight:600;margin-bottom:1px}
+.cc-lbl{font-size:10px;color:var(--ink3)}
+.cluster-gap{background:var(--red-l);border-radius:6px;padding:7px 10px;margin-top:6px;font-size:11px;color:var(--red);font-weight:500;text-align:center}
+.cluster-gap.positive{background:var(--grn-l);color:var(--grn)}
+
+/* ── PLACEMENT FLAG ── */
+.place-flag{display:flex;align-items:center;justify-content:space-between;padding:7px 10px;border-radius:6px;font-size:11px;margin-bottom:6px}
+.place-flag.bad{background:var(--red-l)}
+.place-flag.amb{background:var(--amb-l)}
+.place-flag.ok{background:var(--grn-l)}
+.pf-label{color:var(--ink2);font-weight:500}
+.pf-val{font-family:"DM Sans",sans-serif;font-size:11px}
+.pf-val.bad{color:var(--red)}.pf-val.amb{color:var(--amb)}.pf-val.ok{color:var(--grn)}
+
+/* ── DRAWER KPIS ── */
+.dkpis{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:12px}
+.dk{background:var(--bg);border:1px solid var(--bdr);border-radius:6px;padding:10px 11px}
+.dkv{font-family:"DM Sans",sans-serif;font-size:15px;color:var(--grn);margin-bottom:2px}
+.dkl{font-size:10px;color:var(--ink3)}
+.dsec h4{font-family:"Syne",sans-serif;font-size:10px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--ink3);margin-bottom:7px;margin-top:14px}
+.drow{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--bdr);font-size:12px;color:var(--ink2)}
+.drow:last-child{border-bottom:none}
+.drow strong{color:var(--ink);font-family:"DM Sans",sans-serif;font-size:11px}
+.alert{margin-top:8px;padding:8px 10px;border-radius:6px;font-size:11px}
 .alert-r{background:rgba(184,50,50,.07);border:1px solid rgba(184,50,50,.2);color:var(--red)}
 .alert-a{background:rgba(196,122,26,.07);border:1px solid rgba(196,122,26,.2);color:var(--amb)}
+.alert-g{background:rgba(10,110,90,.07);border:1px solid rgba(10,110,90,.2);color:var(--grn)}
+
+/* ── OPPORTUNITY HIGHLIGHT ── */
+.opp-highlight{border-left:3px solid var(--amb);padding-left:10px;margin-bottom:10px}
+.opp-highlight-title{font-family:"DM Sans",sans-serif;font-size:9px;color:var(--amb);text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px}
+.opp-highlight-text{font-size:12px;color:var(--ink2);line-height:1.5}
+
 ::-webkit-scrollbar{width:4px;height:4px}
 ::-webkit-scrollbar-track{background:var(--bg)}
 ::-webkit-scrollbar-thumb{background:var(--bdr2);border-radius:100px}
-
 </style>
 </head>
 <body>
@@ -137,167 +202,185 @@ input[type=range]{flex:1;accent-color:var(--grn);cursor:pointer}
   <div class="hdr-l">
     <div class="hdr-dot"></div>
     <div>
-      <div class="hdr-t">True Sea Moss — WFM Gap Analysis</div>
-      <div class="hdr-s">RETAIL INTELLIGENCE DASHBOARD &middot; 527 STORES &middot; WEEK ENDING 05/17/2026</div>
+      <div class="hdr-t">True Sea Moss &mdash; WFM Field Intelligence</div>
+      <div class="hdr-s">527 stores · Week ending 05/17/2026</div>
     </div>
   </div>
-  <div class="hdr-r"><strong id="hdr-n">527 stores</strong>WFM Scorecard &middot; 05/17/2026</div>
+  <div class="hdr-r">
+    <div class="hdr-stat"><div class="hdr-sv" id="hdr-n">—</div><div class="hdr-sl">Stores shown</div></div>
+    <div class="hdr-stat"><div class="hdr-sv r" id="hdr-gap">—</div><div class="hdr-sl">&gt;50% below region</div></div>
+    <div class="hdr-stat"><div class="hdr-sv a" id="hdr-opp">—</div><div class="hdr-sl">Est. weekly uplift</div></div>
+    <div class="hdr-stat"><div class="hdr-sv g" id="hdr-visited">—</div><div class="hdr-sl">Visited stores</div></div>
+  </div>
 </header>
+
 <div class="shell">
 <aside class="sb">
-  <div class="sb-s"><div class="sb-lbl">Search</div><input class="sb-inp" id="q" type="text" placeholder="Name or store #"></div>
-  <div class="sb-s"><div class="sb-lbl">Region</div><div id="rf"></div></div>
-  <div class="div"></div>
-  <div class="sb-s">
-    <div class="sb-lbl">Gap vs region</div>
-    <button class="fb on" id="gf-all" onclick="setGF('all')">All stores <span class="fc" id="gc-all">—</span></button>
-    <button class="fb" id="gf-u50" onclick="setGF('u50')">Below &minus;50% <span class="fc" id="gc-u50">—</span></button>
-    <button class="fb" id="gf-u30" onclick="setGF('u30')">Below &minus;30% <span class="fc" id="gc-u30">—</span></button>
-    <button class="fb" id="gf-a20" onclick="setGF('a20')">Above +20% <span class="fc" id="gc-a20">—</span></button>
+  <div class="sb-block">
+    <div class="sb-lbl">Search store</div>
+    <input class="sb-inp" id="q" type="text" placeholder="Name or store #">
   </div>
   <div class="div"></div>
-  <div class="sb-s"><div class="sb-lbl">Placement tier</div><div id="tf"></div></div>
+  <div class="sb-block">
+    <div class="sb-lbl">Show me</div>
+    <button class="fb on" id="gf-all" onclick="setGF('all')">All stores <span class="fc" id="gc-all">—</span></button>
+    <button class="fb" id="gf-u50" onclick="setGF('u50')">🔴 Far behind average (>50% below) <span class="fc" id="gc-u50">—</span></button>
+    <button class="fb" id="gf-u30" onclick="setGF('u30')">🟡 Underperformers (>20% below) <span class="fc" id="gc-u30">—</span></button>
+    <button class="fb" id="gf-a20" onclick="setGF('a20')">🟢 Pulling ahead (>20% above) <span class="fc" id="gc-a20">—</span></button>
+    <button class="fb" id="gf-visited" onclick="setGF('visited')">👁 Visited stores <span class="fc" id="gc-visited">—</span></button>
+  </div>
   <div class="div"></div>
-  <div class="sb-s">
-    <div class="sb-lbl">Min L4W</div>
+  <div class="sb-block">
+    <div class="sb-lbl">Region</div>
+    <div id="rf"></div>
+  </div>
+  <div class="div"></div>
+  <div class="sb-block">
+    <div class="sb-lbl">Min L4W revenue</div>
     <div class="rr">
-      <span style="font-size:10px;color:var(--ink3)">$0</span>
+      <span style="font-size:9px;color:var(--ink3)">$0</span>
       <input type="range" id="ml" min="0" max="12000" step="100" value="0" oninput="setML(this.value)">
       <span class="rv" id="ml-v">$0</span>
     </div>
   </div>
-  <div class="div"></div>
+  <div style="flex:1"></div>
   <button class="cb" onclick="clearAll()">Clear all filters</button>
 </aside>
+
 <main class="main">
+
+  <!-- KPI ROW -->
   <div class="kpis">
     <div class="kpi"><div class="kv g" id="k0">—</div><div class="kl">Stores shown</div></div>
     <div class="kpi"><div class="kv" id="k1">—</div><div class="kl">Avg L4W revenue</div></div>
-    <div class="kpi"><div class="kv r" id="k2">—</div><div class="kl">Stores &gt;50% below region avg</div></div>
-    <div class="kpi"><div class="kv a" id="k3">—</div><div class="kl">Est. weekly opportunity</div></div>
+    <div class="kpi"><div class="kv r" id="k2">—</div><div class="kl">Stores &gt;50% below region</div></div>
+    <div class="kpi"><div class="kv a" id="k3">—</div><div class="kl">Est. weekly uplift if gaps closed</div></div>
     <div class="kpi"><div class="kv g" id="k4">—</div><div class="kl">Top store L4W</div></div>
   </div>
+
+  <!-- TABS -->
   <div class="tabs">
-    <button class="tb on" onclick="sw('table',this)">Store Table</button>
-    <button class="tb" onclick="sw('regions',this)">By Region</button>
+    <button class="tb on" onclick="sw('table',this)">Store list</button>
+    <button class="tb" onclick="sw('regions',this)">By region</button>
     <button class="tb" onclick="sw('charts',this)">Charts</button>
-    <button class="tb" onclick="sw('insights',this)">Key Insights</button>
+    <button class="tb" onclick="sw('insights',this)">Key insights</button>
   </div>
+
+  <!-- STORE TABLE -->
   <div class="pan on" id="pan-table">
     <div class="tw">
       <div class="th-row">
         <div class="th"></div>
-        <div class="th srt" id="th-name" onclick="srtBy('name')">Store <span>&#8597;</span></div>
+        <div class="th srt" id="th-name" onclick="srtBy('name')">Store <span>&#8595;</span></div>
         <div class="th" id="th-region" onclick="srtBy('region')">Region <span>&#8597;</span></div>
         <div class="th" id="th-l4w" onclick="srtBy('l4w')" style="justify-content:flex-end">L4W <span>&#8595;</span></div>
-        <div class="th" id="th-l52w" onclick="srtBy('l52w')" style="justify-content:flex-end">L52W <span>&#8597;</span></div>
-        <div class="th" id="th-wkly" onclick="srtBy('wkly')" style="justify-content:flex-end">Wkly <span>&#8597;</span></div>
         <div class="th" id="th-momentum" onclick="srtBy('momentum')" style="justify-content:flex-end">Momentum <span>&#8597;</span></div>
         <div class="th" id="th-gap_pct" onclick="srtBy('gap_pct')" style="justify-content:flex-end">vs Region <span>&#8597;</span></div>
         <div class="th"></div>
       </div>
       <div class="tb-body" id="tb-body"><div class="empty">Loading&hellip;</div></div>
     </div>
-    <div style="margin-top:6px;font-family:'Syne Mono',monospace;font-size:10px;color:var(--ink3);text-align:right" id="tb-cnt"></div>
+    <div style="margin-top:5px;font-family:"DM Sans",sans-serif;font-size:9px;color:var(--ink3);text-align:right" id="tb-cnt"></div>
   </div>
+
+  <!-- REGIONS -->
   <div class="pan" id="pan-regions"><div class="rg-grid" id="rg"></div></div>
+
+  <!-- CHARTS -->
   <div class="pan" id="pan-charts">
     <div class="cg">
-      <div class="cc"><div class="ct">L4W Revenue Distribution</div><div class="cs">Stores by L4W revenue range</div><div class="cw"><canvas id="c1"></canvas></div></div>
-      <div class="cc"><div class="ct">Regional Avg L4W</div><div class="cs">Average L4W per region (filtered)</div><div class="cw"><canvas id="c2"></canvas></div></div>
-      <div class="cc full"><div class="ct">Gap vs Region Average</div><div class="cs">Each bar = one store &middot; Green = above avg &middot; Red = below &middot; Sorted by gap %</div><div class="cw tall"><canvas id="c3"></canvas></div></div>
-      <div class="cc"><div class="ct">Placement Tier vs Avg L4W</div><div class="cs">Our 39 visited stores only</div><div class="cw"><canvas id="c4"></canvas></div></div>
-      <div class="cc"><div class="ct">Momentum Distribution</div><div class="cs">L1W as % of 4-week weekly avg</div><div class="cw"><canvas id="c5"></canvas></div></div>
+      <div class="cc"><div class="ct">L4W revenue distribution</div><div class="cs">How stores spread across revenue bands</div><div class="cw"><canvas id="c1" role="img" aria-label="Revenue distribution"></canvas></div></div>
+      <div class="cc"><div class="ct">Regional average L4W</div><div class="cs">Where revenue is strongest</div><div class="cw"><canvas id="c2" role="img" aria-label="Regional averages"></canvas></div></div>
+      <div class="cc full"><div class="ct">Gap vs region average — every store</div><div class="cs">Green = above avg &middot; Red = below &middot; Sorted by gap</div><div class="cw tall"><canvas id="c3" role="img" aria-label="Store gaps"></canvas></div></div>
+      <div class="cc"><div class="ct">Placement tier vs revenue (visited stores)</div><div class="cs">Does better placement = more revenue?</div><div class="cw"><canvas id="c4" role="img" aria-label="Tier vs revenue"></canvas></div></div>
+      <div class="cc"><div class="ct">Momentum distribution</div><div class="cs">L1W as % of 4-week average</div><div class="cw"><canvas id="c5" role="img" aria-label="Momentum"></canvas></div></div>
     </div>
   </div>
+
+  <!-- INSIGHTS -->
   <div class="pan" id="pan-insights"><div class="ig" id="ig"></div></div>
+
 </main>
 </div>
+
+<!-- OVERLAY + DRAWER -->
 <div class="ov" id="ov" onclick="closeDW()"></div>
 <div class="dw" id="dw">
   <div class="dw-hdr">
-    <div><div class="dnum" id="dn"></div><div class="dname" id="dnm"></div><div class="dreg" id="drg"></div></div>
+    <div>
+      <div class="dnum" id="dn"></div>
+      <div class="dname" id="dnm"></div>
+      <div class="dreg" id="drg"></div>
+    </div>
     <button class="dw-x" onclick="closeDW()">&#10005;</button>
   </div>
   <div class="dw-body" id="db"></div>
 </div>
 
 <script>
+
 const S = [{"num": 10408, "name": "East 57th Street", "region": "Northeast", "l4w": 802, "l52w": 3397, "units": 23, "wkly": 200, "wkly_u": 5.8, "l1w": 148, "momentum": 73.8, "reg_avg": 2095, "gap_pct": -61.7, "ann_uplift": 206.9, "tier": 0}, {"num": 10713, "name": "Manhattan West", "region": "Northeast", "l4w": 1091, "l52w": 4392, "units": 32, "wkly": 273, "wkly_u": 8.0, "l1w": 185, "momentum": 67.8, "reg_avg": 2095, "gap_pct": -47.9, "ann_uplift": 222.9, "tier": 0}, {"num": 10518, "name": "Upper East Side", "region": "Northeast", "l4w": 1229, "l52w": 4219, "units": 34, "wkly": 307, "wkly_u": 8.5, "l1w": 222, "momentum": 72.3, "reg_avg": 2095, "gap_pct": -41.3, "ann_uplift": 278.7, "tier": 0}, {"num": 10646, "name": "Canyon Corners", "region": "Rocky Mountain", "l4w": 337, "l52w": 2351, "units": 10, "wkly": 84, "wkly_u": 2.5, "l1w": 37, "momentum": 43.9, "reg_avg": 895, "gap_pct": -62.3, "ann_uplift": 86.3, "tier": 0}, {"num": 10470, "name": "Frisco", "region": "Rocky Mountain", "l4w": 230, "l52w": 1233, "units": 7, "wkly": 58, "wkly_u": 1.8, "l1w": 74, "momentum": 128.7, "reg_avg": 895, "gap_pct": -74.3, "ann_uplift": 142.5, "tier": 0}, {"num": 10792, "name": "Jackson Wyoming", "region": "Rocky Mountain", "l4w": 474, "l52w": 3003, "units": 14, "wkly": 118, "wkly_u": 3.5, "l1w": 74, "momentum": 62.4, "reg_avg": 895, "gap_pct": -47.0, "ann_uplift": 105.2, "tier": 5}, {"num": 10298, "name": "Roaring Fork", "region": "Rocky Mountain", "l4w": 342, "l52w": 1829, "units": 10, "wkly": 86, "wkly_u": 2.5, "l1w": 111, "momentum": 129.8, "reg_avg": 895, "gap_pct": -61.8, "ann_uplift": 143.1, "tier": 0}, {"num": 10696, "name": "One Wall Street", "region": "Northeast", "l4w": 1114, "l52w": 2084, "units": 31, "wkly": 278, "wkly_u": 7.8, "l1w": 370, "momentum": 132.9, "reg_avg": 2095, "gap_pct": -46.8, "ann_uplift": 594.9, "tier": 0}, {"num": 10236, "name": "Bowery", "region": "Northeast", "l4w": 1745, "l52w": 9911, "units": 50, "wkly": 436, "wkly_u": 12.5, "l1w": 518, "momentum": 118.7, "reg_avg": 2095, "gap_pct": -16.7, "ann_uplift": 128.9, "tier": 0}, {"num": 10131, "name": "Chelsea", "region": "Northeast", "l4w": 1525, "l52w": 5640, "units": 43, "wkly": 381, "wkly_u": 10.8, "l1w": 333, "momentum": 87.3, "reg_avg": 2095, "gap_pct": -27.2, "ann_uplift": 251.5, "tier": 0}, {"num": 10363, "name": "Kahala Mall Oahu", "region": "Southern Pacific", "l4w": 724, "l52w": 4094, "units": 18, "wkly": 181, "wkly_u": 4.5, "l1w": 252, "momentum": 139.2, "reg_avg": 1610, "gap_pct": -55.0, "ann_uplift": 129.9, "tier": 0}, {"num": 10368, "name": "Kailua", "region": "Southern Pacific", "l4w": 412, "l52w": 2310, "units": 10, "wkly": 103, "wkly_u": 2.5, "l1w": 42, "momentum": 40.8, "reg_avg": 1610, "gap_pct": -74.4, "ann_uplift": 131.9, "tier": 0}, {"num": 10374, "name": "Maui Mall Maui", "region": "Southern Pacific", "l4w": 490, "l52w": 3874, "units": 12, "wkly": 122, "wkly_u": 3.0, "l1w": 210, "momentum": 171.4, "reg_avg": 1610, "gap_pct": -69.6, "ann_uplift": 64.4, "tier": 0}, {"num": 10245, "name": "Tribeca", "region": "Northeast", "l4w": 2682, "l52w": 11294, "units": 77, "wkly": 670, "wkly_u": 19.2, "l1w": 467, "momentum": 69.6, "reg_avg": 2095, "gap_pct": 28.0, "ann_uplift": 208.7, "tier": 0}, {"num": 10244, "name": "Northbrook", "region": "Midwest", "l4w": 773, "l52w": 2216, "units": 24, "wkly": 193, "wkly_u": 6.0, "l1w": 138, "momentum": 71.4, "reg_avg": 1700, "gap_pct": -54.5, "ann_uplift": 353.5, "tier": 0}, {"num": 10365, "name": "Capitola", "region": "Northern California", "l4w": 955, "l52w": 3207, "units": 43, "wkly": 239, "wkly_u": 10.8, "l1w": 224, "momentum": 93.8, "reg_avg": 963, "gap_pct": -0.8, "ann_uplift": 287.1, "tier": 0}, {"num": 10044, "name": "Franklin", "region": "Northern California", "l4w": 1205, "l52w": 4500, "units": 41, "wkly": 301, "wkly_u": 10.2, "l1w": 134, "momentum": 44.5, "reg_avg": 963, "gap_pct": 25.1, "ann_uplift": 248.1, "tier": 0}, {"num": 10091, "name": "Bellingham", "region": "North Atlantic", "l4w": 1064, "l52w": 3790, "units": 31, "wkly": 266, "wkly_u": 7.8, "l1w": 315, "momentum": 118.4, "reg_avg": 936, "gap_pct": 13.7, "ann_uplift": 265.0, "tier": 0}, {"num": 10366, "name": "Bishops Corner", "region": "North Atlantic", "l4w": 901, "l52w": 5211, "units": 26, "wkly": 225, "wkly_u": 6.5, "l1w": 280, "momentum": 124.3, "reg_avg": 936, "gap_pct": -3.8, "ann_uplift": 124.8, "tier": 4}, {"num": 10015, "name": "Brighton", "region": "North Atlantic", "l4w": 647, "l52w": 2715, "units": 19, "wkly": 162, "wkly_u": 4.8, "l1w": 315, "momentum": 194.7, "reg_avg": 936, "gap_pct": -30.9, "ann_uplift": 209.8, "tier": 5}, {"num": 10158, "name": "Charles River Plaza", "region": "North Atlantic", "l4w": 626, "l52w": 2397, "units": 19, "wkly": 156, "wkly_u": 4.8, "l1w": 70, "momentum": 44.7, "reg_avg": 936, "gap_pct": -33.1, "ann_uplift": 239.5, "tier": 0}, {"num": 10509, "name": "Charlestown", "region": "North Atlantic", "l4w": 545, "l52w": 3735, "units": 16, "wkly": 136, "wkly_u": 4.0, "l1w": 140, "momentum": 102.8, "reg_avg": 936, "gap_pct": -41.8, "ann_uplift": 89.7, "tier": 0}, {"num": 10156, "name": "Framingham", "region": "North Atlantic", "l4w": 628, "l52w": 3702, "units": 19, "wkly": 157, "wkly_u": 4.8, "l1w": 210, "momentum": 133.8, "reg_avg": 936, "gap_pct": -32.9, "ann_uplift": 120.5, "tier": 0}, {"num": 10159, "name": "Hingham", "region": "North Atlantic", "l4w": 848, "l52w": 3440, "units": 25, "wkly": 212, "wkly_u": 6.2, "l1w": 280, "momentum": 132.1, "reg_avg": 936, "gap_pct": -9.4, "ann_uplift": 220.5, "tier": 0}, {"num": 10510, "name": "Melrose", "region": "North Atlantic", "l4w": 367, "l52w": 2859, "units": 11, "wkly": 92, "wkly_u": 2.8, "l1w": 70, "momentum": 76.3, "reg_avg": 936, "gap_pct": -60.8, "ann_uplift": 66.9, "tier": 0}, {"num": 10013, "name": "Newton", "region": "North Atlantic", "l4w": 442, "l52w": 1704, "units": 14, "wkly": 110, "wkly_u": 3.5, "l1w": 105, "momentum": 95.0, "reg_avg": 936, "gap_pct": -52.8, "ann_uplift": 237.2, "tier": 0}, {"num": 10092, "name": "Newtonville", "region": "North Atlantic", "l4w": 370, "l52w": 1714, "units": 11, "wkly": 92, "wkly_u": 2.8, "l1w": 70, "momentum": 75.7, "reg_avg": 936, "gap_pct": -60.5, "ann_uplift": 180.6, "tier": 0}, {"num": 10014, "name": "Providence", "region": "North Atlantic", "l4w": 720, "l52w": 3259, "units": 21, "wkly": 180, "wkly_u": 5.2, "l1w": 280, "momentum": 155.6, "reg_avg": 936, "gap_pct": -23.1, "ann_uplift": 187.2, "tier": 0}, {"num": 10691, "name": "Sudbury", "region": "North Atlantic", "l4w": 277, "l52w": 1088, "units": 8, "wkly": 69, "wkly_u": 2.0, "l1w": 140, "momentum": 202.2, "reg_avg": 936, "gap_pct": -70.4, "ann_uplift": 231.0, "tier": 0}, {"num": 10222, "name": "Swampscott", "region": "North Atlantic", "l4w": 817, "l52w": 4300, "units": 25, "wkly": 204, "wkly_u": 6.2, "l1w": 140, "momentum": 68.5, "reg_avg": 936, "gap_pct": -12.7, "ann_uplift": 147.0, "tier": 0}, {"num": 10233, "name": "Woburn", "region": "North Atlantic", "l4w": 312, "l52w": 1365, "units": 9, "wkly": 78, "wkly_u": 2.2, "l1w": 175, "momentum": 224.4, "reg_avg": 936, "gap_pct": -66.7, "ann_uplift": 197.1, "tier": 0}, {"num": 10673, "name": "Akron", "region": "Midwest", "l4w": 1359, "l52w": 4198, "units": 41, "wkly": 340, "wkly_u": 10.2, "l1w": 560, "momentum": 164.8, "reg_avg": 1700, "gap_pct": -20.1, "ann_uplift": 320.8, "tier": 0}, {"num": 10404, "name": "Carmel", "region": "Midwest", "l4w": 420, "l52w": 2382, "units": 12, "wkly": 105, "wkly_u": 3.0, "l1w": 70, "momentum": 66.7, "reg_avg": 1700, "gap_pct": -75.3, "ann_uplift": 129.2, "tier": 0}, {"num": 10568, "name": "Chicago Edgewater", "region": "Midwest", "l4w": 906, "l52w": 4208, "units": 27, "wkly": 226, "wkly_u": 6.8, "l1w": 210, "momentum": 92.7, "reg_avg": 1700, "gap_pct": -46.7, "ann_uplift": 179.9, "tier": 0}, {"num": 10116, "name": "Deerfield", "region": "Midwest", "l4w": 658, "l52w": 3591, "units": 20, "wkly": 164, "wkly_u": 5.0, "l1w": 105, "momentum": 63.8, "reg_avg": 1700, "gap_pct": -61.3, "ann_uplift": 138.2, "tier": 0}, {"num": 10076, "name": "Evanston", "region": "Midwest", "l4w": 405, "l52w": 1528, "units": 12, "wkly": 101, "wkly_u": 3.0, "l1w": 140, "momentum": 138.3, "reg_avg": 1700, "gap_pct": -76.2, "ann_uplift": 244.6, "tier": 0}, {"num": 10666, "name": "Kenwood", "region": "Midwest", "l4w": 393, "l52w": 2436, "units": 12, "wkly": 98, "wkly_u": 3.0, "l1w": 140, "momentum": 142.5, "reg_avg": 1700, "gap_pct": -76.9, "ann_uplift": 109.7, "tier": 0}, {"num": 10292, "name": "Kildeer", "region": "Midwest", "l4w": 748, "l52w": 3324, "units": 24, "wkly": 187, "wkly_u": 6.0, "l1w": 215, "momentum": 115.0, "reg_avg": 1700, "gap_pct": -56.0, "ann_uplift": 192.5, "tier": 0}, {"num": 10252, "name": "Lincoln Park", "region": "Midwest", "l4w": 1912, "l52w": 7727, "units": 58, "wkly": 478, "wkly_u": 14.5, "l1w": 595, "momentum": 124.5, "reg_avg": 1700, "gap_pct": 12.5, "ann_uplift": 221.7, "tier": 0}, {"num": 10340, "name": "Mason", "region": "Midwest", "l4w": 770, "l52w": 3182, "units": 22, "wkly": 192, "wkly_u": 5.5, "l1w": 350, "momentum": 181.8, "reg_avg": 1700, "gap_pct": -54.7, "ann_uplift": 214.6, "tier": 5}, {"num": 10422, "name": "Minnetonka", "region": "Midwest", "l4w": 1002, "l52w": 2519, "units": 30, "wkly": 250, "wkly_u": 7.5, "l1w": 280, "momentum": 111.8, "reg_avg": 1700, "gap_pct": -41.1, "ann_uplift": 417.1, "tier": 0}, {"num": 10740, "name": "One Chicago", "region": "Midwest", "l4w": 787, "l52w": 4854, "units": 23, "wkly": 197, "wkly_u": 5.8, "l1w": 140, "momentum": 71.2, "reg_avg": 1700, "gap_pct": -53.7, "ann_uplift": 110.8, "tier": 0}, {"num": 10170, "name": "Sauganash", "region": "Midwest", "l4w": 816, "l52w": 5315, "units": 24, "wkly": 204, "wkly_u": 6.0, "l1w": 245, "momentum": 120.1, "reg_avg": 1700, "gap_pct": -52.0, "ann_uplift": 99.6, "tier": 0}, {"num": 10836, "name": "St Charles", "region": "Midwest", "l4w": 475, "l52w": 2215, "units": 14, "wkly": 119, "wkly_u": 3.5, "l1w": 140, "momentum": 117.9, "reg_avg": 1700, "gap_pct": -72.1, "ann_uplift": 178.8, "tier": 0}, {"num": 10337, "name": "Blithedale", "region": "Northern California", "l4w": 105, "l52w": 1002, "units": 3, "wkly": 26, "wkly_u": 0.8, "l1w": 35, "momentum": 133.3, "reg_avg": 963, "gap_pct": -89.1, "ann_uplift": 36.2, "tier": 0}, {"num": 10362, "name": "Haight", "region": "Northern California", "l4w": 699, "l52w": 3134, "units": 21, "wkly": 175, "wkly_u": 5.2, "l1w": 140, "momentum": 80.1, "reg_avg": 963, "gap_pct": -27.4, "ann_uplift": 189.9, "tier": 0}, {"num": 10349, "name": "Lafayette", "region": "Northern California", "l4w": 294, "l52w": 2002, "units": 9, "wkly": 74, "wkly_u": 2.2, "l1w": 175, "momentum": 238.1, "reg_avg": 963, "gap_pct": -69.5, "ann_uplift": 90.9, "tier": 0}, {"num": 10379, "name": "Noe Valley", "region": "Northern California", "l4w": 105, "l52w": 844, "units": 3, "wkly": 26, "wkly_u": 0.8, "l1w": 70, "momentum": 266.7, "reg_avg": 963, "gap_pct": -89.1, "ann_uplift": 61.7, "tier": 0}, {"num": 10126, "name": "San Ramon", "region": "Northern California", "l4w": 1402, "l52w": 4311, "units": 41, "wkly": 350, "wkly_u": 10.2, "l1w": 350, "momentum": 99.9, "reg_avg": 963, "gap_pct": 45.6, "ann_uplift": 322.8, "tier": 0}, {"num": 10139, "name": "Santa Rosa", "region": "Northern California", "l4w": 175, "l52w": 1652, "units": 5, "wkly": 44, "wkly_u": 1.2, "l1w": 35, "momentum": 80.0, "reg_avg": 963, "gap_pct": -81.8, "ann_uplift": 37.7, "tier": 0}, {"num": 10137, "name": "Sebastopol", "region": "Northern California", "l4w": 218, "l52w": 1263, "units": 7, "wkly": 54, "wkly_u": 1.8, "l1w": 35, "momentum": 64.2, "reg_avg": 963, "gap_pct": -77.4, "ann_uplift": 124.4, "tier": 0}, {"num": 10267, "name": "Stevens Creek", "region": "Northern California", "l4w": 906, "l52w": 3367, "units": 29, "wkly": 226, "wkly_u": 7.2, "l1w": 140, "momentum": 61.8, "reg_avg": 963, "gap_pct": -5.9, "ann_uplift": 249.8, "tier": 0}, {"num": 10707, "name": "Sunnyvale", "region": "Northern California", "l4w": 341, "l52w": 2100, "units": 10, "wkly": 85, "wkly_u": 2.5, "l1w": 105, "momentum": 123.2, "reg_avg": 963, "gap_pct": -64.6, "ann_uplift": 111.1, "tier": 0}, {"num": 10708, "name": "Temescal", "region": "Northern California", "l4w": 315, "l52w": 2255, "units": 9, "wkly": 79, "wkly_u": 2.2, "l1w": 210, "momentum": 266.7, "reg_avg": 963, "gap_pct": -67.3, "ann_uplift": 81.6, "tier": 0}, {"num": 10259, "name": "The Alameda", "region": "Northern California", "l4w": 860, "l52w": 4419, "units": 25, "wkly": 215, "wkly_u": 6.2, "l1w": 175, "momentum": 81.4, "reg_avg": 963, "gap_pct": -10.7, "ann_uplift": 153.0, "tier": 0}, {"num": 10434, "name": "Del Mar", "region": "Southern Pacific", "l4w": 516, "l52w": 4045, "units": 15, "wkly": 129, "wkly_u": 3.8, "l1w": 175, "momentum": 135.7, "reg_avg": 1610, "gap_pct": -68.0, "ann_uplift": 65.8, "tier": 0}, {"num": 10406, "name": "Laguna Beach", "region": "Southern Pacific", "l4w": 163, "l52w": 1046, "units": 5, "wkly": 41, "wkly_u": 1.2, "l1w": 35, "momentum": 85.9, "reg_avg": 1610, "gap_pct": -89.9, "ann_uplift": 102.6, "tier": 0}, {"num": 10437, "name": "Laguna Niguel", "region": "Southern Pacific", "l4w": 1184, "l52w": 5713, "units": 35, "wkly": 296, "wkly_u": 8.8, "l1w": 455, "momentum": 153.7, "reg_avg": 1610, "gap_pct": -26.5, "ann_uplift": 169.4, "tier": 0}, {"num": 10441, "name": "Malibu", "region": "Southern Pacific", "l4w": 596, "l52w": 2855, "units": 18, "wkly": 149, "wkly_u": 4.5, "l1w": 140, "momentum": 94.0, "reg_avg": 1610, "gap_pct": -63.0, "ann_uplift": 171.4, "tier": 5}, {"num": 10671, "name": "Sherman", "region": "Southern Pacific", "l4w": 1383, "l52w": 7006, "units": 42, "wkly": 346, "wkly_u": 10.5, "l1w": 245, "momentum": 70.9, "reg_avg": 1610, "gap_pct": -14.1, "ann_uplift": 156.6, "tier": 0}, {"num": 10784, "name": "Sherman Oaks East", "region": "Southern Pacific", "l4w": 720, "l52w": 3661, "units": 21, "wkly": 180, "wkly_u": 5.2, "l1w": 245, "momentum": 136.1, "reg_avg": 1610, "gap_pct": -55.3, "ann_uplift": 155.7, "tier": 0}, {"num": 10439, "name": "Speedway", "region": "Southern Pacific", "l4w": 718, "l52w": 3084, "units": 22, "wkly": 180, "wkly_u": 5.5, "l1w": 315, "momentum": 175.5, "reg_avg": 1610, "gap_pct": -55.4, "ann_uplift": 202.7, "tier": 0}, {"num": 10333, "name": "Venice", "region": "Southern Pacific", "l4w": 1731, "l52w": 7645, "units": 53, "wkly": 433, "wkly_u": 13.2, "l1w": 420, "momentum": 97.1, "reg_avg": 1610, "gap_pct": 7.5, "ann_uplift": 194.3, "tier": 1}, {"num": 10109, "name": "West Hollywood", "region": "Southern Pacific", "l4w": 630, "l52w": 4022, "units": 18, "wkly": 158, "wkly_u": 4.5, "l1w": 105, "momentum": 66.7, "reg_avg": 1610, "gap_pct": -60.9, "ann_uplift": 103.6, "tier": 0}, {"num": 10176, "name": "Westwood", "region": "Southern Pacific", "l4w": 1423, "l52w": 5660, "units": 42, "wkly": 356, "wkly_u": 10.5, "l1w": 385, "momentum": 108.2, "reg_avg": 1610, "gap_pct": -11.6, "ann_uplift": 226.8, "tier": 0}, {"num": 10099, "name": "Woodland Hills", "region": "Southern Pacific", "l4w": 1471, "l52w": 5309, "units": 43, "wkly": 368, "wkly_u": 10.8, "l1w": 245, "momentum": 66.6, "reg_avg": 1610, "gap_pct": -8.6, "ann_uplift": 260.2, "tier": 0}, {"num": 10534, "name": "Ashburn", "region": "Mid-Atlantic", "l4w": 1642, "l52w": 4649, "units": 47, "wkly": 410, "wkly_u": 11.8, "l1w": 665, "momentum": 162.0, "reg_avg": 1435, "gap_pct": 14.4, "ann_uplift": 359.2, "tier": 2}, {"num": 10048, "name": "Bethesda", "region": "Mid-Atlantic", "l4w": 221, "l52w": 1829, "units": 7, "wkly": 55, "wkly_u": 1.8, "l1w": 70, "momentum": 126.7, "reg_avg": 1435, "gap_pct": -84.6, "ann_uplift": 57.1, "tier": 0}, {"num": 10775, "name": "Falls Church", "region": "Mid-Atlantic", "l4w": 373, "l52w": 2344, "units": 11, "wkly": 93, "wkly_u": 2.8, "l1w": 70, "momentum": 75.1, "reg_avg": 1435, "gap_pct": -74.0, "ann_uplift": 106.9, "tier": 0}, {"num": 10414, "name": "Foggy Bottom", "region": "Mid-Atlantic", "l4w": 498, "l52w": 2441, "units": 15, "wkly": 124, "wkly_u": 3.8, "l1w": 105, "momentum": 84.3, "reg_avg": 1435, "gap_pct": -65.3, "ann_uplift": 165.2, "tier": 0}, {"num": 10211, "name": "Friendship Heights", "region": "Mid-Atlantic", "l4w": 335, "l52w": 1778, "units": 10, "wkly": 84, "wkly_u": 2.5, "l1w": 140, "momentum": 167.2, "reg_avg": 1435, "gap_pct": -76.7, "ann_uplift": 144.9, "tier": 0}, {"num": 10180, "name": "Kentlands", "region": "Mid-Atlantic", "l4w": 2160, "l52w": 7923, "units": 63, "wkly": 540, "wkly_u": 15.8, "l1w": 560, "momentum": 103.7, "reg_avg": 1435, "gap_pct": 50.5, "ann_uplift": 254.4, "tier": 0}, {"num": 10625, "name": "Newtown", "region": "Mid-Atlantic", "l4w": 1189, "l52w": 4247, "units": 35, "wkly": 297, "wkly_u": 8.8, "l1w": 280, "momentum": 94.2, "reg_avg": 1435, "gap_pct": -17.1, "ann_uplift": 264.0, "tier": 0}, {"num": 10118, "name": "Silver Spring", "region": "Mid-Atlantic", "l4w": 641, "l52w": 3643, "units": 19, "wkly": 160, "wkly_u": 4.8, "l1w": 175, "momentum": 109.2, "reg_avg": 1435, "gap_pct": -55.3, "ann_uplift": 128.7, "tier": 0}, {"num": 10112, "name": "South Street", "region": "Mid-Atlantic", "l4w": 387, "l52w": 3696, "units": 11, "wkly": 97, "wkly_u": 2.8, "l1w": 35, "momentum": 36.2, "reg_avg": 1435, "gap_pct": -73.0, "ann_uplift": 36.1, "tier": 0}, {"num": 10599, "name": "Spring House", "region": "Mid-Atlantic", "l4w": 1169, "l52w": 3168, "units": 34, "wkly": 292, "wkly_u": 8.5, "l1w": 140, "momentum": 47.9, "reg_avg": 1435, "gap_pct": -18.5, "ann_uplift": 379.7, "tier": 0}, {"num": 10423, "name": "Alpine Ideal", "region": "Rocky Mountain", "l4w": 128, "l52w": 1432, "units": 4, "wkly": 32, "wkly_u": 1.0, "l1w": 35, "momentum": 109.4, "reg_avg": 895, "gap_pct": -85.7, "ann_uplift": 16.2, "tier": 0}, {"num": 10218, "name": "BelMar", "region": "Rocky Mountain", "l4w": 621, "l52w": 3038, "units": 18, "wkly": 155, "wkly_u": 4.5, "l1w": 140, "momentum": 90.2, "reg_avg": 895, "gap_pct": -30.6, "ann_uplift": 165.7, "tier": 0}, {"num": 10556, "name": "Bradburn", "region": "Rocky Mountain", "l4w": 491, "l52w": 5582, "units": 15, "wkly": 123, "wkly_u": 3.8, "l1w": 175, "momentum": 142.6, "reg_avg": 895, "gap_pct": -45.1, "ann_uplift": 14.3, "tier": 5}, {"num": 10459, "name": "Castle Rock", "region": "Rocky Mountain", "l4w": 389, "l52w": 2363, "units": 12, "wkly": 97, "wkly_u": 3.0, "l1w": 35, "momentum": 36.0, "reg_avg": 895, "gap_pct": -56.5, "ann_uplift": 114.0, "tier": 0}, {"num": 10095, "name": "Cherry Creek", "region": "Rocky Mountain", "l4w": 874, "l52w": 2815, "units": 26, "wkly": 218, "wkly_u": 6.5, "l1w": 175, "momentum": 80.1, "reg_avg": 895, "gap_pct": -2.3, "ann_uplift": 303.6, "tier": 0}, {"num": 10142, "name": "Highlands Ranch", "region": "Rocky Mountain", "l4w": 373, "l52w": 1487, "units": 11, "wkly": 93, "wkly_u": 2.8, "l1w": 140, "momentum": 150.1, "reg_avg": 895, "gap_pct": -58.3, "ann_uplift": 226.1, "tier": 0}, {"num": 10538, "name": "Olathe", "region": "Rocky Mountain", "l4w": 914, "l52w": 4068, "units": 28, "wkly": 228, "wkly_u": 7.0, "l1w": 210, "momentum": 91.9, "reg_avg": 895, "gap_pct": 2.1, "ann_uplift": 192.1, "tier": 0}, {"num": 10083, "name": "Pearl", "region": "Rocky Mountain", "l4w": 697, "l52w": 2813, "units": 20, "wkly": 174, "wkly_u": 5.0, "l1w": 210, "momentum": 120.5, "reg_avg": 895, "gap_pct": -22.1, "ann_uplift": 222.1, "tier": 0}, {"num": 10273, "name": "Southglenn", "region": "Rocky Mountain", "l4w": 326, "l52w": 1892, "units": 10, "wkly": 82, "wkly_u": 2.5, "l1w": 140, "momentum": 171.8, "reg_avg": 895, "gap_pct": -63.6, "ann_uplift": 124.0, "tier": 3}, {"num": 10280, "name": "Trolley Square", "region": "Rocky Mountain", "l4w": 1193, "l52w": 6059, "units": 35, "wkly": 298, "wkly_u": 8.8, "l1w": 350, "momentum": 117.4, "reg_avg": 895, "gap_pct": 33.3, "ann_uplift": 156.0, "tier": 4}, {"num": 10443, "name": "Sharon Road", "region": "South", "l4w": 1815, "l52w": 9248, "units": 52, "wkly": 454, "wkly_u": 13, "l1w": 420, "momentum": 92.6, "reg_avg": 1904, "gap_pct": -4.7, "ann_uplift": 155.1, "tier": 0}, {"num": 10642, "name": "University Station", "region": "Florida", "l4w": 1694, "l52w": 9012, "units": 57, "wkly": 424, "wkly_u": 14.2, "l1w": 382, "momentum": 90.2, "reg_avg": 2284, "gap_pct": -25.8, "ann_uplift": 144.4, "tier": 0}, {"num": 10529, "name": "West Palm Beach", "region": "Florida", "l4w": 2579, "l52w": 10623, "units": 75, "wkly": 645, "wkly_u": 18.8, "l1w": 420, "momentum": 65.1, "reg_avg": 2284, "gap_pct": 12.9, "ann_uplift": 215.6, "tier": 0}, {"num": 10455, "name": "Danbury", "region": "Northeast", "l4w": 1142, "l52w": 5383, "units": 34, "wkly": 286, "wkly_u": 8.5, "l1w": 245, "momentum": 85.8, "reg_avg": 2095, "gap_pct": -45.5, "ann_uplift": 175.8, "tier": 0}, {"num": 10519, "name": "Morristown", "region": "Northeast", "l4w": 338, "l52w": 2132, "units": 10, "wkly": 84, "wkly_u": 2.5, "l1w": 175, "momentum": 207.1, "reg_avg": 2095, "gap_pct": -83.9, "ann_uplift": 106.1, "tier": 0}, {"num": 10279, "name": "Paramus", "region": "Northeast", "l4w": 1779, "l52w": 6459, "units": 52, "wkly": 445, "wkly_u": 13.0, "l1w": 420, "momentum": 94.4, "reg_avg": 2095, "gap_pct": -15.1, "ann_uplift": 258.1, "tier": 0}, {"num": 10157, "name": "Rose City", "region": "Northeast", "l4w": 536, "l52w": 2389, "units": 16, "wkly": 134, "wkly_u": 4.0, "l1w": 137, "momentum": 102.2, "reg_avg": 2095, "gap_pct": -74.4, "ann_uplift": 191.7, "tier": 0}, {"num": 10732, "name": "Wayne", "region": "Northeast", "l4w": 1622, "l52w": 7195, "units": 48, "wkly": 406, "wkly_u": 12.0, "l1w": 280, "momentum": 69.1, "reg_avg": 2095, "gap_pct": -22.6, "ann_uplift": 193.1, "tier": 0}, {"num": 10711, "name": "Weehawken", "region": "Northeast", "l4w": 775, "l52w": 4096, "units": 23, "wkly": 194, "wkly_u": 5.8, "l1w": 210, "momentum": 108.4, "reg_avg": 2095, "gap_pct": -63.0, "ann_uplift": 146.0, "tier": 0}, {"num": 10774, "name": "Woodcliff Lake", "region": "Northeast", "l4w": 702, "l52w": 3224, "units": 21, "wkly": 176, "wkly_u": 5.2, "l1w": 175, "momentum": 99.7, "reg_avg": 2095, "gap_pct": -66.5, "ann_uplift": 183.1, "tier": 0}, {"num": 10153, "name": "Bellevue", "region": "Pacific Northwest", "l4w": 749, "l52w": 3726, "units": 22, "wkly": 187, "wkly_u": 5.5, "l1w": 210, "momentum": 112.1, "reg_avg": 857, "gap_pct": -12.6, "ann_uplift": 161.3, "tier": 0}, {"num": 10407, "name": "Bend", "region": "Pacific Northwest", "l4w": 350, "l52w": 1728, "units": 10, "wkly": 88, "wkly_u": 2.5, "l1w": 210, "momentum": 240.0, "reg_avg": 857, "gap_pct": -59.2, "ann_uplift": 163.3, "tier": 0}, {"num": 10375, "name": "Fremont", "region": "Pacific Northwest", "l4w": 461, "l52w": 3140, "units": 17, "wkly": 115, "wkly_u": 4.2, "l1w": 105, "momentum": 91.1, "reg_avg": 857, "gap_pct": -46.2, "ann_uplift": 90.9, "tier": 0}, {"num": 10655, "name": "Kirkland", "region": "Pacific Northwest", "l4w": 512, "l52w": 2638, "units": 16, "wkly": 128, "wkly_u": 4.0, "l1w": 140, "momentum": 109.4, "reg_avg": 857, "gap_pct": -40.3, "ann_uplift": 152.3, "tier": 0}, {"num": 10654, "name": "Lake Oswego", "region": "Pacific Northwest", "l4w": 140, "l52w": 1092, "units": 4, "wkly": 35, "wkly_u": 1.0, "l1w": 70, "momentum": 200.0, "reg_avg": 857, "gap_pct": -83.7, "ann_uplift": 66.7, "tier": 0}, {"num": 10148, "name": "Portland", "region": "Pacific Northwest", "l4w": 351, "l52w": 3522, "units": 10, "wkly": 88, "wkly_u": 2.5, "l1w": 70, "momentum": 79.8, "reg_avg": 857, "gap_pct": -59.1, "ann_uplift": 29.6, "tier": 0}, {"num": 10327, "name": "Tanasbourne", "region": "Pacific Northwest", "l4w": 914, "l52w": 5330, "units": 27, "wkly": 228, "wkly_u": 6.8, "l1w": 175, "momentum": 76.6, "reg_avg": 857, "gap_pct": 6.6, "ann_uplift": 122.9, "tier": 0}, {"num": 10621, "name": "Destin", "region": "South", "l4w": 1364, "l52w": 6811, "units": 40, "wkly": 341, "wkly_u": 10.0, "l1w": 280, "momentum": 82.1, "reg_avg": 1904, "gap_pct": -28.3, "ann_uplift": 160.3, "tier": 0}, {"num": 10321, "name": "McEwen", "region": "South", "l4w": 2203, "l52w": 7154, "units": 64, "wkly": 551, "wkly_u": 16.0, "l1w": 525, "momentum": 95.3, "reg_avg": 1904, "gap_pct": 15.7, "ann_uplift": 300.3, "tier": 0}, {"num": 10650, "name": "Midtown Atlanta", "region": "South", "l4w": 1428, "l52w": 5486, "units": 45, "wkly": 357, "wkly_u": 11.2, "l1w": 315, "momentum": 88.2, "reg_avg": 1904, "gap_pct": -25.0, "ann_uplift": 238.4, "tier": 0}, {"num": 10136, "name": "Sandy Springs", "region": "South", "l4w": 1342, "l52w": 4901, "units": 39, "wkly": 336, "wkly_u": 9.8, "l1w": 490, "momentum": 146.1, "reg_avg": 1904, "gap_pct": -29.5, "ann_uplift": 256.0, "tier": 0}, {"num": 10143, "name": "Arabella Station", "region": "Southwest", "l4w": 1162, "l52w": 6784, "units": 35, "wkly": 290, "wkly_u": 8.8, "l1w": 315, "momentum": 108.4, "reg_avg": 1829, "gap_pct": -36.5, "ann_uplift": 122.7, "tier": 0}, {"num": 10393, "name": "Bee Caves", "region": "Southwest", "l4w": 560, "l52w": 2315, "units": 16, "wkly": 140, "wkly_u": 4.0, "l1w": 175, "momentum": 125.0, "reg_avg": 1829, "gap_pct": -69.4, "ann_uplift": 214.5, "tier": 0}, {"num": 10523, "name": "Colleyville", "region": "Southwest", "l4w": 1426, "l52w": 6718, "units": 43, "wkly": 356, "wkly_u": 10.8, "l1w": 280, "momentum": 78.5, "reg_avg": 1829, "gap_pct": -22.0, "ann_uplift": 175.9, "tier": 0}, {"num": 10251, "name": "Post Oak", "region": "Southwest", "l4w": 978, "l52w": 5856, "units": 29, "wkly": 244, "wkly_u": 7.2, "l1w": 245, "momentum": 100.2, "reg_avg": 1829, "gap_pct": -46.5, "ann_uplift": 117.1, "tier": 0}, {"num": 10285, "name": "South Beach", "region": "Florida", "l4w": 510, "l52w": 3394, "units": 15, "wkly": 128, "wkly_u": 3.8, "l1w": 140, "momentum": 109.8, "reg_avg": 2284, "gap_pct": -77.7, "ann_uplift": 95.3, "tier": 0}, {"num": 10809, "name": "Doylestown", "region": "Mid-Atlantic", "l4w": 420, "l52w": 2633, "units": 12, "wkly": 105, "wkly_u": 3.0, "l1w": 35, "momentum": 33.3, "reg_avg": 1435, "gap_pct": -70.7, "ann_uplift": 107.4, "tier": 0}, {"num": 10064, "name": "Mount Washington", "region": "Mid-Atlantic", "l4w": 1233, "l52w": 4394, "units": 36, "wkly": 308, "wkly_u": 9.0, "l1w": 210, "momentum": 68.1, "reg_avg": 1435, "gap_pct": -14.1, "ann_uplift": 264.8, "tier": 0}, {"num": 10827, "name": "Reston Town Center", "region": "Mid-Atlantic", "l4w": 746, "l52w": 3584, "units": 22, "wkly": 186, "wkly_u": 5.5, "l1w": 70, "momentum": 37.5, "reg_avg": 1435, "gap_pct": -48.0, "ann_uplift": 170.6, "tier": 0}, {"num": 10364, "name": "Hinsdale", "region": "Midwest", "l4w": 650, "l52w": 3606, "units": 19, "wkly": 162, "wkly_u": 4.8, "l1w": 140, "momentum": 86.2, "reg_avg": 1700, "gap_pct": -61.8, "ann_uplift": 134.3, "tier": 0}, {"num": 10197, "name": "Milwaukee", "region": "Midwest", "l4w": 1048, "l52w": 5380, "units": 31, "wkly": 262, "wkly_u": 7.8, "l1w": 420, "momentum": 160.3, "reg_avg": 1700, "gap_pct": -38.4, "ann_uplift": 153.2, "tier": 0}, {"num": 10618, "name": "Beverly", "region": "North Atlantic", "l4w": 431, "l52w": 1935, "units": 13, "wkly": 108, "wkly_u": 3.2, "l1w": 140, "momentum": 129.9, "reg_avg": 936, "gap_pct": -54.0, "ann_uplift": 189.6, "tier": 0}, {"num": 10438, "name": "Jamaica Plain", "region": "North Atlantic", "l4w": 551, "l52w": 3306, "units": 16, "wkly": 138, "wkly_u": 4.0, "l1w": 70, "momentum": 50.8, "reg_avg": 936, "gap_pct": -41.1, "ann_uplift": 116.7, "tier": 0}, {"num": 10794, "name": "South Windsor", "region": "North Atlantic", "l4w": 1131, "l52w": 5903, "units": 33, "wkly": 283, "wkly_u": 8.2, "l1w": 175, "momentum": 61.9, "reg_avg": 936, "gap_pct": 20.8, "ann_uplift": 149.1, "tier": 0}, {"num": 10620, "name": "Westford", "region": "North Atlantic", "l4w": 347, "l52w": 2095, "units": 10, "wkly": 87, "wkly_u": 2.5, "l1w": 70, "momentum": 80.7, "reg_avg": 936, "gap_pct": -62.9, "ann_uplift": 115.3, "tier": 0}, {"num": 10300, "name": "Darien", "region": "Northeast", "l4w": 1003, "l52w": 5169, "units": 29, "wkly": 251, "wkly_u": 7.2, "l1w": 245, "momentum": 97.7, "reg_avg": 2095, "gap_pct": -52.1, "ann_uplift": 152.3, "tier": 0}, {"num": 10317, "name": "Fairfield", "region": "Northeast", "l4w": 2021, "l52w": 7384, "units": 60, "wkly": 505, "wkly_u": 15.0, "l1w": 315, "momentum": 62.3, "reg_avg": 2095, "gap_pct": -3.5, "ann_uplift": 255.8, "tier": 4}, {"num": 10059, "name": "Montclair", "region": "Northeast", "l4w": 2610, "l52w": 8646, "units": 78, "wkly": 652, "wkly_u": 19.5, "l1w": 595, "momentum": 91.2, "reg_avg": 2095, "gap_pct": 24.6, "ann_uplift": 292.4, "tier": 2}, {"num": 10559, "name": "Newark", "region": "Northeast", "l4w": 973, "l52w": 5133, "units": 29, "wkly": 243, "wkly_u": 7.2, "l1w": 245, "momentum": 100.7, "reg_avg": 2095, "gap_pct": -53.6, "ann_uplift": 146.4, "tier": 0}, {"num": 10537, "name": "Greenway", "region": "Pacific Northwest", "l4w": 655, "l52w": 2788, "units": 20, "wkly": 164, "wkly_u": 5.0, "l1w": 210, "momentum": 128.2, "reg_avg": 857, "gap_pct": -23.6, "ann_uplift": 205.4, "tier": 0}, {"num": 10402, "name": "Laurelhurst", "region": "Pacific Northwest", "l4w": 242, "l52w": 1630, "units": 7, "wkly": 60, "wkly_u": 1.8, "l1w": 140, "momentum": 231.4, "reg_avg": 857, "gap_pct": -71.8, "ann_uplift": 93.0, "tier": 0}, {"num": 10351, "name": "Asheville", "region": "South", "l4w": 151, "l52w": 2111, "units": 5, "wkly": 38, "wkly_u": 1.2, "l1w": 35, "momentum": 92.7, "reg_avg": 1904, "gap_pct": -92.1, "ann_uplift": -7.0, "tier": 0}, {"num": 10409, "name": "Chattanooga", "region": "South", "l4w": 1207, "l52w": 3445, "units": 35, "wkly": 302, "wkly_u": 8.8, "l1w": 175, "momentum": 58.0, "reg_avg": 1904, "gap_pct": -36.6, "ann_uplift": 355.5, "tier": 0}, {"num": 10041, "name": "Durham", "region": "South", "l4w": 315, "l52w": 2888, "units": 9, "wkly": 79, "wkly_u": 2.2, "l1w": 175, "momentum": 222.2, "reg_avg": 1904, "gap_pct": -83.5, "ann_uplift": 41.8, "tier": 0}, {"num": 10110, "name": "Winston-Salem", "region": "South", "l4w": 1574, "l52w": 7460, "units": 46, "wkly": 394, "wkly_u": 11.5, "l1w": 385, "momentum": 97.8, "reg_avg": 1904, "gap_pct": -17.3, "ann_uplift": 174.3, "tier": 0}, {"num": 10473, "name": "Addison", "region": "Southwest", "l4w": 1470, "l52w": 4441, "units": 43, "wkly": 368, "wkly_u": 10.8, "l1w": 385, "momentum": 104.8, "reg_avg": 1829, "gap_pct": -19.6, "ann_uplift": 330.3, "tier": 0}, {"num": 10522, "name": "Broad Street", "region": "Southwest", "l4w": 1295, "l52w": 6115, "units": 39, "wkly": 324, "wkly_u": 9.8, "l1w": 420, "momentum": 129.7, "reg_avg": 1829, "gap_pct": -29.2, "ann_uplift": 175.3, "tier": 0}, {"num": 10358, "name": "Fairview", "region": "Southwest", "l4w": 1345, "l52w": 9142, "units": 41, "wkly": 336, "wkly_u": 10.2, "l1w": 175, "momentum": 52.0, "reg_avg": 1829, "gap_pct": -26.5, "ann_uplift": 91.3, "tier": 0}, {"num": 10498, "name": "Highland Village", "region": "Southwest", "l4w": 915, "l52w": 4117, "units": 27, "wkly": 229, "wkly_u": 6.8, "l1w": 385, "momentum": 168.3, "reg_avg": 1829, "gap_pct": -50.0, "ann_uplift": 188.9, "tier": 0}, {"num": 10115, "name": "Kirby", "region": "Southwest", "l4w": 1295, "l52w": 10000, "units": 39, "wkly": 324, "wkly_u": 9.8, "l1w": 350, "momentum": 108.1, "reg_avg": 1829, "gap_pct": -29.2, "ann_uplift": 68.3, "tier": 0}, {"num": 10819, "name": "McKinney", "region": "Southwest", "l4w": 1337, "l52w": 5646, "units": 38, "wkly": 334, "wkly_u": 9.5, "l1w": 280, "momentum": 83.8, "reg_avg": 1829, "gap_pct": -26.9, "ann_uplift": 207.8, "tier": 0}, {"num": 10820, "name": "Rogers", "region": "Southwest", "l4w": 820, "l52w": 3906, "units": 25, "wkly": 205, "wkly_u": 6.2, "l1w": 210, "momentum": 102.4, "reg_avg": 1829, "gap_pct": -55.2, "ann_uplift": 172.9, "tier": 0}, {"num": 10033, "name": "Campbell", "region": "Northern California", "l4w": 463, "l52w": 3609, "units": 14, "wkly": 116, "wkly_u": 3.5, "l1w": 35, "momentum": 30.2, "reg_avg": 963, "gap_pct": -51.9, "ann_uplift": 66.8, "tier": 0}, {"num": 10530, "name": "Gilman", "region": "Northern California", "l4w": 685, "l52w": 3721, "units": 20, "wkly": 171, "wkly_u": 5.0, "l1w": 280, "momentum": 163.5, "reg_avg": 963, "gap_pct": -28.9, "ann_uplift": 139.3, "tier": 0}, {"num": 10138, "name": "Petaluma", "region": "Northern California", "l4w": 402, "l52w": 1635, "units": 12, "wkly": 100, "wkly_u": 3.0, "l1w": 140, "momentum": 139.3, "reg_avg": 963, "gap_pct": -58.2, "ann_uplift": 219.6, "tier": 0}, {"num": 10329, "name": "Santa Cruz", "region": "Northern California", "l4w": 210, "l52w": 1556, "units": 6, "wkly": 52, "wkly_u": 1.5, "l1w": 70, "momentum": 133.3, "reg_avg": 963, "gap_pct": -78.2, "ann_uplift": 75.4, "tier": 0}, {"num": 10237, "name": "Arroyo", "region": "Southern Pacific", "l4w": 1548, "l52w": 6579, "units": 48, "wkly": 387, "wkly_u": 12, "l1w": 385, "momentum": 99.5, "reg_avg": 1610, "gap_pct": -3.9, "ann_uplift": 205.9, "tier": 0}, {"num": 10594, "name": "Brea", "region": "Southern Pacific", "l4w": 2035, "l52w": 10127, "units": 60, "wkly": 509, "wkly_u": 15.0, "l1w": 665, "momentum": 130.7, "reg_avg": 1610, "gap_pct": 26.4, "ann_uplift": 161.2, "tier": 0}, {"num": 10768, "name": "Brookhurst", "region": "Southern Pacific", "l4w": 1161, "l52w": 6669, "units": 36, "wkly": 290, "wkly_u": 9.0, "l1w": 350, "momentum": 120.6, "reg_avg": 1610, "gap_pct": -27.9, "ann_uplift": 126.3, "tier": 0}, {"num": 10398, "name": "Montana Avenue", "region": "Southern Pacific", "l4w": 420, "l52w": 1940, "units": 12, "wkly": 105, "wkly_u": 3.0, "l1w": 35, "momentum": 33.3, "reg_avg": 1610, "gap_pct": -73.9, "ann_uplift": 181.4, "tier": 0}, {"num": 10469, "name": "Oracle 2", "region": "Southern Pacific", "l4w": 460, "l52w": 2298, "units": 14, "wkly": 115, "wkly_u": 3.5, "l1w": 140, "momentum": 121.7, "reg_avg": 1610, "gap_pct": -71.4, "ann_uplift": 160.2, "tier": 0}, {"num": 10173, "name": "Santa Monica", "region": "Southern Pacific", "l4w": 163, "l52w": 1835, "units": 5, "wkly": 41, "wkly_u": 1.2, "l1w": 70, "momentum": 171.8, "reg_avg": 1610, "gap_pct": -89.9, "ann_uplift": 15.5, "tier": 0}, {"num": 10653, "name": "Santa Monica Pico", "region": "Southern Pacific", "l4w": 498, "l52w": 2782, "units": 15, "wkly": 124, "wkly_u": 3.8, "l1w": 175, "momentum": 140.6, "reg_avg": 1610, "gap_pct": -69.1, "ann_uplift": 132.7, "tier": 0}, {"num": 10583, "name": "Sedona", "region": "Southern Pacific", "l4w": 440, "l52w": 1435, "units": 13, "wkly": 110, "wkly_u": 3.2, "l1w": 140, "momentum": 127.3, "reg_avg": 1610, "gap_pct": -72.7, "ann_uplift": 298.6, "tier": 0}, {"num": 10785, "name": "Boulder Table Mesa", "region": "Rocky Mountain", "l4w": 70, "l52w": 569, "units": 2, "wkly": 18, "wkly_u": 0.5, "l1w": 35, "momentum": 200.0, "reg_avg": 895, "gap_pct": -92.2, "ann_uplift": 59.9, "tier": 0}, {"num": 10817, "name": "Denver West - Colfax", "region": "Rocky Mountain", "l4w": 416, "l52w": 1667, "units": 13, "wkly": 104, "wkly_u": 3.2, "l1w": 35, "momentum": 33.7, "reg_avg": 895, "gap_pct": -53.5, "ann_uplift": 224.4, "tier": 0}, {"num": 10147, "name": "Fort Collins", "region": "Rocky Mountain", "l4w": 551, "l52w": 3612, "units": 16, "wkly": 138, "wkly_u": 4.0, "l1w": 105, "momentum": 76.2, "reg_avg": 895, "gap_pct": -38.4, "ann_uplift": 98.3, "tier": 0}, {"num": 10457, "name": "Kansas City", "region": "Rocky Mountain", "l4w": 1871, "l52w": 11813, "units": 56, "wkly": 468, "wkly_u": 14.0, "l1w": 350, "momentum": 74.8, "reg_avg": 895, "gap_pct": 109.1, "ann_uplift": 105.9, "tier": 0}, {"num": 10493, "name": "Lincoln", "region": "Rocky Mountain", "l4w": 863, "l52w": 4452, "units": 26, "wkly": 216, "wkly_u": 6.5, "l1w": 105, "momentum": 48.7, "reg_avg": 895, "gap_pct": -3.6, "ann_uplift": 152.0, "tier": 0}, {"num": 10800, "name": "Overland Park New", "region": "Rocky Mountain", "l4w": 518, "l52w": 4828, "units": 16, "wkly": 130, "wkly_u": 4.0, "l1w": 105, "momentum": 81.1, "reg_avg": 895, "gap_pct": -42.1, "ann_uplift": 39.5, "tier": 0}, {"num": 10373, "name": "Washington Park", "region": "Rocky Mountain", "l4w": 210, "l52w": 1670, "units": 6, "wkly": 52, "wkly_u": 1.5, "l1w": 35, "momentum": 66.7, "reg_avg": 895, "gap_pct": -76.5, "ann_uplift": 63.5, "tier": 0}, {"num": 10507, "name": "Arlington Center", "region": "North Atlantic", "l4w": 210, "l52w": 729, "units": 6, "wkly": 52, "wkly_u": 1.5, "l1w": 35, "momentum": 66.7, "reg_avg": 936, "gap_pct": -77.6, "ann_uplift": 274.5, "tier": 0}, {"num": 10026, "name": "Fresh Pond", "region": "North Atlantic", "l4w": 832, "l52w": 2305, "units": 25, "wkly": 208, "wkly_u": 6.2, "l1w": 245, "momentum": 117.8, "reg_avg": 936, "gap_pct": -11.1, "ann_uplift": 369.2, "tier": 0}, {"num": 10012, "name": "Hadley", "region": "North Atlantic", "l4w": 772, "l52w": 5095, "units": 23, "wkly": 193, "wkly_u": 5.8, "l1w": 140, "momentum": 72.5, "reg_avg": 936, "gap_pct": -17.5, "ann_uplift": 97.0, "tier": 0}, {"num": 10380, "name": "Medford", "region": "North Atlantic", "l4w": 510, "l52w": 2662, "units": 15, "wkly": 128, "wkly_u": 3.8, "l1w": 105, "momentum": 82.4, "reg_avg": 936, "gap_pct": -45.5, "ann_uplift": 149.1, "tier": 0}, {"num": 10778, "name": "Portsmouth", "region": "North Atlantic", "l4w": 1023, "l52w": 4277, "units": 30, "wkly": 256, "wkly_u": 7.5, "l1w": 175, "momentum": 68.4, "reg_avg": 936, "gap_pct": 9.3, "ann_uplift": 210.9, "tier": 0}, {"num": 10006, "name": "Berkeley", "region": "Northern California", "l4w": 836, "l52w": 3981, "units": 26, "wkly": 209, "wkly_u": 6.5, "l1w": 140, "momentum": 67.0, "reg_avg": 963, "gap_pct": -13.2, "ann_uplift": 173.0, "tier": 0}, {"num": 10284, "name": "Boise", "region": "Northern California", "l4w": 942, "l52w": 7310, "units": 27, "wkly": 236, "wkly_u": 6.8, "l1w": 210, "momentum": 89.2, "reg_avg": 963, "gap_pct": -2.2, "ann_uplift": 67.5, "tier": 0}, {"num": 10154, "name": "Redwood City", "region": "Northern California", "l4w": 813, "l52w": 3076, "units": 24, "wkly": 203, "wkly_u": 6.0, "l1w": 210, "momentum": 103.3, "reg_avg": 963, "gap_pct": -15.6, "ann_uplift": 243.6, "tier": 0}, {"num": 10151, "name": "SOMA", "region": "Northern California", "l4w": 405, "l52w": 1591, "units": 12, "wkly": 101, "wkly_u": 3.0, "l1w": 140, "momentum": 138.3, "reg_avg": 963, "gap_pct": -57.9, "ann_uplift": 230.9, "tier": 0}, {"num": 10633, "name": "Santa Clara", "region": "Northern California", "l4w": 1353, "l52w": 4806, "units": 39, "wkly": 338, "wkly_u": 9.8, "l1w": 245, "momentum": 72.4, "reg_avg": 963, "gap_pct": 40.5, "ann_uplift": 266.0, "tier": 0}, {"num": 10651, "name": "Florida Avenue", "region": "Mid-Atlantic", "l4w": 619, "l52w": 3978, "units": 19, "wkly": 155, "wkly_u": 4.8, "l1w": 210, "momentum": 135.7, "reg_avg": 1435, "gap_pct": -56.9, "ann_uplift": 102.3, "tier": 0}, {"num": 10353, "name": "Glen Mills", "region": "Mid-Atlantic", "l4w": 758, "l52w": 3581, "units": 22, "wkly": 190, "wkly_u": 5.5, "l1w": 175, "momentum": 92.3, "reg_avg": 1435, "gap_pct": -47.2, "ann_uplift": 175.2, "tier": 0}, {"num": 10531, "name": "Pentagon City", "region": "Mid-Atlantic", "l4w": 618, "l52w": 2691, "units": 18, "wkly": 154, "wkly_u": 4.5, "l1w": 175, "momentum": 113.3, "reg_avg": 1435, "gap_pct": -56.9, "ann_uplift": 198.6, "tier": 0}, {"num": 10315, "name": "Cranbrook", "region": "Midwest", "l4w": 302, "l52w": 2337, "units": 10, "wkly": 76, "wkly_u": 2.5, "l1w": 35, "momentum": 46.4, "reg_avg": 1700, "gap_pct": -82.2, "ann_uplift": 68.0, "tier": 0}, {"num": 10541, "name": "East Lansing", "region": "Midwest", "l4w": 640, "l52w": 3765, "units": 20, "wkly": 160, "wkly_u": 5.0, "l1w": 280, "momentum": 175.0, "reg_avg": 1700, "gap_pct": -62.4, "ann_uplift": 121.0, "tier": 0}, {"num": 10057, "name": "Greenwich", "region": "Northeast", "l4w": 984, "l52w": 6009, "units": 29, "wkly": 246, "wkly_u": 7.2, "l1w": 175, "momentum": 71.1, "reg_avg": 2095, "gap_pct": -53.0, "ann_uplift": 112.9, "tier": 0}, {"num": 10266, "name": "Bridgeport", "region": "Pacific Northwest", "l4w": 851, "l52w": 9202, "units": 25, "wkly": 213, "wkly_u": 6.2, "l1w": 175, "momentum": 82.3, "reg_avg": 857, "gap_pct": -0.7, "ann_uplift": 20.2, "tier": 0}, {"num": 10103, "name": "Roosevelt Square", "region": "Pacific Northwest", "l4w": 631, "l52w": 2743, "units": 19, "wkly": 158, "wkly_u": 4.8, "l1w": 175, "momentum": 110.9, "reg_avg": 857, "gap_pct": -26.4, "ann_uplift": 199.1, "tier": 0}, {"num": 10524, "name": "West Seattle", "region": "Pacific Northwest", "l4w": 513, "l52w": 3605, "units": 15, "wkly": 128, "wkly_u": 3.8, "l1w": 140, "momentum": 109.2, "reg_avg": 857, "gap_pct": -40.2, "ann_uplift": 85.0, "tier": 0}, {"num": 10216, "name": "Westlake", "region": "Pacific Northwest", "l4w": 391, "l52w": 2563, "units": 11, "wkly": 98, "wkly_u": 2.8, "l1w": 105, "momentum": 107.4, "reg_avg": 857, "gap_pct": -54.4, "ann_uplift": 98.3, "tier": 0}, {"num": 10104, "name": "Cerrillos", "region": "Rocky Mountain", "l4w": 326, "l52w": 1515, "units": 10, "wkly": 82, "wkly_u": 2.5, "l1w": 35, "momentum": 42.9, "reg_avg": 895, "gap_pct": -63.6, "ann_uplift": 179.7, "tier": 0}, {"num": 10826, "name": "Parker", "region": "Rocky Mountain", "l4w": 613, "l52w": 3954, "units": 20, "wkly": 153, "wkly_u": 5.0, "l1w": 35, "momentum": 22.8, "reg_avg": 895, "gap_pct": -31.5, "ann_uplift": 101.5, "tier": 0}, {"num": 10415, "name": "Sugarhouse", "region": "Rocky Mountain", "l4w": 824, "l52w": 5090, "units": 25, "wkly": 206, "wkly_u": 6.2, "l1w": 105, "momentum": 51.0, "reg_avg": 895, "gap_pct": -7.9, "ann_uplift": 110.5, "tier": 4}, {"num": 10008, "name": "Chapel Hill", "region": "South", "l4w": 544, "l52w": 3082, "units": 22, "wkly": 136, "wkly_u": 5.5, "l1w": 35, "momentum": 25.7, "reg_avg": 1904, "gap_pct": -71.4, "ann_uplift": 129.5, "tier": 0}, {"num": 10215, "name": "Duluth", "region": "South", "l4w": 1689, "l52w": 7068, "units": 51, "wkly": 422, "wkly_u": 12.8, "l1w": 245, "momentum": 58.0, "reg_avg": 1904, "gap_pct": -11.3, "ann_uplift": 210.7, "tier": 0}, {"num": 10592, "name": "Waverly", "region": "South", "l4w": 929, "l52w": 4379, "units": 28, "wkly": 232, "wkly_u": 7.0, "l1w": 245, "momentum": 105.5, "reg_avg": 1904, "gap_pct": -51.2, "ann_uplift": 175.8, "tier": 0}, {"num": 10074, "name": "Brentwood", "region": "Southern Pacific", "l4w": 488, "l52w": 1717, "units": 15, "wkly": 122, "wkly_u": 3.8, "l1w": 105, "momentum": 86.1, "reg_avg": 1610, "gap_pct": -69.7, "ann_uplift": 269.5, "tier": 0}, {"num": 10062, "name": "Tenley Town", "region": "Mid-Atlantic", "l4w": 160, "l52w": 2324, "units": 5, "wkly": 40, "wkly_u": 1.2, "l1w": 0, "momentum": 0.0, "reg_avg": 1435, "gap_pct": -88.8, "ann_uplift": -10.5, "tier": 0}, {"num": 10005, "name": "Palo Alto", "region": "Northern California", "l4w": 163, "l52w": 2377, "units": 5, "wkly": 41, "wkly_u": 1.2, "l1w": 0, "momentum": 0.0, "reg_avg": 963, "gap_pct": -83.1, "ann_uplift": -10.9, "tier": 0}, {"num": 10780, "name": "Glover Park", "region": "Mid-Atlantic", "l4w": 376, "l52w": 1465, "units": 11, "wkly": 94, "wkly_u": 2.8, "l1w": 0, "momentum": 0.0, "reg_avg": 1435, "gap_pct": -73.8, "ann_uplift": 233.7, "tier": 0}, {"num": 10571, "name": "Streeterville", "region": "Midwest", "l4w": 591, "l52w": 2705, "units": 18, "wkly": 148, "wkly_u": 4.5, "l1w": 315, "momentum": 213.2, "reg_avg": 1700, "gap_pct": -65.2, "ann_uplift": 184.0, "tier": 0}, {"num": 10396, "name": "Castro", "region": "Northern California", "l4w": 312, "l52w": 2508, "units": 9, "wkly": 78, "wkly_u": 2.2, "l1w": 105, "momentum": 134.6, "reg_avg": 963, "gap_pct": -67.6, "ann_uplift": 61.7, "tier": 0}, {"num": 10010, "name": "Cambridge", "region": "North Atlantic", "l4w": 35, "l52w": 793, "units": 1, "wkly": 9, "wkly_u": 0.2, "l1w": 0, "momentum": 0.0, "reg_avg": 936, "gap_pct": -96.3, "ann_uplift": -42.6, "tier": 0}, {"num": 10381, "name": "Closter", "region": "Northeast", "l4w": 411, "l52w": 2221, "units": 12, "wkly": 103, "wkly_u": 3.0, "l1w": 70, "momentum": 68.1, "reg_avg": 2095, "gap_pct": -80.4, "ann_uplift": 140.6, "tier": 0}, {"num": 10144, "name": "Academy", "region": "Rocky Mountain", "l4w": 739, "l52w": 3270, "units": 22, "wkly": 185, "wkly_u": 5.5, "l1w": 210, "momentum": 113.7, "reg_avg": 895, "gap_pct": -17.4, "ann_uplift": 193.8, "tier": 0}, {"num": 10581, "name": "Flagstaff", "region": "Southern Pacific", "l4w": 315, "l52w": 1413, "units": 9, "wkly": 79, "wkly_u": 2.2, "l1w": 140, "momentum": 177.8, "reg_avg": 1610, "gap_pct": -80.4, "ann_uplift": 189.8, "tier": 0}, {"num": 10475, "name": "River Road", "region": "Southern Pacific", "l4w": 315, "l52w": 2432, "units": 9, "wkly": 79, "wkly_u": 2.2, "l1w": 210, "momentum": 266.7, "reg_avg": 1610, "gap_pct": -80.4, "ann_uplift": 68.4, "tier": 0}, {"num": 10304, "name": "Tulsa", "region": "Southwest", "l4w": 236, "l52w": 2219, "units": 7, "wkly": 59, "wkly_u": 1.8, "l1w": 0, "momentum": 0.0, "reg_avg": 1829, "gap_pct": -87.1, "ann_uplift": 38.3, "tier": 0}, {"num": 10022, "name": "Beverly Hills", "region": "Southern Pacific", "l4w": 407, "l52w": 2963, "units": 12, "wkly": 102, "wkly_u": 3.0, "l1w": 140, "momentum": 137.6, "reg_avg": 1610, "gap_pct": -74.7, "ann_uplift": 78.6, "tier": 0}, {"num": 10053, "name": "Devon", "region": "Mid-Atlantic", "l4w": 349, "l52w": 2300, "units": 11, "wkly": 87, "wkly_u": 2.8, "l1w": 140, "momentum": 160.5, "reg_avg": 1435, "gap_pct": -75.7, "ann_uplift": 97.3, "tier": 0}, {"num": 10511, "name": "Somerville", "region": "North Atlantic", "l4w": 83, "l52w": 598, "units": 3, "wkly": 21, "wkly_u": 0.8, "l1w": 0, "momentum": 0.0, "reg_avg": 936, "gap_pct": -91.1, "ann_uplift": 80.4, "tier": 0}, {"num": 10746, "name": "Capitol Hill", "region": "Rocky Mountain", "l4w": 0, "l52w": 21, "units": 0, "wkly": 0, "wkly_u": 0, "l1w": 0, "momentum": 0, "reg_avg": 895, "gap_pct": -100.0, "ann_uplift": -100.0, "tier": 0}, {"num": 10555, "name": "Easton", "region": "Midwest", "l4w": 1836, "l52w": 6404, "units": 54, "wkly": 459, "wkly_u": 13.5, "l1w": 490, "momentum": 106.8, "reg_avg": 1700, "gap_pct": 8.0, "ann_uplift": 272.7, "tier": 0}, {"num": 10378, "name": "Eighty-Sixth St", "region": "Midwest", "l4w": 1296, "l52w": 6935, "units": 38, "wkly": 324, "wkly_u": 9.5, "l1w": 315, "momentum": 97.2, "reg_avg": 1700, "gap_pct": -23.8, "ann_uplift": 142.9, "tier": 0}, {"num": 10129, "name": "Naperville", "region": "Midwest", "l4w": 3081, "l52w": 11419, "units": 91, "wkly": 770, "wkly_u": 22.8, "l1w": 840, "momentum": 109.1, "reg_avg": 1700, "gap_pct": 81.2, "ann_uplift": 250.8, "tier": 4}, {"num": 10330, "name": "Rochester Hills", "region": "Midwest", "l4w": 2766, "l52w": 9472, "units": 81, "wkly": 692, "wkly_u": 20.2, "l1w": 1015, "momentum": 146.8, "reg_avg": 1700, "gap_pct": 62.7, "ann_uplift": 279.6, "tier": 0}, {"num": 10276, "name": "Schaumburg", "region": "Midwest", "l4w": 2127, "l52w": 10047, "units": 63, "wkly": 532, "wkly_u": 15.8, "l1w": 700, "momentum": 131.6, "reg_avg": 1700, "gap_pct": 25.1, "ann_uplift": 175.2, "tier": 0}, {"num": 10572, "name": "West Loop", "region": "Midwest", "l4w": 1396, "l52w": 7679, "units": 44, "wkly": 349, "wkly_u": 11.0, "l1w": 315, "momentum": 90.3, "reg_avg": 1700, "gap_pct": -17.9, "ann_uplift": 136.3, "tier": 0}, {"num": 10641, "name": "Birmingham", "region": "Midwest", "l4w": 3722, "l52w": 15616, "units": 111, "wkly": 930, "wkly_u": 27.8, "l1w": 700, "momentum": 75.2, "reg_avg": 1700, "gap_pct": 118.9, "ann_uplift": 209.8, "tier": 0}, {"num": 10171, "name": "South Loop", "region": "Midwest", "l4w": 2214, "l52w": 12913, "units": 65, "wkly": 554, "wkly_u": 16.2, "l1w": 525, "momentum": 94.9, "reg_avg": 1700, "gap_pct": 30.2, "ann_uplift": 122.9, "tier": 0}, {"num": 10214, "name": "Columbus", "region": "Midwest", "l4w": 2287, "l52w": 5845, "units": 67, "wkly": 572, "wkly_u": 16.8, "l1w": 525, "momentum": 91.8, "reg_avg": 1700, "gap_pct": 34.5, "ann_uplift": 408.7, "tier": 0}, {"num": 10542, "name": "St Paul", "region": "Midwest", "l4w": 1117, "l52w": 6233, "units": 35, "wkly": 279, "wkly_u": 8.8, "l1w": 290, "momentum": 103.8, "reg_avg": 1700, "gap_pct": -34.3, "ann_uplift": 133.0, "tier": 0}, {"num": 10481, "name": "Orland Park", "region": "Midwest", "l4w": 1747, "l52w": 8122, "units": 52, "wkly": 437, "wkly_u": 13.0, "l1w": 595, "momentum": 136.2, "reg_avg": 1700, "gap_pct": 2.8, "ann_uplift": 179.6, "tier": 0}, {"num": 10664, "name": "Orange Village", "region": "Midwest", "l4w": 3993, "l52w": 11731, "units": 120, "wkly": 998, "wkly_u": 30.0, "l1w": 1155, "momentum": 115.7, "reg_avg": 1700, "gap_pct": 134.9, "ann_uplift": 342.5, "tier": 0}, {"num": 10029, "name": "River Forest", "region": "Midwest", "l4w": 1774, "l52w": 8673, "units": 52, "wkly": 444, "wkly_u": 13, "l1w": 420, "momentum": 94.7, "reg_avg": 1700, "gap_pct": 4.3, "ann_uplift": 165.9, "tier": 0}, {"num": 10419, "name": "Edina", "region": "Midwest", "l4w": 4298, "l52w": 16651, "units": 129, "wkly": 1074, "wkly_u": 32.2, "l1w": 948, "momentum": 88.2, "reg_avg": 1700, "gap_pct": 152.8, "ann_uplift": 235.6, "tier": 0}, {"num": 10720, "name": "Evergreen Park", "region": "Midwest", "l4w": 3297, "l52w": 12226, "units": 99, "wkly": 824, "wkly_u": 24.8, "l1w": 910, "momentum": 110.4, "reg_avg": 1700, "gap_pct": 93.9, "ann_uplift": 250.6, "tier": 0}, {"num": 10199, "name": "Cedar Center", "region": "Midwest", "l4w": 2618, "l52w": 8953, "units": 78, "wkly": 654, "wkly_u": 19.5, "l1w": 980, "momentum": 149.7, "reg_avg": 1700, "gap_pct": 54.0, "ann_uplift": 280.1, "tier": 0}, {"num": 10345, "name": "Hennepin", "region": "Midwest", "l4w": 1318, "l52w": 6222, "units": 38, "wkly": 330, "wkly_u": 9.5, "l1w": 420, "momentum": 127.5, "reg_avg": 1700, "gap_pct": -22.5, "ann_uplift": 175.4, "tier": 0}, {"num": 10465, "name": "Midtown Detroit", "region": "Midwest", "l4w": 2249, "l52w": 10023, "units": 69, "wkly": 562, "wkly_u": 17.2, "l1w": 595, "momentum": 105.8, "reg_avg": 1700, "gap_pct": 32.3, "ann_uplift": 191.7, "tier": 0}, {"num": 10303, "name": "Town and Country", "region": "Midwest", "l4w": 1953, "l52w": 7080, "units": 59, "wkly": 488, "wkly_u": 14.8, "l1w": 490, "momentum": 100.4, "reg_avg": 1700, "gap_pct": 14.9, "ann_uplift": 258.6, "tier": 0}, {"num": 10119, "name": "Lake Calhoun", "region": "Midwest", "l4w": 982, "l52w": 4590, "units": 29, "wkly": 246, "wkly_u": 7.2, "l1w": 385, "momentum": 156.8, "reg_avg": 1700, "gap_pct": -42.2, "ann_uplift": 178.1, "tier": 0}, {"num": 10460, "name": "West Des Moines", "region": "Midwest", "l4w": 718, "l52w": 4092, "units": 21, "wkly": 180, "wkly_u": 5.2, "l1w": 210, "momentum": 117.0, "reg_avg": 1700, "gap_pct": -57.8, "ann_uplift": 128.1, "tier": 0}, {"num": 10203, "name": "Halsted", "region": "Midwest", "l4w": 746, "l52w": 2733, "units": 22, "wkly": 186, "wkly_u": 5.5, "l1w": 280, "momentum": 150.1, "reg_avg": 1700, "gap_pct": -56.1, "ann_uplift": 254.8, "tier": 0}, {"num": 10167, "name": "Ann Arbor", "region": "Midwest", "l4w": 1530, "l52w": 8925, "units": 46, "wkly": 382, "wkly_u": 11.5, "l1w": 385, "momentum": 100.7, "reg_avg": 1700, "gap_pct": -10.0, "ann_uplift": 122.9, "tier": 0}, {"num": 10573, "name": "Willowbrook", "region": "Midwest", "l4w": 1562, "l52w": 5639, "units": 47, "wkly": 390, "wkly_u": 11.8, "l1w": 451, "momentum": 115.5, "reg_avg": 1700, "gap_pct": -8.1, "ann_uplift": 260.1, "tier": 0}, {"num": 10570, "name": "Green Bay Road", "region": "Midwest", "l4w": 1016, "l52w": 3557, "units": 30, "wkly": 254, "wkly_u": 7.5, "l1w": 350, "momentum": 137.8, "reg_avg": 1700, "gap_pct": -40.2, "ann_uplift": 271.3, "tier": 0}, {"num": 10287, "name": "Cincinnati", "region": "Midwest", "l4w": 1907, "l52w": 7934, "units": 57, "wkly": 477, "wkly_u": 14.2, "l1w": 490, "momentum": 102.8, "reg_avg": 1700, "gap_pct": 12.2, "ann_uplift": 212.5, "tier": 0}, {"num": 10558, "name": "Dayton", "region": "Midwest", "l4w": 1706, "l52w": 8323, "units": 52, "wkly": 426, "wkly_u": 13.0, "l1w": 595, "momentum": 139.5, "reg_avg": 1700, "gap_pct": 0.3, "ann_uplift": 166.5, "tier": 1}, {"num": 10569, "name": "Elmhurst", "region": "Midwest", "l4w": 2066, "l52w": 7724, "units": 64, "wkly": 516, "wkly_u": 16.0, "l1w": 490, "momentum": 94.9, "reg_avg": 1700, "gap_pct": 21.5, "ann_uplift": 247.7, "tier": 3}, {"num": 10166, "name": "Galleria", "region": "Midwest", "l4w": 2372, "l52w": 12611, "units": 70, "wkly": 593, "wkly_u": 17.5, "l1w": 1155, "momentum": 194.8, "reg_avg": 1700, "gap_pct": 39.5, "ann_uplift": 144.5, "tier": 0}, {"num": 10790, "name": "Grand Rapids", "region": "Midwest", "l4w": 1776, "l52w": 8334, "units": 53, "wkly": 444, "wkly_u": 13.2, "l1w": 490, "momentum": 110.4, "reg_avg": 1700, "gap_pct": 4.5, "ann_uplift": 177.0, "tier": 0}, {"num": 10458, "name": "Hyde Park", "region": "Midwest", "l4w": 2586, "l52w": 7289, "units": 76, "wkly": 646, "wkly_u": 19.0, "l1w": 770, "momentum": 119.1, "reg_avg": 1700, "gap_pct": 52.1, "ann_uplift": 361.2, "tier": 0}, {"num": 10643, "name": "Lakeview", "region": "Midwest", "l4w": 2560, "l52w": 8281, "units": 78, "wkly": 640, "wkly_u": 19.5, "l1w": 770, "momentum": 120.3, "reg_avg": 1700, "gap_pct": 50.6, "ann_uplift": 301.9, "tier": 0}, {"num": 10577, "name": "Lexington", "region": "Midwest", "l4w": 1573, "l52w": 8962, "units": 46, "wkly": 393, "wkly_u": 11.5, "l1w": 560, "momentum": 142.4, "reg_avg": 1700, "gap_pct": -7.5, "ann_uplift": 128.2, "tier": 0}, {"num": 10186, "name": "Louisville", "region": "Midwest", "l4w": 1872, "l52w": 9009, "units": 56, "wkly": 468, "wkly_u": 14.0, "l1w": 560, "momentum": 119.7, "reg_avg": 1700, "gap_pct": 10.1, "ann_uplift": 170.1, "tier": 0}, {"num": 10776, "name": "Madison Segoe", "region": "Midwest", "l4w": 1711, "l52w": 7866, "units": 52, "wkly": 428, "wkly_u": 13.0, "l1w": 385, "momentum": 90.0, "reg_avg": 1700, "gap_pct": 0.6, "ann_uplift": 182.8, "tier": 0}, {"num": 10490, "name": "Maple Grove", "region": "Midwest", "l4w": 2288, "l52w": 8879, "units": 69, "wkly": 572, "wkly_u": 17.2, "l1w": 525, "momentum": 91.8, "reg_avg": 1700, "gap_pct": 34.6, "ann_uplift": 235.0, "tier": 0}, {"num": 10597, "name": "Market Square", "region": "Midwest", "l4w": 1308, "l52w": 6400, "units": 39, "wkly": 327, "wkly_u": 9.8, "l1w": 350, "momentum": 107.0, "reg_avg": 1700, "gap_pct": -23.1, "ann_uplift": 165.7, "tier": 0}, {"num": 10495, "name": "Park Ridge", "region": "Midwest", "l4w": 1024, "l52w": 6208, "units": 29, "wkly": 256, "wkly_u": 7.2, "l1w": 385, "momentum": 150.4, "reg_avg": 1700, "gap_pct": -39.8, "ann_uplift": 114.4, "tier": 0}, {"num": 10484, "name": "Rocky River", "region": "Midwest", "l4w": 1555, "l52w": 5999, "units": 46, "wkly": 389, "wkly_u": 11.5, "l1w": 455, "momentum": 117.0, "reg_avg": 1700, "gap_pct": -8.5, "ann_uplift": 237.0, "tier": 0}, {"num": 10585, "name": "Schererville", "region": "Midwest", "l4w": 4248, "l52w": 12403, "units": 125, "wkly": 1062, "wkly_u": 31.2, "l1w": 1120, "momentum": 105.5, "reg_avg": 1700, "gap_pct": 149.9, "ann_uplift": 345.2, "tier": 0}, {"num": 10482, "name": "South Bend", "region": "Midwest", "l4w": 1582, "l52w": 7231, "units": 46, "wkly": 396, "wkly_u": 11.5, "l1w": 665, "momentum": 168.1, "reg_avg": 1700, "gap_pct": -6.9, "ann_uplift": 184.4, "tier": 0}, {"num": 10535, "name": "St Louis Central West End", "region": "Midwest", "l4w": 1112, "l52w": 4514, "units": 33, "wkly": 278, "wkly_u": 8.2, "l1w": 385, "momentum": 138.5, "reg_avg": 1700, "gap_pct": -34.6, "ann_uplift": 220.2, "tier": 0}, {"num": 10680, "name": "Vernon Hills", "region": "Midwest", "l4w": 2841, "l52w": 10834, "units": 85, "wkly": 710, "wkly_u": 21.2, "l1w": 525, "momentum": 73.9, "reg_avg": 1700, "gap_pct": 67.1, "ann_uplift": 240.9, "tier": 0}, {"num": 10586, "name": "Wauwatosa", "region": "Midwest", "l4w": 2915, "l52w": 11452, "units": 87, "wkly": 729, "wkly_u": 21.8, "l1w": 665, "momentum": 91.3, "reg_avg": 1700, "gap_pct": 71.5, "ann_uplift": 230.9, "tier": 0}, {"num": 10120, "name": "West Bloomfield", "region": "Midwest", "l4w": 2018, "l52w": 9443, "units": 58, "wkly": 504, "wkly_u": 14.5, "l1w": 770, "momentum": 152.6, "reg_avg": 1700, "gap_pct": 18.7, "ann_uplift": 177.8, "tier": 0}, {"num": 10385, "name": "West Lane", "region": "Midwest", "l4w": 1568, "l52w": 5006, "units": 46, "wkly": 392, "wkly_u": 11.5, "l1w": 525, "momentum": 133.9, "reg_avg": 1700, "gap_pct": -7.8, "ann_uplift": 307.2, "tier": 0}, {"num": 10661, "name": "Wheaton NEW", "region": "Midwest", "l4w": 1228, "l52w": 4446, "units": 37, "wkly": 307, "wkly_u": 9.2, "l1w": 382, "momentum": 124.4, "reg_avg": 1700, "gap_pct": -27.8, "ann_uplift": 259.1, "tier": 5}, {"num": 10628, "name": "Woodbury", "region": "Midwest", "l4w": 3791, "l52w": 10679, "units": 112, "wkly": 948, "wkly_u": 28, "l1w": 875, "momentum": 92.3, "reg_avg": 1700, "gap_pct": 123.0, "ann_uplift": 361.5, "tier": 0}, {"num": 10177, "name": "Fairfax", "region": "Southern Pacific", "l4w": 1680, "l52w": 7701, "units": 50, "wkly": 420, "wkly_u": 12.5, "l1w": 490, "momentum": 116.7, "reg_avg": 1610, "gap_pct": 4.3, "ann_uplift": 183.6, "tier": 0}, {"num": 10536, "name": "Playa Vista", "region": "Southern Pacific", "l4w": 1799, "l52w": 13509, "units": 57, "wkly": 450, "wkly_u": 14.2, "l1w": 280, "momentum": 62.3, "reg_avg": 1610, "gap_pct": 11.7, "ann_uplift": 73.1, "tier": 0}, {"num": 10695, "name": "Porter Ranch New", "region": "Southern Pacific", "l4w": 5298, "l52w": 24871, "units": 158, "wkly": 1324, "wkly_u": 39.5, "l1w": 1995, "momentum": 150.6, "reg_avg": 1610, "gap_pct": 229.0, "ann_uplift": 176.9, "tier": 0}, {"num": 10424, "name": "Tenaya", "region": "Southern Pacific", "l4w": 2950, "l52w": 10098, "units": 90, "wkly": 738, "wkly_u": 22.5, "l1w": 595, "momentum": 80.7, "reg_avg": 1610, "gap_pct": 83.2, "ann_uplift": 279.8, "tier": 0}, {"num": 10676, "name": "Upland", "region": "Southern Pacific", "l4w": 1645, "l52w": 6973, "units": 47, "wkly": 411, "wkly_u": 11.8, "l1w": 525, "momentum": 127.7, "reg_avg": 1610, "gap_pct": 2.2, "ann_uplift": 206.7, "tier": 0}, {"num": 10219, "name": "Henderson", "region": "Southern Pacific", "l4w": 3686, "l52w": 11272, "units": 109, "wkly": 922, "wkly_u": 27.2, "l1w": 1295, "momentum": 140.5, "reg_avg": 1610, "gap_pct": 128.9, "ann_uplift": 325.1, "tier": 0}, {"num": 10347, "name": "Tempe (New)", "region": "Southern Pacific", "l4w": 1210, "l52w": 6241, "units": 35, "wkly": 302, "wkly_u": 8.8, "l1w": 560, "momentum": 185.1, "reg_avg": 1610, "gap_pct": -24.9, "ann_uplift": 152.0, "tier": 0}, {"num": 10231, "name": "Jamboree", "region": "Southern Pacific", "l4w": 2661, "l52w": 11426, "units": 79, "wkly": 665, "wkly_u": 19.8, "l1w": 630, "momentum": 94.7, "reg_avg": 1610, "gap_pct": 65.3, "ann_uplift": 202.8, "tier": 4}, {"num": 10108, "name": "Pasadena", "region": "Southern Pacific", "l4w": 2881, "l52w": 12395, "units": 113, "wkly": 720, "wkly_u": 28.2, "l1w": 1140, "momentum": 158.3, "reg_avg": 1610, "gap_pct": 78.9, "ann_uplift": 202.2, "tier": 0}, {"num": 10615, "name": "Queen", "region": "Southern Pacific", "l4w": 1928, "l52w": 7757, "units": 47, "wkly": 482, "wkly_u": 11.8, "l1w": 378, "momentum": 78.4, "reg_avg": 1610, "gap_pct": 19.7, "ann_uplift": 223.1, "tier": 0}, {"num": 10225, "name": "Pacific Coast Hwy", "region": "Southern Pacific", "l4w": 3046, "l52w": 11786, "units": 115, "wkly": 762, "wkly_u": 28.8, "l1w": 1169, "momentum": 153.5, "reg_avg": 1610, "gap_pct": 89.2, "ann_uplift": 236.0, "tier": 0}, {"num": 10178, "name": "Valencia", "region": "Southern Pacific", "l4w": 2182, "l52w": 9278, "units": 64, "wkly": 546, "wkly_u": 16, "l1w": 700, "momentum": 128.3, "reg_avg": 1610, "gap_pct": 35.5, "ann_uplift": 205.7, "tier": 0}, {"num": 10545, "name": "Burbank", "region": "Southern Pacific", "l4w": 2432, "l52w": 10126, "units": 71, "wkly": 608, "wkly_u": 17.8, "l1w": 560, "momentum": 92.1, "reg_avg": 1610, "gap_pct": 51.0, "ann_uplift": 212.2, "tier": 4}, {"num": 10546, "name": "Downtown LA", "region": "Southern Pacific", "l4w": 2650, "l52w": 11194, "units": 79, "wkly": 662, "wkly_u": 19.8, "l1w": 770, "momentum": 116.2, "reg_avg": 1610, "gap_pct": 64.6, "ann_uplift": 207.8, "tier": 0}, {"num": 10072, "name": "Hillcrest", "region": "Southern Pacific", "l4w": 1928, "l52w": 8671, "units": 57, "wkly": 482, "wkly_u": 14.2, "l1w": 280, "momentum": 58.1, "reg_avg": 1610, "gap_pct": 19.7, "ann_uplift": 189.1, "tier": 0}, {"num": 10286, "name": "Las Vegas Blvd", "region": "Southern Pacific", "l4w": 2263, "l52w": 14858, "units": 70, "wkly": 566, "wkly_u": 17.5, "l1w": 385, "momentum": 68.1, "reg_avg": 1610, "gap_pct": 40.5, "ann_uplift": 98.0, "tier": 0}, {"num": 10614, "name": "Irvine", "region": "Southern Pacific", "l4w": 1112, "l52w": 5106, "units": 33, "wkly": 278, "wkly_u": 8.2, "l1w": 420, "momentum": 151.1, "reg_avg": 1610, "gap_pct": -30.9, "ann_uplift": 183.1, "tier": 0}, {"num": 10024, "name": "Redondo Beach", "region": "Southern Pacific", "l4w": 897, "l52w": 4692, "units": 27, "wkly": 224, "wkly_u": 6.8, "l1w": 385, "momentum": 171.7, "reg_avg": 1610, "gap_pct": -44.3, "ann_uplift": 148.5, "tier": 0}, {"num": 10204, "name": "Thousand Oaks", "region": "Southern Pacific", "l4w": 852, "l52w": 5427, "units": 29, "wkly": 213, "wkly_u": 7.2, "l1w": 375, "momentum": 176.1, "reg_avg": 1610, "gap_pct": -47.1, "ann_uplift": 104.1, "tier": 2}, {"num": 10476, "name": "Camelback", "region": "Southern Pacific", "l4w": 4681, "l52w": 22583, "units": 166, "wkly": 1170, "wkly_u": 41.5, "l1w": 1295, "momentum": 110.7, "reg_avg": 1610, "gap_pct": 190.7, "ann_uplift": 169.5, "tier": 3}, {"num": 10272, "name": "Chandler", "region": "Southern Pacific", "l4w": 2155, "l52w": 7176, "units": 64, "wkly": 539, "wkly_u": 16.0, "l1w": 875, "momentum": 162.4, "reg_avg": 1610, "gap_pct": 33.8, "ann_uplift": 290.4, "tier": 2}, {"num": 10764, "name": "Culver City", "region": "Southern Pacific", "l4w": 2044, "l52w": 10541, "units": 61, "wkly": 511, "wkly_u": 15.2, "l1w": 700, "momentum": 137.0, "reg_avg": 1610, "gap_pct": 26.9, "ann_uplift": 152.1, "tier": 0}, {"num": 10179, "name": "Glendale", "region": "Southern Pacific", "l4w": 2553, "l52w": 12532, "units": 76, "wkly": 638, "wkly_u": 19.0, "l1w": 630, "momentum": 98.7, "reg_avg": 1610, "gap_pct": 58.5, "ann_uplift": 164.8, "tier": 0}, {"num": 10399, "name": "Huntington Beach", "region": "Southern Pacific", "l4w": 2195, "l52w": 7165, "units": 66, "wkly": 549, "wkly_u": 16.5, "l1w": 385, "momentum": 70.2, "reg_avg": 1610, "gap_pct": 36.3, "ann_uplift": 298.3, "tier": 0}, {"num": 10066, "name": "La Jolla", "region": "Southern Pacific", "l4w": 1068, "l52w": 5939, "units": 32, "wkly": 267, "wkly_u": 8.0, "l1w": 280, "momentum": 104.9, "reg_avg": 1610, "gap_pct": -33.7, "ann_uplift": 133.8, "tier": 0}, {"num": 10688, "name": "Long Beach Lakewood", "region": "Southern Pacific", "l4w": 2996, "l52w": 14088, "units": 93, "wkly": 749, "wkly_u": 23.2, "l1w": 980, "momentum": 130.8, "reg_avg": 1610, "gap_pct": 86.1, "ann_uplift": 176.5, "tier": 0}, {"num": 10701, "name": "Long Beach Relocation", "region": "Southern Pacific", "l4w": 4222, "l52w": 18299, "units": 127, "wkly": 1056, "wkly_u": 31.8, "l1w": 910, "momentum": 86.2, "reg_avg": 1610, "gap_pct": 162.2, "ann_uplift": 199.9, "tier": 0}, {"num": 10468, "name": "Newport Beach", "region": "Southern Pacific", "l4w": 566, "l52w": 3011, "units": 16, "wkly": 142, "wkly_u": 4.0, "l1w": 175, "momentum": 123.7, "reg_avg": 1610, "gap_pct": -64.8, "ann_uplift": 144.4, "tier": 0}, {"num": 10318, "name": "Oxnard", "region": "Southern Pacific", "l4w": 1512, "l52w": 8982, "units": 44, "wkly": 378, "wkly_u": 11.0, "l1w": 595, "momentum": 157.4, "reg_avg": 1610, "gap_pct": -6.1, "ann_uplift": 118.8, "tier": 0}, {"num": 10359, "name": "Palm Desert", "region": "Southern Pacific", "l4w": 1259, "l52w": 5113, "units": 37, "wkly": 315, "wkly_u": 9.2, "l1w": 210, "momentum": 66.7, "reg_avg": 1610, "gap_pct": -21.8, "ann_uplift": 220.1, "tier": 0}, {"num": 10788, "name": "Paradise Valley Mall", "region": "Southern Pacific", "l4w": 2005, "l52w": 6961, "units": 59, "wkly": 501, "wkly_u": 14.8, "l1w": 735, "momentum": 146.6, "reg_avg": 1610, "gap_pct": 24.5, "ann_uplift": 274.4, "tier": 0}, {"num": 10584, "name": "San Luis Obispo", "region": "Southern Pacific", "l4w": 1553, "l52w": 6175, "units": 56, "wkly": 388, "wkly_u": 14.0, "l1w": 540, "momentum": 139.1, "reg_avg": 1610, "gap_pct": -3.6, "ann_uplift": 226.9, "tier": 0}, {"num": 10255, "name": "Santa Barbara", "region": "Southern Pacific", "l4w": 1090, "l52w": 3696, "units": 32, "wkly": 272, "wkly_u": 8.0, "l1w": 315, "momentum": 115.6, "reg_avg": 1610, "gap_pct": -32.3, "ann_uplift": 283.4, "tier": 0}, {"num": 10246, "name": "Scottsdale", "region": "Southern Pacific", "l4w": 3656, "l52w": 12366, "units": 109, "wkly": 914, "wkly_u": 27.2, "l1w": 840, "momentum": 91.9, "reg_avg": 1610, "gap_pct": 127.0, "ann_uplift": 284.3, "tier": 1}, {"num": 10038, "name": "Sherman Oaks West", "region": "Southern Pacific", "l4w": 718, "l52w": 4486, "units": 22, "wkly": 180, "wkly_u": 5.5, "l1w": 140, "momentum": 78.0, "reg_avg": 1610, "gap_pct": -55.4, "ann_uplift": 108.1, "tier": 0}, {"num": 10658, "name": "Silver Lake", "region": "Southern Pacific", "l4w": 1485, "l52w": 5052, "units": 43, "wkly": 371, "wkly_u": 10.8, "l1w": 427, "momentum": 115.0, "reg_avg": 1610, "gap_pct": -7.8, "ann_uplift": 282.1, "tier": 0}, {"num": 10814, "name": "Summerlin", "region": "Southern Pacific", "l4w": 1960, "l52w": 7912, "units": 56, "wkly": 490, "wkly_u": 14.0, "l1w": 770, "momentum": 157.1, "reg_avg": 1610, "gap_pct": 21.7, "ann_uplift": 222.0, "tier": 0}, {"num": 10105, "name": "Torrance", "region": "Southern Pacific", "l4w": 1825, "l52w": 10494, "units": 55, "wkly": 456, "wkly_u": 13.8, "l1w": 350, "momentum": 76.7, "reg_avg": 1610, "gap_pct": 13.3, "ann_uplift": 126.1, "tier": 0}, {"num": 10600, "name": "Chappaqua", "region": "Northeast", "l4w": 1185, "l52w": 4878, "units": 36, "wkly": 296, "wkly_u": 9.0, "l1w": 385, "momentum": 130.0, "reg_avg": 2095, "gap_pct": -43.4, "ann_uplift": 215.8, "tier": 0}, {"num": 10772, "name": "Jersey City", "region": "Northeast", "l4w": 1172, "l52w": 4924, "units": 34, "wkly": 293, "wkly_u": 8.5, "l1w": 245, "momentum": 83.6, "reg_avg": 2095, "gap_pct": -44.1, "ann_uplift": 209.4, "tier": 0}, {"num": 10163, "name": "White Plains", "region": "Northeast", "l4w": 1388, "l52w": 7012, "units": 40, "wkly": 347, "wkly_u": 10.0, "l1w": 420, "momentum": 121.0, "reg_avg": 2095, "gap_pct": -33.8, "ann_uplift": 157.3, "tier": 0}, {"num": 10106, "name": "Ridgewood", "region": "Northeast", "l4w": 693, "l52w": 2720, "units": 21, "wkly": 173, "wkly_u": 5.2, "l1w": 245, "momentum": 141.4, "reg_avg": 2095, "gap_pct": -66.9, "ann_uplift": 231.2, "tier": 0}, {"num": 10709, "name": "Fort Greene", "region": "Northeast", "l4w": 3650, "l52w": 14524, "units": 104, "wkly": 912, "wkly_u": 26.0, "l1w": 629, "momentum": 68.9, "reg_avg": 2095, "gap_pct": 74.2, "ann_uplift": 226.7, "tier": 0}, {"num": 10835, "name": "Holbrook", "region": "Northeast", "l4w": 3025, "l52w": 6032, "units": 91, "wkly": 756, "wkly_u": 22.8, "l1w": 735, "momentum": 97.2, "reg_avg": 2095, "gap_pct": 44.4, "ann_uplift": 551.9, "tier": 0}, {"num": 10213, "name": "Middletown", "region": "Northeast", "l4w": 917, "l52w": 3094, "units": 28, "wkly": 229, "wkly_u": 7.0, "l1w": 210, "momentum": 91.6, "reg_avg": 2095, "gap_pct": -56.2, "ann_uplift": 285.3, "tier": 0}, {"num": 10343, "name": "Yonkers", "region": "Northeast", "l4w": 7718, "l52w": 23136, "units": 227, "wkly": 1930, "wkly_u": 56.8, "l1w": 2308, "momentum": 119.6, "reg_avg": 2095, "gap_pct": 268.4, "ann_uplift": 333.7, "tier": 0}, {"num": 10576, "name": "Clark", "region": "Northeast", "l4w": 1721, "l52w": 7456, "units": 50, "wkly": 430, "wkly_u": 12.5, "l1w": 490, "momentum": 113.9, "reg_avg": 2095, "gap_pct": -17.9, "ann_uplift": 200.1, "tier": 0}, {"num": 10220, "name": "Brooklyn", "region": "Northeast", "l4w": 3677, "l52w": 10729, "units": 106, "wkly": 919, "wkly_u": 26.5, "l1w": 814, "momentum": 88.6, "reg_avg": 2095, "gap_pct": 75.5, "ann_uplift": 345.5, "tier": 3}, {"num": 10683, "name": "Commack", "region": "Northeast", "l4w": 4703, "l52w": 10154, "units": 137, "wkly": 1176, "wkly_u": 34.2, "l1w": 1470, "momentum": 125.0, "reg_avg": 2095, "gap_pct": 124.5, "ann_uplift": 502.1, "tier": 0}, {"num": 10451, "name": "Marlboro", "region": "Northeast", "l4w": 2229, "l52w": 7989, "units": 66, "wkly": 557, "wkly_u": 16.5, "l1w": 630, "momentum": 113.1, "reg_avg": 2095, "gap_pct": 6.4, "ann_uplift": 262.7, "tier": 0}, {"num": 10312, "name": "Millburn Union", "region": "Northeast", "l4w": 3747, "l52w": 17585, "units": 109, "wkly": 937, "wkly_u": 27.2, "l1w": 1267, "momentum": 135.3, "reg_avg": 2095, "gap_pct": 78.8, "ann_uplift": 177.0, "tier": 0}, {"num": 10063, "name": "Manhasset", "region": "Northeast", "l4w": 2383, "l52w": 7029, "units": 70, "wkly": 596, "wkly_u": 17.5, "l1w": 805, "momentum": 135.1, "reg_avg": 2095, "gap_pct": 13.7, "ann_uplift": 340.7, "tier": 0}, {"num": 10328, "name": "Upper West Side", "region": "Northeast", "l4w": 2873, "l52w": 15991, "units": 81, "wkly": 718, "wkly_u": 20.2, "l1w": 814, "momentum": 113.3, "reg_avg": 2095, "gap_pct": 37.1, "ann_uplift": 133.6, "tier": 0}, {"num": 10265, "name": "West Orange", "region": "Northeast", "l4w": 2188, "l52w": 9228, "units": 65, "wkly": 547, "wkly_u": 16.2, "l1w": 665, "momentum": 121.6, "reg_avg": 2095, "gap_pct": 4.4, "ann_uplift": 208.2, "tier": 0}, {"num": 10706, "name": "Westbury", "region": "Northeast", "l4w": 11229, "l52w": 30863, "units": 331, "wkly": 2807, "wkly_u": 82.8, "l1w": 2800, "momentum": 99.7, "reg_avg": 2095, "gap_pct": 436.0, "ann_uplift": 373.0, "tier": 0}, {"num": 10240, "name": "Lake Grove", "region": "Northeast", "l4w": 857, "l52w": 5716, "units": 26, "wkly": 214, "wkly_u": 6.5, "l1w": 140, "momentum": 65.3, "reg_avg": 2095, "gap_pct": -59.1, "ann_uplift": 94.9, "tier": 0}, {"num": 10818, "name": "Stamford", "region": "Northeast", "l4w": 1301, "l52w": 3976, "units": 40, "wkly": 325, "wkly_u": 10.0, "l1w": 245, "momentum": 75.3, "reg_avg": 2095, "gap_pct": -37.9, "ann_uplift": 325.4, "tier": 0}, {"num": 10355, "name": "Westport", "region": "Northeast", "l4w": 504, "l52w": 2867, "units": 15, "wkly": 126, "wkly_u": 3.8, "l1w": 140, "momentum": 111.1, "reg_avg": 2095, "gap_pct": -75.9, "ann_uplift": 128.5, "tier": 0}, {"num": 10102, "name": "Edgewater", "region": "Northeast", "l4w": 1628, "l52w": 6888, "units": 48, "wkly": 407, "wkly_u": 12.0, "l1w": 455, "momentum": 111.8, "reg_avg": 2095, "gap_pct": -22.3, "ann_uplift": 207.3, "tier": 0}, {"num": 10587, "name": "Spring Lake Wall", "region": "Northeast", "l4w": 1411, "l52w": 6251, "units": 41, "wkly": 353, "wkly_u": 10.2, "l1w": 560, "momentum": 158.8, "reg_avg": 2095, "gap_pct": -32.7, "ann_uplift": 193.4, "tier": 0}, {"num": 10492, "name": "Albany", "region": "Northeast", "l4w": 1476, "l52w": 7410, "units": 44, "wkly": 369, "wkly_u": 11, "l1w": 455, "momentum": 123.3, "reg_avg": 2095, "gap_pct": -29.6, "ann_uplift": 158.9, "tier": 0}, {"num": 10639, "name": "Bridgewater", "region": "Northeast", "l4w": 3343, "l52w": 10624, "units": 100, "wkly": 836, "wkly_u": 25.0, "l1w": 875, "momentum": 104.7, "reg_avg": 2095, "gap_pct": 59.6, "ann_uplift": 309.1, "tier": 2}, {"num": 10578, "name": "Bryant Park", "region": "Northeast", "l4w": 2101, "l52w": 2817, "units": 59, "wkly": 525, "wkly_u": 14.8, "l1w": 710, "momentum": 135.2, "reg_avg": 2095, "gap_pct": 0.3, "ann_uplift": 869.6, "tier": 0}, {"num": 10601, "name": "Buffalo", "region": "Northeast", "l4w": 1844, "l52w": 8368, "units": 55, "wkly": 461, "wkly_u": 13.8, "l1w": 630, "momentum": 136.7, "reg_avg": 2095, "gap_pct": -12.0, "ann_uplift": 186.5, "tier": 0}, {"num": 10160, "name": "Columbus Circle", "region": "Northeast", "l4w": 2102, "l52w": 7812, "units": 61, "wkly": 526, "wkly_u": 15.2, "l1w": 962, "momentum": 183.1, "reg_avg": 2095, "gap_pct": 0.3, "ann_uplift": 249.8, "tier": 2}, {"num": 10517, "name": "Harlem", "region": "Northeast", "l4w": 4458, "l52w": 10331, "units": 164, "wkly": 1114, "wkly_u": 41.0, "l1w": 1073, "momentum": 96.3, "reg_avg": 2095, "gap_pct": 112.8, "ann_uplift": 461.0, "tier": 0}, {"num": 10787, "name": "Huntington Station", "region": "Northeast", "l4w": 2848, "l52w": 9667, "units": 84, "wkly": 712, "wkly_u": 21.0, "l1w": 700, "momentum": 98.3, "reg_avg": 2095, "gap_pct": 35.9, "ann_uplift": 283.0, "tier": 0}, {"num": 10779, "name": "Industry City", "region": "Northeast", "l4w": 1283, "l52w": 5624, "units": 37, "wkly": 321, "wkly_u": 9.2, "l1w": 222, "momentum": 69.2, "reg_avg": 2095, "gap_pct": -38.8, "ann_uplift": 196.6, "tier": 0}, {"num": 10161, "name": "Jericho", "region": "Northeast", "l4w": 1470, "l52w": 5407, "units": 43, "wkly": 368, "wkly_u": 10.8, "l1w": 372, "momentum": 101.2, "reg_avg": 2095, "gap_pct": -29.8, "ann_uplift": 253.4, "tier": 0}, {"num": 10749, "name": "Massapequa", "region": "Northeast", "l4w": 3484, "l52w": 10867, "units": 103, "wkly": 871, "wkly_u": 25.8, "l1w": 840, "momentum": 96.4, "reg_avg": 2095, "gap_pct": 66.3, "ann_uplift": 316.8, "tier": 0}, {"num": 10602, "name": "Metuchen", "region": "Northeast", "l4w": 2322, "l52w": 8155, "units": 69, "wkly": 580, "wkly_u": 17.2, "l1w": 875, "momentum": 150.7, "reg_avg": 2095, "gap_pct": 10.8, "ann_uplift": 270.2, "tier": 3}, {"num": 10389, "name": "Milford", "region": "Northeast", "l4w": 2942, "l52w": 11502, "units": 88, "wkly": 736, "wkly_u": 22.0, "l1w": 490, "momentum": 66.6, "reg_avg": 2095, "gap_pct": 40.4, "ann_uplift": 232.5, "tier": 0}, {"num": 10773, "name": "NoMad", "region": "Northeast", "l4w": 1762, "l52w": 6457, "units": 51, "wkly": 440, "wkly_u": 12.8, "l1w": 666, "momentum": 151.2, "reg_avg": 2095, "gap_pct": -15.9, "ann_uplift": 254.7, "tier": 0}, {"num": 10501, "name": "Parsippany", "region": "Northeast", "l4w": 1828, "l52w": 3656, "units": 53, "wkly": 457, "wkly_u": 13.2, "l1w": 735, "momentum": 160.8, "reg_avg": 2095, "gap_pct": -12.7, "ann_uplift": 550.0, "tier": 0}, {"num": 10483, "name": "Port Chester", "region": "Northeast", "l4w": 1122, "l52w": 4684, "units": 33, "wkly": 280, "wkly_u": 8.2, "l1w": 210, "momentum": 74.9, "reg_avg": 2095, "gap_pct": -46.4, "ann_uplift": 211.4, "tier": 0}, {"num": 10662, "name": "Rochester", "region": "Northeast", "l4w": 1741, "l52w": 7412, "units": 50, "wkly": 435, "wkly_u": 12.5, "l1w": 420, "momentum": 96.5, "reg_avg": 2095, "gap_pct": -16.9, "ann_uplift": 205.4, "tier": 0}, {"num": 10162, "name": "Union Square", "region": "Northeast", "l4w": 2721, "l52w": 7808, "units": 75, "wkly": 680, "wkly_u": 18.8, "l1w": 851, "momentum": 125.1, "reg_avg": 2095, "gap_pct": 29.9, "ann_uplift": 353.0, "tier": 0}, {"num": 10487, "name": "Williamsburg", "region": "Northeast", "l4w": 1577, "l52w": 10004, "units": 44, "wkly": 394, "wkly_u": 11.0, "l1w": 444, "momentum": 112.6, "reg_avg": 2095, "gap_pct": -24.7, "ann_uplift": 104.9, "tier": 0}, {"num": 10563, "name": "South Capitol Hill", "region": "Mid-Atlantic", "l4w": 1353, "l52w": 5253, "units": 39, "wkly": 338, "wkly_u": 9.8, "l1w": 385, "momentum": 113.8, "reg_avg": 1435, "gap_pct": -5.7, "ann_uplift": 234.8, "tier": 0}, {"num": 10042, "name": "Arlington", "region": "Mid-Atlantic", "l4w": 1812, "l52w": 6488, "units": 54, "wkly": 453, "wkly_u": 13.5, "l1w": 455, "momentum": 100.4, "reg_avg": 1435, "gap_pct": 26.3, "ann_uplift": 263.1, "tier": 0}, {"num": 10205, "name": "Charlottesville", "region": "Mid-Atlantic", "l4w": 1642, "l52w": 4889, "units": 49, "wkly": 410, "wkly_u": 12.2, "l1w": 560, "momentum": 136.4, "reg_avg": 1435, "gap_pct": 14.4, "ann_uplift": 336.6, "tier": 0}, {"num": 10499, "name": "Columbia", "region": "Mid-Atlantic", "l4w": 2359, "l52w": 11396, "units": 70, "wkly": 590, "wkly_u": 17.5, "l1w": 910, "momentum": 154.3, "reg_avg": 1435, "gap_pct": 64.4, "ann_uplift": 169.1, "tier": 0}, {"num": 10223, "name": "Fair Lakes", "region": "Mid-Atlantic", "l4w": 1757, "l52w": 8575, "units": 52, "wkly": 439, "wkly_u": 13.0, "l1w": 665, "momentum": 151.4, "reg_avg": 1435, "gap_pct": 22.4, "ann_uplift": 166.4, "tier": 0}, {"num": 10598, "name": "West Broad Street", "region": "Mid-Atlantic", "l4w": 1984, "l52w": 7513, "units": 60, "wkly": 496, "wkly_u": 15, "l1w": 700, "momentum": 141.1, "reg_avg": 1435, "gap_pct": 38.3, "ann_uplift": 243.3, "tier": 0}, {"num": 10525, "name": "Newport News", "region": "Mid-Atlantic", "l4w": 2567, "l52w": 11092, "units": 75, "wkly": 642, "wkly_u": 18.8, "l1w": 910, "momentum": 141.8, "reg_avg": 1435, "gap_pct": 78.9, "ann_uplift": 200.9, "tier": 0}, {"num": 10795, "name": "Springfield Plaza", "region": "Mid-Atlantic", "l4w": 2178, "l52w": 7401, "units": 65, "wkly": 544, "wkly_u": 16.2, "l1w": 700, "momentum": 128.6, "reg_avg": 1435, "gap_pct": 51.8, "ann_uplift": 282.6, "tier": 0}, {"num": 10377, "name": "Wexford", "region": "Mid-Atlantic", "l4w": 918, "l52w": 2855, "units": 27, "wkly": 230, "wkly_u": 6.8, "l1w": 315, "momentum": 137.3, "reg_avg": 1435, "gap_pct": -36.0, "ann_uplift": 318.0, "tier": 0}, {"num": 10187, "name": "Princeton", "region": "Mid-Atlantic", "l4w": 2060, "l52w": 7273, "units": 63, "wkly": 515, "wkly_u": 15.8, "l1w": 455, "momentum": 88.3, "reg_avg": 1435, "gap_pct": 43.6, "ann_uplift": 268.2, "tier": 0}, {"num": 10463, "name": "Riverdale Park", "region": "Mid-Atlantic", "l4w": 4170, "l52w": 14907, "units": 123, "wkly": 1042, "wkly_u": 30.8, "l1w": 1645, "momentum": 157.8, "reg_avg": 1435, "gap_pct": 190.6, "ann_uplift": 263.7, "tier": 0}, {"num": 10065, "name": "Vienna", "region": "Mid-Atlantic", "l4w": 282, "l52w": 2426, "units": 9, "wkly": 70, "wkly_u": 2.2, "l1w": 70, "momentum": 99.3, "reg_avg": 1435, "gap_pct": -80.3, "ann_uplift": 51.1, "tier": 0}, {"num": 10638, "name": "Harbor East", "region": "Mid-Atlantic", "l4w": 1541, "l52w": 5812, "units": 46, "wkly": 385, "wkly_u": 11.5, "l1w": 350, "momentum": 90.9, "reg_avg": 1435, "gap_pct": 7.4, "ann_uplift": 244.7, "tier": 2}, {"num": 10514, "name": "Philly Center City", "region": "Mid-Atlantic", "l4w": 2202, "l52w": 11724, "units": 63, "wkly": 550, "wkly_u": 15.8, "l1w": 700, "momentum": 127.2, "reg_avg": 1435, "gap_pct": 53.5, "ann_uplift": 144.2, "tier": 0}, {"num": 10496, "name": "Wynnewood NEW", "region": "Mid-Atlantic", "l4w": 3021, "l52w": 12258, "units": 86, "wkly": 755, "wkly_u": 21.5, "l1w": 875, "momentum": 115.9, "reg_avg": 1435, "gap_pct": 110.5, "ann_uplift": 220.4, "tier": 0}, {"num": 10777, "name": "Walter Reed", "region": "Mid-Atlantic", "l4w": 756, "l52w": 5181, "units": 24, "wkly": 189, "wkly_u": 6.0, "l1w": 280, "momentum": 148.1, "reg_avg": 1435, "gap_pct": -47.3, "ann_uplift": 89.7, "tier": 0}, {"num": 10769, "name": "Towson", "region": "Mid-Atlantic", "l4w": 466, "l52w": 2411, "units": 14, "wkly": 116, "wkly_u": 3.5, "l1w": 0, "momentum": 0.0, "reg_avg": 1435, "gap_pct": -67.5, "ann_uplift": 151.3, "tier": 0}, {"num": 10624, "name": "Lancaster", "region": "Mid-Atlantic", "l4w": 1678, "l52w": 5296, "units": 50, "wkly": 420, "wkly_u": 12.5, "l1w": 525, "momentum": 125.1, "reg_avg": 1435, "gap_pct": 16.9, "ann_uplift": 311.9, "tier": 0}, {"num": 10249, "name": "Plymouth Meeting", "region": "Mid-Atlantic", "l4w": 1640, "l52w": 4054, "units": 50, "wkly": 410, "wkly_u": 12.5, "l1w": 560, "momentum": 136.6, "reg_avg": 1435, "gap_pct": 14.3, "ann_uplift": 425.9, "tier": 0}, {"num": 10566, "name": "Allentown", "region": "Mid-Atlantic", "l4w": 1719, "l52w": 7370, "units": 50, "wkly": 430, "wkly_u": 12.5, "l1w": 560, "momentum": 130.3, "reg_avg": 1435, "gap_pct": 19.8, "ann_uplift": 203.2, "tier": 2}, {"num": 10228, "name": "Annapolis", "region": "Mid-Atlantic", "l4w": 3949, "l52w": 14664, "units": 119, "wkly": 987, "wkly_u": 29.8, "l1w": 910, "momentum": 92.2, "reg_avg": 1435, "gap_pct": 175.2, "ann_uplift": 250.1, "tier": 2}, {"num": 10526, "name": "Cherry Hill", "region": "Mid-Atlantic", "l4w": 1602, "l52w": 4549, "units": 47, "wkly": 400, "wkly_u": 11.8, "l1w": 385, "momentum": 96.1, "reg_avg": 1435, "gap_pct": 11.6, "ann_uplift": 357.8, "tier": 0}, {"num": 10660, "name": "Exton", "region": "Mid-Atlantic", "l4w": 1191, "l52w": 6217, "units": 36, "wkly": 298, "wkly_u": 9.0, "l1w": 490, "momentum": 164.6, "reg_avg": 1435, "gap_pct": -17.0, "ann_uplift": 149.0, "tier": 0}, {"num": 10565, "name": "H Street", "region": "Mid-Atlantic", "l4w": 1198, "l52w": 4305, "units": 35, "wkly": 300, "wkly_u": 8.8, "l1w": 455, "momentum": 151.9, "reg_avg": 1435, "gap_pct": -16.5, "ann_uplift": 261.8, "tier": 0}, {"num": 10100, "name": "Jenkintown", "region": "Mid-Atlantic", "l4w": 3393, "l52w": 8688, "units": 100, "wkly": 848, "wkly_u": 25.0, "l1w": 1470, "momentum": 173.3, "reg_avg": 1435, "gap_pct": 136.5, "ann_uplift": 407.7, "tier": 0}, {"num": 10086, "name": "Marlton", "region": "Mid-Atlantic", "l4w": 2168, "l52w": 6377, "units": 66, "wkly": 542, "wkly_u": 16.5, "l1w": 630, "momentum": 116.2, "reg_avg": 1435, "gap_pct": 51.1, "ann_uplift": 342.0, "tier": 0}, {"num": 10185, "name": "Old Town", "region": "Mid-Atlantic", "l4w": 2441, "l52w": 9116, "units": 73, "wkly": 610, "wkly_u": 18.2, "l1w": 910, "momentum": 149.1, "reg_avg": 1435, "gap_pct": 70.1, "ann_uplift": 248.1, "tier": 0}, {"num": 10135, "name": "P Street", "region": "Mid-Atlantic", "l4w": 1012, "l52w": 4991, "units": 29, "wkly": 253, "wkly_u": 7.2, "l1w": 347, "momentum": 137.2, "reg_avg": 1435, "gap_pct": -29.5, "ann_uplift": 163.6, "tier": 0}, {"num": 10694, "name": "Pittsburgh", "region": "Mid-Atlantic", "l4w": 630, "l52w": 4125, "units": 19, "wkly": 158, "wkly_u": 4.8, "l1w": 280, "momentum": 177.8, "reg_avg": 1435, "gap_pct": -56.1, "ann_uplift": 98.5, "tier": 0}, {"num": 10235, "name": "Rockville White Flint", "region": "Mid-Atlantic", "l4w": 1391, "l52w": 5885, "units": 43, "wkly": 348, "wkly_u": 10.8, "l1w": 350, "momentum": 100.6, "reg_avg": 1435, "gap_pct": -3.1, "ann_uplift": 207.3, "tier": 0}, {"num": 10257, "name": "Short Pump", "region": "Mid-Atlantic", "l4w": 1618, "l52w": 7147, "units": 47, "wkly": 404, "wkly_u": 11.8, "l1w": 420, "momentum": 103.8, "reg_avg": 1435, "gap_pct": 12.8, "ann_uplift": 194.3, "tier": 0}, {"num": 10242, "name": "South Hills", "region": "Mid-Atlantic", "l4w": 1254, "l52w": 3891, "units": 36, "wkly": 314, "wkly_u": 9, "l1w": 595, "momentum": 189.8, "reg_avg": 1435, "gap_pct": -12.6, "ann_uplift": 319.0, "tier": 0}, {"num": 10466, "name": "Virginia Beach", "region": "Mid-Atlantic", "l4w": 3027, "l52w": 8391, "units": 96, "wkly": 757, "wkly_u": 24.0, "l1w": 962, "momentum": 127.1, "reg_avg": 1435, "gap_pct": 111.0, "ann_uplift": 369.0, "tier": 0}, {"num": 10275, "name": "Interbay", "region": "Pacific Northwest", "l4w": 386, "l52w": 2987, "units": 13, "wkly": 96, "wkly_u": 3.2, "l1w": 140, "momentum": 145.1, "reg_avg": 857, "gap_pct": -55.0, "ann_uplift": 68.0, "tier": 3}, {"num": 10637, "name": "Bellingham Washington", "region": "Pacific Northwest", "l4w": 1099, "l52w": 6522, "units": 31, "wkly": 275, "wkly_u": 7.8, "l1w": 350, "momentum": 127.4, "reg_avg": 857, "gap_pct": 28.2, "ann_uplift": 119.1, "tier": 2}, {"num": 10588, "name": "Chambers Bay", "region": "Pacific Northwest", "l4w": 4482, "l52w": 14885, "units": 132, "wkly": 1120, "wkly_u": 33.0, "l1w": 1116, "momentum": 99.6, "reg_avg": 857, "gap_pct": 422.7, "ann_uplift": 291.4, "tier": 0}, {"num": 10294, "name": "Eugene", "region": "Pacific Northwest", "l4w": 1261, "l52w": 8172, "units": 38, "wkly": 315, "wkly_u": 9.5, "l1w": 315, "momentum": 99.9, "reg_avg": 857, "gap_pct": 47.1, "ann_uplift": 100.6, "tier": 2}, {"num": 10243, "name": "Hollywood", "region": "Pacific Northwest", "l4w": 1214, "l52w": 4362, "units": 37, "wkly": 304, "wkly_u": 9.2, "l1w": 280, "momentum": 92.3, "reg_avg": 857, "gap_pct": 41.6, "ann_uplift": 261.8, "tier": 0}, {"num": 10436, "name": "Lynnwood", "region": "Pacific Northwest", "l4w": 1296, "l52w": 5302, "units": 39, "wkly": 324, "wkly_u": 9.8, "l1w": 350, "momentum": 108.0, "reg_avg": 857, "gap_pct": 51.2, "ann_uplift": 217.8, "tier": 0}, {"num": 10260, "name": "Redmond", "region": "Pacific Northwest", "l4w": 650, "l52w": 2184, "units": 19, "wkly": 162, "wkly_u": 4.8, "l1w": 280, "momentum": 172.3, "reg_avg": 857, "gap_pct": -24.2, "ann_uplift": 286.9, "tier": 0}, {"num": 10805, "name": "Boynton Beach", "region": "Florida", "l4w": 1641, "l52w": 6215, "units": 48, "wkly": 410, "wkly_u": 12.0, "l1w": 385, "momentum": 93.8, "reg_avg": 2284, "gap_pct": -28.2, "ann_uplift": 243.3, "tier": 0}, {"num": 10088, "name": "Coral Springs", "region": "Florida", "l4w": 2441, "l52w": 7594, "units": 72, "wkly": 610, "wkly_u": 18.0, "l1w": 525, "momentum": 86.0, "reg_avg": 2284, "gap_pct": 6.9, "ann_uplift": 317.9, "tier": 0}, {"num": 10739, "name": "Delray Beach", "region": "Florida", "l4w": 717, "l52w": 5050, "units": 21, "wkly": 179, "wkly_u": 5.2, "l1w": 280, "momentum": 156.2, "reg_avg": 2284, "gap_pct": -68.6, "ann_uplift": 84.6, "tier": 0}, {"num": 10192, "name": "Naples", "region": "Florida", "l4w": 1119, "l52w": 5445, "units": 33, "wkly": 280, "wkly_u": 8.2, "l1w": 315, "momentum": 112.6, "reg_avg": 2284, "gap_pct": -51.0, "ann_uplift": 167.2, "tier": 0}, {"num": 10477, "name": "North Miami", "region": "Florida", "l4w": 2808, "l52w": 10446, "units": 81, "wkly": 702, "wkly_u": 20.2, "l1w": 980, "momentum": 139.6, "reg_avg": 2284, "gap_pct": 22.9, "ann_uplift": 249.5, "tier": 0}, {"num": 10352, "name": "Pompano Beach", "region": "Florida", "l4w": 1317, "l52w": 5205, "units": 40, "wkly": 329, "wkly_u": 10.0, "l1w": 525, "momentum": 159.5, "reg_avg": 2284, "gap_pct": -42.3, "ann_uplift": 228.9, "tier": 0}, {"num": 10096, "name": "Biscayne", "region": "Florida", "l4w": 2859, "l52w": 15948, "units": 92, "wkly": 715, "wkly_u": 23.0, "l1w": 762, "momentum": 106.6, "reg_avg": 2284, "gap_pct": 25.2, "ann_uplift": 133.1, "tier": 0}, {"num": 10682, "name": "Dadeland", "region": "Florida", "l4w": 3677, "l52w": 15103, "units": 108, "wkly": 919, "wkly_u": 27.0, "l1w": 1085, "momentum": 118.0, "reg_avg": 2284, "gap_pct": 61.0, "ann_uplift": 216.5, "tier": 0}, {"num": 10253, "name": "Jacksonville", "region": "Florida", "l4w": 3112, "l52w": 12217, "units": 91, "wkly": 778, "wkly_u": 22.8, "l1w": 980, "momentum": 126.0, "reg_avg": 2284, "gap_pct": 36.2, "ann_uplift": 231.1, "tier": 0}, {"num": 10195, "name": "Wellington", "region": "Florida", "l4w": 3300, "l52w": 11685, "units": 137, "wkly": 825, "wkly_u": 34.2, "l1w": 802, "momentum": 97.2, "reg_avg": 2284, "gap_pct": 44.5, "ann_uplift": 267.1, "tier": 0}, {"num": 10191, "name": "Miami", "region": "Florida", "l4w": 2757, "l52w": 8868, "units": 103, "wkly": 689, "wkly_u": 25.8, "l1w": 693, "momentum": 100.5, "reg_avg": 2284, "gap_pct": 20.7, "ann_uplift": 304.2, "tier": 0}, {"num": 10130, "name": "Boca Raton", "region": "Florida", "l4w": 1944, "l52w": 7042, "units": 58, "wkly": 486, "wkly_u": 14.5, "l1w": 560, "momentum": 115.2, "reg_avg": 2284, "gap_pct": -14.9, "ann_uplift": 258.9, "tier": 0}, {"num": 10516, "name": "Altamonte Springs", "region": "Florida", "l4w": 2795, "l52w": 9591, "units": 81, "wkly": 699, "wkly_u": 20.2, "l1w": 980, "momentum": 140.3, "reg_avg": 2284, "gap_pct": 22.4, "ann_uplift": 278.8, "tier": 0}, {"num": 10723, "name": "Midtown Tampa", "region": "Florida", "l4w": 5976, "l52w": 18204, "units": 196, "wkly": 1494, "wkly_u": 49.0, "l1w": 1130, "momentum": 75.6, "reg_avg": 2284, "gap_pct": 161.6, "ann_uplift": 326.8, "tier": 0}, {"num": 10715, "name": "17th Street", "region": "Florida", "l4w": 2011, "l52w": 10331, "units": 85, "wkly": 503, "wkly_u": 21.2, "l1w": 766, "momentum": 152.4, "reg_avg": 2284, "gap_pct": -12.0, "ann_uplift": 153.1, "tier": 0}, {"num": 10190, "name": "Coral Gables", "region": "Florida", "l4w": 1924, "l52w": 11356, "units": 56, "wkly": 481, "wkly_u": 14.0, "l1w": 385, "momentum": 80.0, "reg_avg": 2284, "gap_pct": -15.8, "ann_uplift": 120.3, "tier": 0}, {"num": 10193, "name": "Pembroke Pines", "region": "Florida", "l4w": 2590, "l52w": 9528, "units": 78, "wkly": 648, "wkly_u": 19.5, "l1w": 490, "momentum": 75.7, "reg_avg": 2284, "gap_pct": 13.4, "ann_uplift": 253.4, "tier": 0}, {"num": 10549, "name": "Davie", "region": "Florida", "l4w": 3946, "l52w": 15950, "units": 117, "wkly": 986, "wkly_u": 29.2, "l1w": 840, "momentum": 85.1, "reg_avg": 2284, "gap_pct": 72.7, "ann_uplift": 221.6, "tier": 0}, {"num": 10704, "name": "Gainesville", "region": "Florida", "l4w": 2988, "l52w": 11324, "units": 89, "wkly": 747, "wkly_u": 22.2, "l1w": 665, "momentum": 89.0, "reg_avg": 2284, "gap_pct": 30.8, "ann_uplift": 243.0, "tier": 0}, {"num": 10580, "name": "Winter Park North", "region": "Florida", "l4w": 4737, "l52w": 14704, "units": 140, "wkly": 1184, "wkly_u": 35.0, "l1w": 1610, "momentum": 136.0, "reg_avg": 2284, "gap_pct": 107.4, "ann_uplift": 318.8, "tier": 1}, {"num": 10839, "name": "West Boca Raton", "region": "Florida", "l4w": 917, "l52w": 3796, "units": 28, "wkly": 229, "wkly_u": 7.0, "l1w": 140, "momentum": 61.1, "reg_avg": 2284, "gap_pct": -59.9, "ann_uplift": 214.0, "tier": 0}, {"num": 10194, "name": "Bayhill", "region": "Florida", "l4w": 3344, "l52w": 15828, "units": 99, "wkly": 836, "wkly_u": 24.8, "l1w": 1015, "momentum": 121.4, "reg_avg": 2284, "gap_pct": 46.4, "ann_uplift": 174.7, "tier": 0}, {"num": 10339, "name": "Carrollwood", "region": "Florida", "l4w": 1235, "l52w": 5055, "units": 36, "wkly": 309, "wkly_u": 9.0, "l1w": 381, "momentum": 123.4, "reg_avg": 2284, "gap_pct": -45.9, "ann_uplift": 217.6, "tier": 0}, {"num": 10515, "name": "Clearwater", "region": "Florida", "l4w": 445, "l52w": 3208, "units": 14, "wkly": 111, "wkly_u": 3.5, "l1w": 105, "momentum": 94.4, "reg_avg": 2284, "gap_pct": -80.5, "ann_uplift": 80.3, "tier": 0}, {"num": 10669, "name": "Fort Myers", "region": "Florida", "l4w": 2377, "l52w": 8778, "units": 70, "wkly": 594, "wkly_u": 17.5, "l1w": 525, "momentum": 88.3, "reg_avg": 2284, "gap_pct": 4.1, "ann_uplift": 252.0, "tier": 0}, {"num": 10117, "name": "Ft Lauderdale", "region": "Florida", "l4w": 2917, "l52w": 9145, "units": 88, "wkly": 729, "wkly_u": 22.0, "l1w": 805, "momentum": 110.4, "reg_avg": 2284, "gap_pct": 27.7, "ann_uplift": 314.7, "tier": 0}, {"num": 10648, "name": "Jacksonville Beach", "region": "Florida", "l4w": 1344, "l52w": 7981, "units": 39, "wkly": 336, "wkly_u": 9.8, "l1w": 350, "momentum": 104.2, "reg_avg": 2284, "gap_pct": -41.2, "ann_uplift": 118.9, "tier": 0}, {"num": 10781, "name": "Miami Midtown", "region": "Florida", "l4w": 3202, "l52w": 18707, "units": 95, "wkly": 800, "wkly_u": 23.8, "l1w": 630, "momentum": 78.7, "reg_avg": 2284, "gap_pct": 40.2, "ann_uplift": 122.5, "tier": 0}, {"num": 10188, "name": "Palm Beach Gardens", "region": "Florida", "l4w": 1882, "l52w": 6843, "units": 61, "wkly": 470, "wkly_u": 15.2, "l1w": 571, "momentum": 121.4, "reg_avg": 2284, "gap_pct": -17.6, "ann_uplift": 257.5, "tier": 0}, {"num": 10189, "name": "Sarasota", "region": "Florida", "l4w": 516, "l52w": 2783, "units": 15, "wkly": 129, "wkly_u": 3.8, "l1w": 140, "momentum": 108.5, "reg_avg": 2284, "gap_pct": -77.4, "ann_uplift": 141.0, "tier": 0}, {"num": 10793, "name": "St Petersburg", "region": "Florida", "l4w": 1492, "l52w": 5373, "units": 45, "wkly": 373, "wkly_u": 11.2, "l1w": 385, "momentum": 103.2, "reg_avg": 2284, "gap_pct": -34.7, "ann_uplift": 261.0, "tier": 0}, {"num": 10834, "name": "Viera", "region": "Florida", "l4w": 837, "l52w": 4327, "units": 24, "wkly": 209, "wkly_u": 6.0, "l1w": 280, "momentum": 133.8, "reg_avg": 2284, "gap_pct": -63.4, "ann_uplift": 151.5, "tier": 0}, {"num": 10331, "name": "Colorado Blvd", "region": "Rocky Mountain", "l4w": 513, "l52w": 1730, "units": 15, "wkly": 128, "wkly_u": 3.8, "l1w": 280, "momentum": 218.3, "reg_avg": 895, "gap_pct": -42.7, "ann_uplift": 285.5, "tier": 0}, {"num": 10504, "name": "Wichita", "region": "Rocky Mountain", "l4w": 1461, "l52w": 8192, "units": 43, "wkly": 365, "wkly_u": 10.8, "l1w": 315, "momentum": 86.2, "reg_avg": 895, "gap_pct": 63.3, "ann_uplift": 131.8, "tier": 0}, {"num": 10471, "name": "Governors Ranch", "region": "Rocky Mountain", "l4w": 368, "l52w": 1336, "units": 12, "wkly": 92, "wkly_u": 3.0, "l1w": 161, "momentum": 175.0, "reg_avg": 895, "gap_pct": -58.9, "ann_uplift": 258.1, "tier": 0}, {"num": 10791, "name": "Albuquerque", "region": "Rocky Mountain", "l4w": 2037, "l52w": 10177, "units": 61, "wkly": 509, "wkly_u": 15.2, "l1w": 910, "momentum": 178.7, "reg_avg": 895, "gap_pct": 127.6, "ann_uplift": 160.2, "tier": 0}, {"num": 10786, "name": "Bozeman", "region": "Rocky Mountain", "l4w": 1638, "l52w": 10051, "units": 48, "wkly": 410, "wkly_u": 12.0, "l1w": 245, "momentum": 59.8, "reg_avg": 895, "gap_pct": 83.0, "ann_uplift": 111.9, "tier": 0}, {"num": 10430, "name": "Cottonwood Heights", "region": "Rocky Mountain", "l4w": 548, "l52w": 3107, "units": 16, "wkly": 137, "wkly_u": 4.0, "l1w": 175, "momentum": 127.7, "reg_avg": 895, "gap_pct": -38.8, "ann_uplift": 129.3, "tier": 5}, {"num": 10622, "name": "El Paso", "region": "Rocky Mountain", "l4w": 4527, "l52w": 16413, "units": 134, "wkly": 1132, "wkly_u": 33.5, "l1w": 1575, "momentum": 139.2, "reg_avg": 895, "gap_pct": 405.9, "ann_uplift": 258.6, "tier": 0}, {"num": 10554, "name": "Longmont", "region": "Rocky Mountain", "l4w": 280, "l52w": 2785, "units": 8, "wkly": 70, "wkly_u": 2.0, "l1w": 140, "momentum": 200.0, "reg_avg": 895, "gap_pct": -68.7, "ann_uplift": 30.7, "tier": 0}, {"num": 10146, "name": "Pikes Peak", "region": "Rocky Mountain", "l4w": 2485, "l52w": 8138, "units": 73, "wkly": 621, "wkly_u": 18.2, "l1w": 525, "momentum": 84.5, "reg_avg": 895, "gap_pct": 177.7, "ann_uplift": 297.0, "tier": 0}, {"num": 10169, "name": "Regency", "region": "Rocky Mountain", "l4w": 2794, "l52w": 11047, "units": 83, "wkly": 698, "wkly_u": 20.8, "l1w": 595, "momentum": 85.2, "reg_avg": 895, "gap_pct": 212.2, "ann_uplift": 228.8, "tier": 0}, {"num": 10445, "name": "Superior", "region": "Rocky Mountain", "l4w": 527, "l52w": 1937, "units": 16, "wkly": 132, "wkly_u": 4.0, "l1w": 210, "momentum": 159.4, "reg_avg": 895, "gap_pct": -41.1, "ann_uplift": 253.7, "tier": 0}, {"num": 10207, "name": "Tamarac", "region": "Rocky Mountain", "l4w": 970, "l52w": 5258, "units": 29, "wkly": 242, "wkly_u": 7.2, "l1w": 245, "momentum": 101.0, "reg_avg": 895, "gap_pct": 8.4, "ann_uplift": 139.8, "tier": 0}, {"num": 10626, "name": "Union Station", "region": "Rocky Mountain", "l4w": 1468, "l52w": 4967, "units": 44, "wkly": 367, "wkly_u": 11.0, "l1w": 385, "momentum": 104.9, "reg_avg": 895, "gap_pct": 64.0, "ann_uplift": 284.2, "tier": 0}, {"num": 10209, "name": "Mountain Brook", "region": "South", "l4w": 3847, "l52w": 12364, "units": 112, "wkly": 962, "wkly_u": 28.0, "l1w": 1470, "momentum": 152.8, "reg_avg": 1904, "gap_pct": 102.1, "ann_uplift": 304.5, "tier": 0}, {"num": 10480, "name": "Poplar Avenue", "region": "South", "l4w": 1687, "l52w": 8955, "units": 49, "wkly": 422, "wkly_u": 12.2, "l1w": 385, "momentum": 91.3, "reg_avg": 1904, "gap_pct": -11.4, "ann_uplift": 144.9, "tier": 0}, {"num": 10461, "name": "Knoxville", "region": "South", "l4w": 1576, "l52w": 11731, "units": 46, "wkly": 394, "wkly_u": 11.5, "l1w": 420, "momentum": 106.6, "reg_avg": 1904, "gap_pct": -17.2, "ann_uplift": 74.6, "tier": 0}, {"num": 10206, "name": "West Paces Ferry", "region": "South", "l4w": 2256, "l52w": 5427, "units": 66, "wkly": 564, "wkly_u": 16.5, "l1w": 700, "momentum": 124.1, "reg_avg": 1904, "gap_pct": 18.5, "ann_uplift": 440.4, "tier": 0}, {"num": 10782, "name": "Chattanooga East", "region": "South", "l4w": 1613, "l52w": 6381, "units": 48, "wkly": 403, "wkly_u": 12.0, "l1w": 385, "momentum": 95.5, "reg_avg": 1904, "gap_pct": -15.3, "ann_uplift": 228.6, "tier": 0}, {"num": 10338, "name": "North Raleigh", "region": "South", "l4w": 2410, "l52w": 9285, "units": 130, "wkly": 602, "wkly_u": 32.5, "l1w": 684, "momentum": 113.5, "reg_avg": 1904, "gap_pct": 26.6, "ann_uplift": 237.4, "tier": 0}, {"num": 10488, "name": "Avalon", "region": "South", "l4w": 2587, "l52w": 8914, "units": 77, "wkly": 647, "wkly_u": 19.2, "l1w": 840, "momentum": 129.9, "reg_avg": 1904, "gap_pct": 35.9, "ann_uplift": 277.3, "tier": 0}, {"num": 10649, "name": "Chamblee", "region": "South", "l4w": 2910, "l52w": 10036, "units": 87, "wkly": 728, "wkly_u": 21.8, "l1w": 945, "momentum": 129.9, "reg_avg": 1904, "gap_pct": 52.9, "ann_uplift": 276.9, "tier": 0}, {"num": 10486, "name": "Jackson", "region": "South", "l4w": 2605, "l52w": 10031, "units": 76, "wkly": 651, "wkly_u": 19.0, "l1w": 770, "momentum": 118.2, "reg_avg": 1904, "gap_pct": 36.8, "ann_uplift": 237.6, "tier": 0}, {"num": 10426, "name": "Friendly Plaza", "region": "South", "l4w": 4090, "l52w": 16307, "units": 122, "wkly": 1022, "wkly_u": 30.5, "l1w": 910, "momentum": 89.0, "reg_avg": 1904, "gap_pct": 114.9, "ann_uplift": 226.1, "tier": 0}, {"num": 10611, "name": "West Cary", "region": "South", "l4w": 280, "l52w": 2027, "units": 8, "wkly": 70, "wkly_u": 2.0, "l1w": 245, "momentum": 350.0, "reg_avg": 1904, "gap_pct": -85.3, "ann_uplift": 79.6, "tier": 0}, {"num": 10520, "name": "Kenilworth", "region": "South", "l4w": 533, "l52w": 2781, "units": 16, "wkly": 133, "wkly_u": 4.0, "l1w": 175, "momentum": 131.3, "reg_avg": 1904, "gap_pct": -72.0, "ann_uplift": 149.2, "tier": 0}, {"num": 10783, "name": "S. Asheville", "region": "South", "l4w": 618, "l52w": 3149, "units": 18, "wkly": 154, "wkly_u": 4.5, "l1w": 210, "momentum": 135.9, "reg_avg": 1904, "gap_pct": -67.5, "ann_uplift": 155.1, "tier": 0}, {"num": 10132, "name": "Cary", "region": "South", "l4w": 2217, "l52w": 5980, "units": 104, "wkly": 554, "wkly_u": 26.0, "l1w": 768, "momentum": 138.6, "reg_avg": 1904, "gap_pct": 16.5, "ann_uplift": 382.0, "tier": 0}, {"num": 10201, "name": "Charleston", "region": "South", "l4w": 1648, "l52w": 6918, "units": 48, "wkly": 412, "wkly_u": 12.0, "l1w": 420, "momentum": 101.9, "reg_avg": 1904, "gap_pct": -13.4, "ann_uplift": 209.7, "tier": 0}, {"num": 10464, "name": "Cross Hill", "region": "South", "l4w": 3340, "l52w": 13694, "units": 99, "wkly": 835, "wkly_u": 24.8, "l1w": 875, "momentum": 104.8, "reg_avg": 1904, "gap_pct": 75.5, "ann_uplift": 217.1, "tier": 0}, {"num": 10687, "name": "Decatur", "region": "South", "l4w": 3042, "l52w": 9623, "units": 89, "wkly": 760, "wkly_u": 22.2, "l1w": 1050, "momentum": 138.1, "reg_avg": 1904, "gap_pct": 59.8, "ann_uplift": 311.0, "tier": 0}, {"num": 10562, "name": "Germantown", "region": "South", "l4w": 3085, "l52w": 10087, "units": 92, "wkly": 771, "wkly_u": 23.0, "l1w": 805, "momentum": 104.4, "reg_avg": 1904, "gap_pct": 62.1, "ann_uplift": 297.6, "tier": 0}, {"num": 10241, "name": "Green Hills", "region": "South", "l4w": 2347, "l52w": 8953, "units": 84, "wkly": 587, "wkly_u": 21.0, "l1w": 690, "momentum": 117.6, "reg_avg": 1904, "gap_pct": 23.3, "ann_uplift": 240.8, "tier": 0}, {"num": 10591, "name": "Huntsville", "region": "South", "l4w": 1153, "l52w": 5342, "units": 34, "wkly": 288, "wkly_u": 8.5, "l1w": 315, "momentum": 109.3, "reg_avg": 1904, "gap_pct": -39.4, "ann_uplift": 180.6, "tier": 0}, {"num": 10590, "name": "Kennesaw", "region": "South", "l4w": 3916, "l52w": 15682, "units": 116, "wkly": 979, "wkly_u": 29, "l1w": 1295, "momentum": 132.3, "reg_avg": 1904, "gap_pct": 105.7, "ann_uplift": 224.6, "tier": 0}, {"num": 10543, "name": "Lake Norman", "region": "South", "l4w": 3363, "l52w": 13938, "units": 112, "wkly": 841, "wkly_u": 28.0, "l1w": 849, "momentum": 101.0, "reg_avg": 1904, "gap_pct": 76.7, "ann_uplift": 213.7, "tier": 0}, {"num": 10342, "name": "Merchants Walk", "region": "South", "l4w": 1488, "l52w": 4473, "units": 50, "wkly": 372, "wkly_u": 12.5, "l1w": 380, "momentum": 102.2, "reg_avg": 1904, "gap_pct": -21.8, "ann_uplift": 332.5, "tier": 0}, {"num": 10685, "name": "Nashville Downtown", "region": "South", "l4w": 3430, "l52w": 8429, "units": 100, "wkly": 858, "wkly_u": 25.0, "l1w": 1400, "momentum": 163.3, "reg_avg": 1904, "gap_pct": 80.2, "ann_uplift": 429.0, "tier": 0}, {"num": 10697, "name": "Northside Buckhead", "region": "South", "l4w": 998, "l52w": 2990, "units": 30, "wkly": 250, "wkly_u": 7.5, "l1w": 385, "momentum": 154.3, "reg_avg": 1904, "gap_pct": -47.6, "ann_uplift": 333.9, "tier": 0}, {"num": 10196, "name": "Ponce de Leon", "region": "South", "l4w": 1586, "l52w": 3955, "units": 46, "wkly": 396, "wkly_u": 11.5, "l1w": 350, "momentum": 88.3, "reg_avg": 1904, "gap_pct": -16.7, "ann_uplift": 421.3, "tier": 0}, {"num": 10016, "name": "Raleigh", "region": "South", "l4w": 898, "l52w": 4647, "units": 26, "wkly": 224, "wkly_u": 6.5, "l1w": 210, "momentum": 93.5, "reg_avg": 1904, "gap_pct": -52.8, "ann_uplift": 151.2, "tier": 0}, {"num": 10489, "name": "Savannah", "region": "South", "l4w": 2399, "l52w": 11564, "units": 77, "wkly": 600, "wkly_u": 19.2, "l1w": 595, "momentum": 99.2, "reg_avg": 1904, "gap_pct": 26.0, "ann_uplift": 169.7, "tier": 0}, {"num": 10478, "name": "Tallahassee", "region": "South", "l4w": 1272, "l52w": 8802, "units": 38, "wkly": 318, "wkly_u": 9.5, "l1w": 560, "momentum": 176.1, "reg_avg": 1904, "gap_pct": -33.2, "ann_uplift": 87.9, "tier": 0}, {"num": 10644, "name": "Uptown Charlotte", "region": "South", "l4w": 2697, "l52w": 11659, "units": 81, "wkly": 674, "wkly_u": 20.2, "l1w": 735, "momentum": 109.0, "reg_avg": 1904, "gap_pct": 41.7, "ann_uplift": 200.7, "tier": 0}, {"num": 10698, "name": "West Ashley", "region": "South", "l4w": 1344, "l52w": 4671, "units": 45, "wkly": 336, "wkly_u": 11.2, "l1w": 325, "momentum": 96.7, "reg_avg": 1904, "gap_pct": -29.4, "ann_uplift": 274.1, "tier": 0}, {"num": 10453, "name": "Wilmington", "region": "South", "l4w": 1470, "l52w": 6864, "units": 42, "wkly": 368, "wkly_u": 10.5, "l1w": 315, "momentum": 85.7, "reg_avg": 1904, "gap_pct": -22.8, "ann_uplift": 178.4, "tier": 0}, {"num": 10224, "name": "Woodruff", "region": "South", "l4w": 2394, "l52w": 7370, "units": 70, "wkly": 598, "wkly_u": 17.5, "l1w": 910, "momentum": 152.0, "reg_avg": 1904, "gap_pct": 25.8, "ann_uplift": 322.3, "tier": 0}, {"num": 10617, "name": "Bedford New Hampshire", "region": "North Atlantic", "l4w": 1016, "l52w": 3772, "units": 30, "wkly": 254, "wkly_u": 7.5, "l1w": 455, "momentum": 179.1, "reg_avg": 936, "gap_pct": 8.5, "ann_uplift": 250.2, "tier": 0}, {"num": 10254, "name": "Cranston", "region": "North Atlantic", "l4w": 1701, "l52w": 5626, "units": 50, "wkly": 425, "wkly_u": 12.5, "l1w": 630, "momentum": 148.1, "reg_avg": 936, "gap_pct": 81.7, "ann_uplift": 293.1, "tier": 0}, {"num": 10619, "name": "Shrewsbury", "region": "North Atlantic", "l4w": 1242, "l52w": 7461, "units": 37, "wkly": 310, "wkly_u": 9.2, "l1w": 315, "momentum": 101.4, "reg_avg": 936, "gap_pct": 32.7, "ann_uplift": 116.4, "tier": 0}, {"num": 10319, "name": "Dedham", "region": "North Atlantic", "l4w": 3047, "l52w": 7701, "units": 89, "wkly": 762, "wkly_u": 22.2, "l1w": 455, "momentum": 59.7, "reg_avg": 936, "gap_pct": 225.5, "ann_uplift": 414.4, "tier": 0}, {"num": 10770, "name": "Avon Village", "region": "North Atlantic", "l4w": 600, "l52w": 4172, "units": 18, "wkly": 150, "wkly_u": 4.5, "l1w": 245, "momentum": 163.3, "reg_avg": 936, "gap_pct": -35.9, "ann_uplift": 87.0, "tier": 0}, {"num": 10850, "name": "Cheshire", "region": "North Atlantic", "l4w": 1109, "l52w": 3297, "units": 32, "wkly": 277, "wkly_u": 8.0, "l1w": 476, "momentum": 171.7, "reg_avg": 936, "gap_pct": 18.5, "ann_uplift": 337.3, "tier": 0}, {"num": 10413, "name": "Wellesley", "region": "North Atlantic", "l4w": 539, "l52w": 1676, "units": 16, "wkly": 135, "wkly_u": 4.0, "l1w": 70, "momentum": 51.9, "reg_avg": 936, "gap_pct": -42.4, "ann_uplift": 318.1, "tier": 0}, {"num": 10462, "name": "North Nashua", "region": "North Atlantic", "l4w": 714, "l52w": 2051, "units": 21, "wkly": 178, "wkly_u": 5.2, "l1w": 280, "momentum": 156.9, "reg_avg": 936, "gap_pct": -23.7, "ann_uplift": 352.6, "tier": 0}, {"num": 10801, "name": "Hyannis Capetown Plaza", "region": "North Atlantic", "l4w": 583, "l52w": 2666, "units": 17, "wkly": 146, "wkly_u": 4.2, "l1w": 210, "momentum": 144.1, "reg_avg": 936, "gap_pct": -37.7, "ann_uplift": 184.3, "tier": 0}, {"num": 10336, "name": "Glastonbury", "region": "North Atlantic", "l4w": 1171, "l52w": 6476, "units": 34, "wkly": 293, "wkly_u": 8.5, "l1w": 280, "momentum": 95.6, "reg_avg": 936, "gap_pct": 25.1, "ann_uplift": 135.1, "tier": 0}, {"num": 10371, "name": "Andover", "region": "North Atlantic", "l4w": 1267, "l52w": 4422, "units": 38, "wkly": 317, "wkly_u": 9.5, "l1w": 490, "momentum": 154.7, "reg_avg": 936, "gap_pct": 35.3, "ann_uplift": 272.5, "tier": 0}, {"num": 10090, "name": "Bedford", "region": "North Atlantic", "l4w": 210, "l52w": 1359, "units": 6, "wkly": 52, "wkly_u": 1.5, "l1w": 0, "momentum": 0.0, "reg_avg": 936, "gap_pct": -77.6, "ann_uplift": 100.9, "tier": 0}, {"num": 10513, "name": "Ink Block", "region": "North Atlantic", "l4w": 2884, "l52w": 12681, "units": 85, "wkly": 721, "wkly_u": 21.2, "l1w": 1050, "momentum": 145.6, "reg_avg": 936, "gap_pct": 208.1, "ann_uplift": 195.7, "tier": 0}, {"num": 10452, "name": "Lynnfield", "region": "North Atlantic", "l4w": 1745, "l52w": 6271, "units": 51, "wkly": 436, "wkly_u": 12.8, "l1w": 595, "momentum": 136.4, "reg_avg": 936, "gap_pct": 86.4, "ann_uplift": 261.7, "tier": 0}, {"num": 10843, "name": "Nashua South", "region": "North Atlantic", "l4w": 1523, "l52w": 4125, "units": 46, "wkly": 381, "wkly_u": 11.5, "l1w": 420, "momentum": 110.3, "reg_avg": 936, "gap_pct": 62.7, "ann_uplift": 380.0, "tier": 0}, {"num": 10291, "name": "Portland ME", "region": "North Atlantic", "l4w": 2231, "l52w": 7069, "units": 66, "wkly": 558, "wkly_u": 16.5, "l1w": 700, "momentum": 125.5, "reg_avg": 936, "gap_pct": 138.3, "ann_uplift": 310.3, "tier": 0}, {"num": 10113, "name": "River Street", "region": "North Atlantic", "l4w": 315, "l52w": 1309, "units": 9, "wkly": 79, "wkly_u": 2.2, "l1w": 175, "momentum": 222.2, "reg_avg": 936, "gap_pct": -66.4, "ann_uplift": 212.8, "tier": 0}, {"num": 10506, "name": "South Weymouth", "region": "North Atlantic", "l4w": 1621, "l52w": 9079, "units": 48, "wkly": 405, "wkly_u": 12.0, "l1w": 350, "momentum": 86.4, "reg_avg": 936, "gap_pct": 73.1, "ann_uplift": 132.1, "tier": 0}, {"num": 10031, "name": "Symphony", "region": "North Atlantic", "l4w": 903, "l52w": 3452, "units": 27, "wkly": 226, "wkly_u": 6.8, "l1w": 210, "momentum": 93.0, "reg_avg": 936, "gap_pct": -3.5, "ann_uplift": 240.1, "tier": 0}, {"num": 10111, "name": "University", "region": "North Atlantic", "l4w": 2489, "l52w": 8828, "units": 74, "wkly": 622, "wkly_u": 18.5, "l1w": 595, "momentum": 95.6, "reg_avg": 936, "gap_pct": 165.9, "ann_uplift": 266.5, "tier": 0}, {"num": 10217, "name": "West Hartford", "region": "North Atlantic", "l4w": 1666, "l52w": 5734, "units": 49, "wkly": 416, "wkly_u": 12.2, "l1w": 490, "momentum": 117.6, "reg_avg": 936, "gap_pct": 78.0, "ann_uplift": 277.7, "tier": 0}, {"num": 10384, "name": "Arbor Trails", "region": "Southwest", "l4w": 871, "l52w": 4244, "units": 26, "wkly": 218, "wkly_u": 6.5, "l1w": 315, "momentum": 144.7, "reg_avg": 1829, "gap_pct": -52.4, "ann_uplift": 166.8, "tier": 0}, {"num": 10665, "name": "Cedar Park", "region": "Southwest", "l4w": 774, "l52w": 3800, "units": 22, "wkly": 194, "wkly_u": 5.5, "l1w": 70, "momentum": 36.2, "reg_avg": 1829, "gap_pct": -57.7, "ann_uplift": 164.8, "tier": 0}, {"num": 10145, "name": "Lamar", "region": "Southwest", "l4w": 2134, "l52w": 11346, "units": 62, "wkly": 534, "wkly_u": 15.5, "l1w": 560, "momentum": 105.0, "reg_avg": 1829, "gap_pct": 16.7, "ann_uplift": 144.5, "tier": 0}, {"num": 10239, "name": "Park Lane", "region": "Southwest", "l4w": 2083, "l52w": 9582, "units": 64, "wkly": 521, "wkly_u": 16, "l1w": 630, "momentum": 121.0, "reg_avg": 1829, "gap_pct": 13.9, "ann_uplift": 182.6, "tier": 0}, {"num": 10258, "name": "Sugar Land", "region": "Southwest", "l4w": 4040, "l52w": 21094, "units": 117, "wkly": 1010, "wkly_u": 29.2, "l1w": 1435, "momentum": 142.1, "reg_avg": 1829, "gap_pct": 120.8, "ann_uplift": 149.0, "tier": 0}, {"num": 10497, "name": "Champions", "region": "Southwest", "l4w": 2252, "l52w": 11169, "units": 67, "wkly": 563, "wkly_u": 16.8, "l1w": 630, "momentum": 111.9, "reg_avg": 1829, "gap_pct": 23.1, "ann_uplift": 162.1, "tier": 0}, {"num": 10283, "name": "Lakewood", "region": "Southwest", "l4w": 1252, "l52w": 6046, "units": 36, "wkly": 313, "wkly_u": 9.0, "l1w": 350, "momentum": 111.8, "reg_avg": 1829, "gap_pct": -31.6, "ann_uplift": 169.2, "tier": 0}, {"num": 10075, "name": "Alamo Quarry", "region": "Southwest", "l4w": 5250, "l52w": 18219, "units": 154, "wkly": 1312, "wkly_u": 38.5, "l1w": 1260, "momentum": 96.0, "reg_avg": 1829, "gap_pct": 187.0, "ann_uplift": 274.6, "tier": 1}, {"num": 10627, "name": "Las Colinas", "region": "Southwest", "l4w": 3459, "l52w": 10517, "units": 105, "wkly": 865, "wkly_u": 26.2, "l1w": 770, "momentum": 89.0, "reg_avg": 1829, "gap_pct": 89.1, "ann_uplift": 327.6, "tier": 0}, {"num": 10346, "name": "Montrose", "region": "Southwest", "l4w": 3972, "l52w": 14378, "units": 121, "wkly": 993, "wkly_u": 30.2, "l1w": 1155, "momentum": 116.3, "reg_avg": 1829, "gap_pct": 117.1, "ann_uplift": 259.1, "tier": 0}, {"num": 10202, "name": "Veterans", "region": "Southwest", "l4w": 2277, "l52w": 11015, "units": 68, "wkly": 569, "wkly_u": 17.0, "l1w": 525, "momentum": 92.2, "reg_avg": 1829, "gap_pct": 24.5, "ann_uplift": 168.7, "tier": 0}, {"num": 10528, "name": "Ambassador Caffery", "region": "Southwest", "l4w": 1383, "l52w": 5499, "units": 53, "wkly": 346, "wkly_u": 13.2, "l1w": 548, "momentum": 158.5, "reg_avg": 1829, "gap_pct": -24.4, "ann_uplift": 227.0, "tier": 0}, {"num": 10036, "name": "Gateway", "region": "Southwest", "l4w": 956, "l52w": 6046, "units": 28, "wkly": 239, "wkly_u": 7.0, "l1w": 595, "momentum": 249.0, "reg_avg": 1829, "gap_pct": -47.7, "ann_uplift": 105.6, "tier": 0}, {"num": 10574, "name": "Woodlands", "region": "Southwest", "l4w": 3813, "l52w": 13406, "units": 111, "wkly": 953, "wkly_u": 27.8, "l1w": 1190, "momentum": 124.8, "reg_avg": 1829, "gap_pct": 108.4, "ann_uplift": 269.8, "tier": 0}, {"num": 10613, "name": "Cityline", "region": "Southwest", "l4w": 3253, "l52w": 8355, "units": 97, "wkly": 813, "wkly_u": 24.2, "l1w": 595, "momentum": 73.2, "reg_avg": 1829, "gap_pct": 77.8, "ann_uplift": 406.2, "tier": 0}, {"num": 10721, "name": "East Austin", "region": "Southwest", "l4w": 704, "l52w": 2620, "units": 27, "wkly": 176, "wkly_u": 6.8, "l1w": 302, "momentum": 171.6, "reg_avg": 1829, "gap_pct": -61.5, "ann_uplift": 249.3, "tier": 0}, {"num": 10596, "name": "Fayetteville", "region": "Southwest", "l4w": 1238, "l52w": 5029, "units": 36, "wkly": 310, "wkly_u": 9.0, "l1w": 385, "momentum": 124.4, "reg_avg": 1829, "gap_pct": -32.3, "ann_uplift": 220.0, "tier": 0}, {"num": 10030, "name": "Plano", "region": "Southwest", "l4w": 1269, "l52w": 5530, "units": 37, "wkly": 317, "wkly_u": 9.2, "l1w": 385, "momentum": 121.4, "reg_avg": 1829, "gap_pct": -30.6, "ann_uplift": 198.3, "tier": 0}, {"num": 10575, "name": "Shreveport", "region": "Southwest", "l4w": 280, "l52w": 5056, "units": 8, "wkly": 70, "wkly_u": 2.0, "l1w": 280, "momentum": 400.0, "reg_avg": 1829, "gap_pct": -84.7, "ann_uplift": -28.0, "tier": 0}, {"num": 10198, "name": "Baton Rouge", "region": "Southwest", "l4w": 3180, "l52w": 12830, "units": 97, "wkly": 795, "wkly_u": 24.2, "l1w": 840, "momentum": 105.7, "reg_avg": 1829, "gap_pct": 73.8, "ann_uplift": 222.2, "tier": 0}, {"num": 10134, "name": "Bellaire", "region": "Southwest", "l4w": 1192, "l52w": 7895, "units": 35, "wkly": 298, "wkly_u": 8.8, "l1w": 455, "momentum": 152.7, "reg_avg": 1829, "gap_pct": -34.8, "ann_uplift": 96.3, "tier": 0}, {"num": 10551, "name": "Bowman", "region": "Southwest", "l4w": 2964, "l52w": 13779, "units": 88, "wkly": 741, "wkly_u": 22.0, "l1w": 770, "momentum": 103.9, "reg_avg": 1829, "gap_pct": 62.0, "ann_uplift": 179.6, "tier": 0}, {"num": 10316, "name": "Domain", "region": "Southwest", "l4w": 1930, "l52w": 9435, "units": 58, "wkly": 482, "wkly_u": 14.5, "l1w": 609, "momentum": 126.2, "reg_avg": 1829, "gap_pct": 5.5, "ann_uplift": 165.9, "tier": 3}, {"num": 10227, "name": "Forest", "region": "Southwest", "l4w": 570, "l52w": 4022, "units": 18, "wkly": 142, "wkly_u": 4.5, "l1w": 175, "momentum": 122.8, "reg_avg": 1829, "gap_pct": -68.8, "ann_uplift": 84.2, "tier": 0}, {"num": 10332, "name": "Ft Worth", "region": "Southwest", "l4w": 3379, "l52w": 10447, "units": 100, "wkly": 845, "wkly_u": 25.0, "l1w": 945, "momentum": 111.9, "reg_avg": 1829, "gap_pct": 84.7, "ann_uplift": 320.5, "tier": 0}, {"num": 10140, "name": "Highland Park", "region": "Southwest", "l4w": 1148, "l52w": 5110, "units": 34, "wkly": 287, "wkly_u": 8.5, "l1w": 525, "momentum": 182.9, "reg_avg": 1829, "gap_pct": -37.2, "ann_uplift": 192.1, "tier": 0}, {"num": 10652, "name": "Independence Heights", "region": "Southwest", "l4w": 2605, "l52w": 13937, "units": 77, "wkly": 651, "wkly_u": 19.2, "l1w": 665, "momentum": 102.1, "reg_avg": 1829, "gap_pct": 42.4, "ann_uplift": 143.0, "tier": 0}, {"num": 10474, "name": "Katy", "region": "Southwest", "l4w": 2543, "l52w": 18412, "units": 76, "wkly": 636, "wkly_u": 19.0, "l1w": 735, "momentum": 115.6, "reg_avg": 1829, "gap_pct": 39.0, "ann_uplift": 79.6, "tier": 0}, {"num": 10631, "name": "Mandeville", "region": "Southwest", "l4w": 982, "l52w": 6423, "units": 29, "wkly": 246, "wkly_u": 7.2, "l1w": 350, "momentum": 142.6, "reg_avg": 1829, "gap_pct": -46.3, "ann_uplift": 98.8, "tier": 0}, {"num": 10376, "name": "Oklahoma City", "region": "Southwest", "l4w": 2035, "l52w": 9754, "units": 60, "wkly": 509, "wkly_u": 15.0, "l1w": 595, "momentum": 117.0, "reg_avg": 1829, "gap_pct": 11.2, "ann_uplift": 171.2, "tier": 0}, {"num": 10098, "name": "Parkway", "region": "Southwest", "l4w": 3049, "l52w": 12789, "units": 91, "wkly": 762, "wkly_u": 22.8, "l1w": 770, "momentum": 101.0, "reg_avg": 1829, "gap_pct": 66.7, "ann_uplift": 209.9, "tier": 0}, {"num": 10505, "name": "Uptown Dallas", "region": "Southwest", "l4w": 1383, "l52w": 5014, "units": 41, "wkly": 346, "wkly_u": 10.2, "l1w": 350, "momentum": 101.2, "reg_avg": 1829, "gap_pct": -24.4, "ann_uplift": 258.6, "tier": 0}, {"num": 10444, "name": "Vineyard", "region": "Southwest", "l4w": 1295, "l52w": 4333, "units": 37, "wkly": 324, "wkly_u": 9.2, "l1w": 525, "momentum": 162.2, "reg_avg": 1829, "gap_pct": -29.2, "ann_uplift": 288.5, "tier": 0}, {"num": 10552, "name": "Voss", "region": "Southwest", "l4w": 1617, "l52w": 7052, "units": 48, "wkly": 404, "wkly_u": 12.0, "l1w": 420, "momentum": 103.9, "reg_avg": 1829, "gap_pct": -11.6, "ann_uplift": 198.1, "tier": 0}, {"num": 10612, "name": "Westchase", "region": "Southwest", "l4w": 3030, "l52w": 14984, "units": 89, "wkly": 758, "wkly_u": 22.2, "l1w": 1085, "momentum": 143.2, "reg_avg": 1829, "gap_pct": 65.6, "ann_uplift": 162.9, "tier": 0}, {"num": 10472, "name": "Yale", "region": "Southwest", "l4w": 808, "l52w": 5017, "units": 24, "wkly": 202, "wkly_u": 6, "l1w": 210, "momentum": 104.0, "reg_avg": 1829, "gap_pct": -55.8, "ann_uplift": 109.4, "tier": 0}, {"num": 10122, "name": "Fresno", "region": "Northern California", "l4w": 2432, "l52w": 10078, "units": 71, "wkly": 608, "wkly_u": 17.8, "l1w": 700, "momentum": 115.1, "reg_avg": 963, "gap_pct": 152.6, "ann_uplift": 213.7, "tier": 0}, {"num": 10813, "name": "Los Gatos - Almaden", "region": "Northern California", "l4w": 728, "l52w": 999, "units": 19, "wkly": 182, "wkly_u": 4.8, "l1w": 420, "momentum": 230.8, "reg_avg": 963, "gap_pct": -24.4, "ann_uplift": 847.3, "tier": 0}, {"num": 10152, "name": "Sacramento", "region": "Northern California", "l4w": 1119, "l52w": 5044, "units": 33, "wkly": 280, "wkly_u": 8.2, "l1w": 210, "momentum": 75.1, "reg_avg": 963, "gap_pct": 16.2, "ann_uplift": 188.4, "tier": 0}, {"num": 10320, "name": "Blossom Hill", "region": "Northern California", "l4w": 2685, "l52w": 9305, "units": 79, "wkly": 671, "wkly_u": 19.8, "l1w": 910, "momentum": 135.6, "reg_avg": 963, "gap_pct": 178.9, "ann_uplift": 275.1, "tier": 0}, {"num": 10221, "name": "Harrison", "region": "Northern California", "l4w": 1419, "l52w": 6261, "units": 42, "wkly": 355, "wkly_u": 10.5, "l1w": 455, "momentum": 128.3, "reg_avg": 963, "gap_pct": 47.4, "ann_uplift": 194.6, "tier": 0}, {"num": 10238, "name": "Potrero Hill", "region": "Northern California", "l4w": 894, "l52w": 4067, "units": 27, "wkly": 224, "wkly_u": 6.8, "l1w": 280, "momentum": 125.3, "reg_avg": 963, "gap_pct": -7.2, "ann_uplift": 185.8, "tier": 2}, {"num": 10087, "name": "Monterey", "region": "Northern California", "l4w": 1500, "l52w": 4551, "units": 45, "wkly": 375, "wkly_u": 11.2, "l1w": 630, "momentum": 168.0, "reg_avg": 963, "gap_pct": 55.8, "ann_uplift": 328.5, "tier": 0}, {"num": 10071, "name": "San Rafael", "region": "Northern California", "l4w": 437, "l52w": 1785, "units": 13, "wkly": 109, "wkly_u": 3.2, "l1w": 105, "momentum": 96.1, "reg_avg": 963, "gap_pct": -54.6, "ann_uplift": 218.3, "tier": 0}, {"num": 10230, "name": "Roseville", "region": "Northern California", "l4w": 2452, "l52w": 8105, "units": 75, "wkly": 613, "wkly_u": 18.8, "l1w": 910, "momentum": 148.5, "reg_avg": 963, "gap_pct": 154.7, "ann_uplift": 293.3, "tier": 0}, {"num": 10150, "name": "San Mateo", "region": "Northern California", "l4w": 1732, "l52w": 6335, "units": 51, "wkly": 433, "wkly_u": 12.8, "l1w": 385, "momentum": 88.9, "reg_avg": 963, "gap_pct": 79.9, "ann_uplift": 255.4, "tier": 0}, {"num": 10467, "name": "Fremont Mowry", "region": "Northern California", "l4w": 2110, "l52w": 9049, "units": 61, "wkly": 528, "wkly_u": 15.2, "l1w": 427, "momentum": 80.9, "reg_avg": 963, "gap_pct": 119.1, "ann_uplift": 203.1, "tier": 0}, {"num": 10677, "name": "Concord", "region": "Northern California", "l4w": 990, "l52w": 2974, "units": 29, "wkly": 248, "wkly_u": 7.2, "l1w": 420, "momentum": 169.7, "reg_avg": 963, "gap_pct": 2.8, "ann_uplift": 332.8, "tier": 5}, {"num": 10370, "name": "Coddingtown", "region": "Northern California", "l4w": 1399, "l52w": 5706, "units": 43, "wkly": 350, "wkly_u": 10.8, "l1w": 455, "momentum": 130.1, "reg_avg": 963, "gap_pct": 45.3, "ann_uplift": 218.7, "tier": 0}, {"num": 10155, "name": "Los Altos", "region": "Northern California", "l4w": 737, "l52w": 3292, "units": 22, "wkly": 184, "wkly_u": 5.5, "l1w": 210, "momentum": 114.0, "reg_avg": 963, "gap_pct": -23.5, "ann_uplift": 191.0, "tier": 0}, {"num": 10288, "name": "Napa", "region": "Northern California", "l4w": 1089, "l52w": 5459, "units": 33, "wkly": 272, "wkly_u": 8.2, "l1w": 280, "momentum": 102.8, "reg_avg": 963, "gap_pct": 13.1, "ann_uplift": 159.3, "tier": 0}, {"num": 10717, "name": "Stonestown", "region": "Northern California", "l4w": 955, "l52w": 4032, "units": 33, "wkly": 239, "wkly_u": 8.2, "l1w": 140, "momentum": 58.6, "reg_avg": 963, "gap_pct": -0.8, "ann_uplift": 207.9, "tier": 0}, {"num": 10547, "name": "Dublin", "region": "Northern California", "l4w": 1413, "l52w": 7176, "units": 41, "wkly": 353, "wkly_u": 10.2, "l1w": 525, "momentum": 148.6, "reg_avg": 963, "gap_pct": 46.8, "ann_uplift": 156.0, "tier": 0}, {"num": 10447, "name": "Folsom", "region": "Northern California", "l4w": 1532, "l52w": 9357, "units": 45, "wkly": 383, "wkly_u": 11.2, "l1w": 315, "momentum": 82.2, "reg_avg": 963, "gap_pct": 59.1, "ann_uplift": 112.8, "tier": 0}, {"num": 10234, "name": "Novato", "region": "Northern California", "l4w": 651, "l52w": 2758, "units": 20, "wkly": 163, "wkly_u": 5.0, "l1w": 210, "momentum": 129.0, "reg_avg": 963, "gap_pct": -32.4, "ann_uplift": 206.9, "tier": 0}, {"num": 10293, "name": "Reno", "region": "Northern California", "l4w": 3088, "l52w": 8526, "units": 119, "wkly": 772, "wkly_u": 29.8, "l1w": 592, "momentum": 76.7, "reg_avg": 963, "gap_pct": 220.7, "ann_uplift": 370.8, "tier": 0}, {"num": 10281, "name": "Sonoma", "region": "Northern California", "l4w": 245, "l52w": 1130, "units": 7, "wkly": 61, "wkly_u": 1.8, "l1w": 70, "momentum": 114.3, "reg_avg": 963, "gap_pct": -74.6, "ann_uplift": 181.9, "tier": 0}, {"num": 10703, "name": "South Lake Tahoe (NC)", "region": "Northern California", "l4w": 175, "l52w": 1429, "units": 5, "wkly": 44, "wkly_u": 1.2, "l1w": 70, "momentum": 160.0, "reg_avg": 963, "gap_pct": -81.8, "ann_uplift": 59.2, "tier": 0}, {"num": 10101, "name": "Walnut Creek", "region": "Northern California", "l4w": 1451, "l52w": 6427, "units": 43, "wkly": 363, "wkly_u": 10.8, "l1w": 315, "momentum": 86.8, "reg_avg": 963, "gap_pct": 50.7, "ann_uplift": 193.5, "tier": 0}, {"num": 10548, "name": "Ygnacio Valley Road", "region": "Northern California", "l4w": 820, "l52w": 4229, "units": 26, "wkly": 205, "wkly_u": 6.5, "l1w": 175, "momentum": 85.4, "reg_avg": 963, "gap_pct": -14.8, "ann_uplift": 152.1, "tier": 0}, {"num": 10647, "name": "Tysons Corner", "region": "Mid-Atlantic", "l4w": 1178, "l52w": 3833, "units": 34, "wkly": 294, "wkly_u": 8.5, "l1w": 417, "momentum": 141.6, "reg_avg": 1435, "gap_pct": -17.9, "ann_uplift": 299.5, "tier": 0}, {"num": 10432, "name": "Ocean", "region": "Northern California", "l4w": 0, "l52w": 905, "units": 0, "wkly": 0, "wkly_u": 0, "l1w": 0, "momentum": 0, "reg_avg": 963, "gap_pct": -100.0, "ann_uplift": -100.0, "tier": 0}, {"num": 10861, "name": "Stuytown", "region": "Northeast", "l4w": 0, "l52w": -14, "units": 0, "wkly": 0, "wkly_u": 0, "l1w": 0, "momentum": 0, "reg_avg": 2095, "gap_pct": -100.0, "ann_uplift": null, "tier": 0}];
 
 // ── DATA ──────────────────────────────────────────────────────────────────
-// S is injected above this block
+// S injected below
 
 const REGIONS = [...new Set(S.map(s => s.region))].sort();
 const TL = {0:"Not visited",1:"Tier 1 — Elite",2:"Tier 2 — Good",3:"Tier 3 — Fix needed",4:"Tier 4 — High potential",5:"Tier 5 — Needs attention"};
 const TC = {0:"#cccccc",1:"#0a6e5a",2:"#5a9e72",3:"#c47a1a",4:"#d86e2e",5:"#b83232"};
 
-let aR = new Set(), aT = new Set(), gF = "all", mL = 0, sq = "", sc = "l4w", sd = -1, at = "table", CHS = {};
+let aR = new Set(), gF = "all", mL = 0, sq = "", sc = "l4w", sd = -1, at = "table", CHS = {};
 
 // ── FILTER ────────────────────────────────────────────────────────────────
 function filt() {
   return S.filter(s => {
     if (s.l4w === 0 && s.l52w <= 0) return false;
     if (aR.size && !aR.has(s.region)) return false;
-    if (aT.size && !aT.has(s.tier)) return false;
     if (mL > 0 && s.l4w < mL) return false;
     if (sq) { const q = sq.toLowerCase(); if (!s.name.toLowerCase().includes(q) && !String(s.num).includes(q)) return false; }
     if (gF === "u50" && s.gap_pct > -50) return false;
-    if (gF === "u30" && s.gap_pct > -30) return false;
+    if (gF === "u30" && s.gap_pct > -20) return false;
     if (gF === "a20" && s.gap_pct < 20) return false;
+    if (gF === "visited" && s.tier === 0) return false;
     return true;
   });
 }
 
-// ── SIDEBAR INIT ──────────────────────────────────────────────────────────
+// ── SIDEBAR ────────────────────────────────────────────────────────────────
 function initSB() {
   const rf = document.getElementById("rf");
   REGIONS.forEach(r => {
     const cnt = S.filter(s => s.region === r).length;
     const b = document.createElement("button");
-    b.className = "fb";
-    b.id = "rb-" + r.replace(/\s/g, "_");
+    b.className = "fb"; b.id = "rb-" + r.replace(/\s/g,"_");
     b.innerHTML = r + '<span class="fc">' + cnt + '</span>';
     b.onclick = () => toggleR(r);
     rf.appendChild(b);
   });
-  const tf = document.getElementById("tf");
-  [1,2,3,4,5].forEach(t => {
-    const cnt = S.filter(s => s.tier === t).length;
-    const b = document.createElement("button");
-    b.className = "fb";
-    b.id = "tb-" + t;
-    b.innerHTML = '<span style="display:flex;align-items:center;gap:6px"><span style="width:7px;height:7px;border-radius:50%;background:' + TC[t] + ';flex-shrink:0;display:inline-block"></span>' + TL[t] + '</span><span class="fc">' + cnt + '</span>';
-    b.onclick = () => toggleT(t);
-    tf.appendChild(b);
-  });
-  ["all","u50","u30","a20"].forEach(k => {
-    const n = k==="all" ? S.filter(s=>s.l4w>0).length : k==="u50" ? S.filter(s=>s.gap_pct<-50).length : k==="u30" ? S.filter(s=>s.gap_pct<-30).length : S.filter(s=>s.gap_pct>20).length;
-    document.getElementById("gc-" + k).textContent = n;
-  });
+  const counts = {
+    all: S.filter(s=>s.l4w>0||s.l52w>0).length,
+    u50: S.filter(s=>s.gap_pct<-50).length,
+    u30: S.filter(s=>s.gap_pct<-20).length,
+    a20: S.filter(s=>s.gap_pct>20).length,
+    visited: S.filter(s=>s.tier>0).length
+  };
+  Object.entries(counts).forEach(([k,v]) => { const el = document.getElementById("gc-"+k); if(el) el.textContent = v; });
 }
 
 function toggleR(r) {
-  const id = "rb-" + r.replace(/\s/g, "_");
+  const id = "rb-" + r.replace(/\s/g,"_");
   if (aR.has(r)) { aR.delete(r); document.getElementById(id).classList.remove("on"); }
   else { aR.add(r); document.getElementById(id).classList.add("on"); }
   refresh();
 }
-function toggleT(t) {
-  const id = "tb-" + t;
-  if (aT.has(t)) { aT.delete(t); document.getElementById(id).classList.remove("on"); }
-  else { aT.add(t); document.getElementById(id).classList.add("on"); }
-  refresh();
-}
 function setGF(f) {
   gF = f;
-  ["all","u50","u30","a20"].forEach(k => document.getElementById("gf-" + k).classList.remove("on"));
-  document.getElementById("gf-" + f).classList.add("on");
+  ["all","u50","u30","a20","visited"].forEach(k => { const el = document.getElementById("gf-"+k); if(el) el.classList.remove("on"); });
+  document.getElementById("gf-"+f).classList.add("on");
   refresh();
 }
 function setML(v) { mL = parseInt(v); document.getElementById("ml-v").textContent = "$" + mL.toLocaleString(); refresh(); }
 function clearAll() {
-  aR.clear(); aT.clear(); gF = "all"; mL = 0; sq = "";
+  aR.clear(); gF = "all"; mL = 0; sq = "";
   document.querySelectorAll(".fb").forEach(b => b.classList.remove("on"));
   document.getElementById("gf-all").classList.add("on");
   document.getElementById("ml").value = 0;
@@ -306,26 +389,88 @@ function clearAll() {
   refresh();
 }
 
-// ── KPIs ──────────────────────────────────────────────────────────────────
+// ── KPIs + HEADER ──────────────────────────────────────────────────────────
 function updK(d) {
   const n = d.length;
+  const avg = n ? Math.round(d.reduce((a,s)=>a+s.l4w,0)/n) : 0;
+  const gaps = d.filter(s=>s.gap_pct<-50).length;
+  const opp = Math.round(d.filter(s=>s.gap_pct<-20).reduce((a,s)=>a+Math.max(0,s.reg_avg-s.l4w),0)/4);
+  const top = n ? Math.max(...d.map(s=>s.l4w)) : 0;
   document.getElementById("k0").textContent = n.toLocaleString();
-  document.getElementById("k1").textContent = n ? "$" + Math.round(d.reduce((a,s) => a+s.l4w, 0)/n).toLocaleString() : "—";
-  document.getElementById("k2").textContent = d.filter(s => s.gap_pct < -50).length;
-  const opp = Math.round(d.filter(s => s.gap_pct < -20).reduce((a,s) => a + Math.max(0, s.reg_avg - s.l4w), 0) / 4);
-  document.getElementById("k3").textContent = "+$" + opp.toLocaleString() + "/wk";
-  document.getElementById("k4").textContent = n ? "$" + Math.max(...d.map(s => s.l4w)).toLocaleString() : "—";
-  document.getElementById("hdr-n").textContent = n + " stores";
+  document.getElementById("k1").textContent = n ? "$"+avg.toLocaleString() : "—";
+  document.getElementById("k2").textContent = gaps;
+  document.getElementById("k3").textContent = "+$"+opp.toLocaleString()+"/wk";
+  document.getElementById("k4").textContent = n ? "$"+top.toLocaleString() : "—";
+  document.getElementById("hdr-n").textContent = n;
+  document.getElementById("hdr-gap").textContent = gaps;
+  document.getElementById("hdr-opp").textContent = "+$"+opp.toLocaleString()+"/wk";
+  document.getElementById("hdr-visited").textContent = d.filter(s=>s.tier>0).length;
 }
 
-// ── TABLE ─────────────────────────────────────────────────────────────────
+// ── OPPORTUNITY BAND ───────────────────────────────────────────────────────
+function renderOppBand() {
+  const d = filt();
+  // Stores with revenue > region avg but tier>0 (visited, so we know placement)
+  // These are stores that are already doing well or could do better
+  // We show: (1) high rev + visited (stars to learn from), (2) visited + bad gap (quick fix), (3) visited + no secondary implied by tier 3-5
+  
+  const visited = d.filter(s=>s.tier>0);
+  
+  // Category 1: Stars — visited, top L4W
+  const stars = [...visited].sort((a,b)=>b.l4w-a.l4w).slice(0,2);
+  
+  // Category 2: Quick wins — visited, gap < -20%, meaning they're below peers despite us knowing placement
+  const quickWins = visited.filter(s=>s.gap_pct<-20).sort((a,b)=>a.gap_pct-b.gap_pct).slice(0,2);
+  
+  // Category 3: Cluster anomalies — same region, big gap (from unvisited, high-potential)
+  const anomalies = d.filter(s=>s.gap_pct<-50&&s.l4w>500).sort((a,b)=>a.gap_pct-b.gap_pct).slice(0,2);
+  
+  const cards = [];
+  quickWins.forEach(s => {
+    cards.push(`<div class="opp-card" onclick="openDW(${s.num})">
+      <div class="opp-tag red">Fix placement</div>
+      <div class="opp-name">${s.name}</div>
+      <div class="opp-sub">${s.region} &middot; Visited · Tier ${s.tier}</div>
+      <div class="opp-rev">$${s.l4w.toLocaleString()}</div>
+      <div class="opp-delta" style="color:var(--red)">${s.gap_pct}% vs region</div>
+    </div>`);
+  });
+  anomalies.forEach(s => {
+    const potential = s.reg_avg - s.l4w;
+    cards.push(`<div class="opp-card" onclick="openDW(${s.num})">
+      <div class="opp-tag amb">Cluster gap</div>
+      <div class="opp-name">${s.name}</div>
+      <div class="opp-sub">${s.region} &middot; Same area, different results</div>
+      <div class="opp-rev">$${s.l4w.toLocaleString()}</div>
+      <div class="opp-delta" style="color:var(--amb)">+$${potential.toLocaleString()} gap to region avg</div>
+    </div>`);
+  });
+  stars.forEach(s => {
+    cards.push(`<div class="opp-card" onclick="openDW(${s.num})">
+      <div class="opp-tag grn">Blueprint store</div>
+      <div class="opp-name">${s.name}</div>
+      <div class="opp-sub">${s.region} &middot; Visited · Study this</div>
+      <div class="opp-rev">$${s.l4w.toLocaleString()}</div>
+      <div class="opp-delta" style="color:var(--grn)">+${s.gap_pct}% vs region</div>
+    </div>`);
+  });
+  
+  const grid = document.getElementById("opp-grid");
+  if (cards.length) {
+    grid.style.gridTemplateColumns = "repeat("+Math.min(cards.length,3)+",1fr)";
+    grid.innerHTML = cards.slice(0,6).join("");
+  } else {
+    grid.innerHTML = '<div style="color:var(--ink3);font-size:12px;grid-column:1/-1;padding:4px 0">No visited stores in current filter — add field visit data or clear filters.</div>';
+  }
+}
+
+// ── TABLE ──────────────────────────────────────────────────────────────────
 function mc(m) { return m >= 90 ? "var(--grn)" : m >= 60 ? "var(--amb)" : "var(--red)"; }
 function gcls(g) { return g >= 0 ? "gp" : g >= -30 ? "ga" : "gr"; }
 
 function renderTable() {
   const d = filt().sort((a,b) => {
-    const va = a[sc] != null ? a[sc] : 0;
-    const vb = b[sc] != null ? b[sc] : 0;
+    const va = a[sc] != null ? a[sc] : 0, vb = b[sc] != null ? b[sc] : 0;
     return typeof va === "string" ? sd * va.localeCompare(vb) : sd * (va - vb);
   });
   updK(d);
@@ -334,17 +479,15 @@ function renderTable() {
   body.innerHTML = d.map(s => {
     const gs = (s.gap_pct >= 0 ? "+" : "") + s.gap_pct + "%";
     const ms = s.momentum > 0 ? s.momentum + "%" : "—";
-    return '<div class="tr" onclick="openDW(' + s.num + ')">'
-      + '<div class="tc"><span class="dot d' + s.tier + '"></span></div>'
-      + '<div class="tc nm" title="' + s.name + '">' + s.name + '</div>'
-      + '<div class="tc rg">' + s.region + '</div>'
-      + '<div class="tc mn rt">$' + s.l4w.toLocaleString() + '</div>'
-      + '<div class="tc mn rt" style="color:var(--ink3)">$' + s.l52w.toLocaleString() + '</div>'
-      + '<div class="tc mn rt" style="color:var(--ink3)">$' + s.wkly.toLocaleString() + '</div>'
-      + '<div class="tc rt"><span style="font-family:\'Syne Mono\',monospace;font-size:11px;color:' + mc(s.momentum) + '">' + ms + '</span></div>'
-      + '<div class="tc rt"><span class="gb ' + gcls(s.gap_pct) + '">' + gs + '</span></div>'
-      + '<div class="tc" style="text-align:right;color:var(--ink3);font-size:11px">›</div>'
-      + '</div>';
+    return `<div class="tr" onclick="openDW(${s.num})">
+      <div class="tc"><span class="dot d${s.tier}"></span></div>
+      <div class="tc nm" title="${s.name}">${s.name}</div>
+      <div class="tc rg">${s.region}</div>
+      <div class="tc mn rt">$${s.l4w.toLocaleString()}</div>
+      <div class="tc rt"><span style="font-family:"DM Sans",sans-serif;font-size:11px;color:${mc(s.momentum)}">${ms}</span></div>
+      <div class="tc rt"><span class="gb ${gcls(s.gap_pct)}">${gs}</span></div>
+      <div class="tc" style="text-align:right;color:var(--ink3);font-size:11px">›</div>
+    </div>`;
   }).join("");
   document.getElementById("tb-cnt").textContent = d.length + " stores shown";
 }
@@ -352,43 +495,43 @@ function renderTable() {
 function srtBy(col) {
   if (sc === col) sd *= -1; else { sc = col; sd = -1; }
   document.querySelectorAll(".th").forEach(t => { t.classList.remove("srt"); const sp = t.querySelector("span"); if (sp) sp.textContent = "↕"; });
-  const th = document.getElementById("th-" + col);
-  if (th) { th.classList.add("srt"); const sp = th.querySelector("span"); if (sp) sp.textContent = sd === -1 ? "↓" : "↑"; }
+  const th = document.getElementById("th-"+col);
+  if (th) { th.classList.add("srt"); const sp = th.querySelector("span"); if (sp) sp.textContent = sd===-1?"↓":"↑"; }
   renderTable();
 }
 
-// ── REGIONS ───────────────────────────────────────────────────────────────
+// ── REGIONS ────────────────────────────────────────────────────────────────
 function renderRegions() {
   const d = filt();
   document.getElementById("rg").innerHTML = REGIONS.map(r => {
-    const ss = d.filter(s => s.region === r);
+    const ss = d.filter(s=>s.region===r);
     if (!ss.length) return "";
-    const avg = Math.round(ss.reduce((a,s) => a+s.l4w, 0) / ss.length);
-    const srt = ss.map(s => s.l4w).sort((a,b) => a-b);
+    const avg = Math.round(ss.reduce((a,s)=>a+s.l4w,0)/ss.length);
+    const srt = ss.map(s=>s.l4w).sort((a,b)=>a-b);
     const med = srt[Math.floor(srt.length/2)];
     const mn = srt[0];
-    const outs = ss.filter(s => s.gap_pct < -50).sort((a,b) => a.gap_pct - b.gap_pct).slice(0,3);
-    const tops = ss.filter(s => s.gap_pct > 50).sort((a,b) => b.l4w - a.l4w).slice(0,2);
-    let h = '<div class="rc">'
-      + '<div class="rc-name">' + r + '<span class="rc-cnt">' + ss.length + '</span></div>'
-      + '<div class="rc-stats">'
-      + '<div class="rs"><div class="rsv">$' + avg.toLocaleString() + '</div><div class="rsl">Avg L4W</div></div>'
-      + '<div class="rs"><div class="rsv">$' + med.toLocaleString() + '</div><div class="rsl">Median</div></div>'
-      + '<div class="rs"><div class="rsv" style="color:var(--red)">$' + mn.toLocaleString() + '</div><div class="rsl">Lowest</div></div>'
-      + '</div>';
-    if (outs.length) h += '<div class="rc-out"><div style="margin-bottom:3px;color:var(--red);font-size:10px;letter-spacing:.06em">UNDERPERFORMERS</div>'
-      + outs.map(s => '<div class="roi"><span>' + s.name + '</span><span style="color:var(--red);font-family:Syne Mono,monospace">' + s.gap_pct + '%</span></div>').join("") + '</div>';
-    if (tops.length) h += '<div class="rc-out" style="margin-top:7px"><div style="margin-bottom:3px;color:var(--grn);font-size:10px;letter-spacing:.06em">TOP PERFORMERS</div>'
-      + tops.map(s => '<div class="roi"><span>' + s.name + '</span><span style="color:var(--grn);font-family:Syne Mono,monospace">+' + s.gap_pct + '%</span></div>').join("") + '</div>';
-    return h + '</div>';
+    const outs = ss.filter(s=>s.gap_pct<-50).sort((a,b)=>a.gap_pct-b.gap_pct).slice(0,3);
+    const tops = ss.filter(s=>s.gap_pct>50).sort((a,b)=>b.l4w-a.l4w).slice(0,2);
+    let h = `<div class="rc">
+      <div class="rc-name">${r}<span class="rc-cnt">${ss.length} stores</span></div>
+      <div class="rc-stats">
+        <div class="rs"><div class="rsv">$${avg.toLocaleString()}</div><div class="rsl">Avg L4W</div></div>
+        <div class="rs"><div class="rsv">$${med.toLocaleString()}</div><div class="rsl">Median</div></div>
+        <div class="rs"><div class="rsv" style="color:var(--red)">$${mn.toLocaleString()}</div><div class="rsl">Lowest</div></div>
+      </div>`;
+    if (outs.length) h += `<div class="rc-out"><div style="margin-bottom:3px;color:var(--red);font-size:9px;letter-spacing:.06em;font-family:"DM Sans",sans-serif">UNDERPERFORMERS</div>` +
+      outs.map(s=>`<div class="roi" style="cursor:pointer" onclick="openDW(${s.num})"><span>${s.name}</span><span style="color:var(--red);font-family:"DM Sans",sans-serif">${s.gap_pct}%</span></div>`).join("") + `</div>`;
+    if (tops.length) h += `<div class="rc-out" style="margin-top:6px"><div style="margin-bottom:3px;color:var(--grn);font-size:9px;letter-spacing:.06em;font-family:"DM Sans",sans-serif">TOP PERFORMERS</div>` +
+      tops.map(s=>`<div class="roi" style="cursor:pointer" onclick="openDW(${s.num})"><span>${s.name}</span><span style="color:var(--grn);font-family:"DM Sans",sans-serif">+${s.gap_pct}%</span></div>`).join("") + `</div>`;
+    return h + `</div>`;
   }).join("");
 }
 
-// ── CHARTS ────────────────────────────────────────────────────────────────
+// ── CHARTS ─────────────────────────────────────────────────────────────────
 const CD = {
   responsive:true, maintainAspectRatio:false,
-  plugins:{ legend:{display:false}, tooltip:{backgroundColor:"#fff",borderColor:"#e2dfd8",borderWidth:1,titleColor:"#1a1a18",bodyColor:"#4a4a46",padding:9,boxShadow:"0 2px 8px rgba(0,0,0,.1)"} },
-  scales:{ x:{grid:{color:"rgba(0,0,0,.04)"},ticks:{color:"#8a8a84",font:{size:10}}}, y:{grid:{color:"rgba(0,0,0,.04)"},ticks:{color:"#8a8a84",font:{size:10}}} }
+  plugins:{legend:{display:false},tooltip:{backgroundColor:"#fff",borderColor:"#e2dfd8",borderWidth:1,titleColor:"#1a1a18",bodyColor:"#4a4a46",padding:9}},
+  scales:{x:{grid:{color:"rgba(0,0,0,.04)"},ticks:{color:"#8a8a84",font:{size:10}}},y:{grid:{color:"rgba(0,0,0,.04)"},ticks:{color:"#8a8a84",font:{size:10}}}}
 };
 function dc(id) { if (CHS[id]) { CHS[id].destroy(); delete CHS[id]; } }
 
@@ -396,126 +539,204 @@ function renderCharts() {
   const d = filt();
   dc("c1");
   const bins=[0,500,1000,1500,2000,3000,5000,99999], bls=["<$500","$0.5-1K","$1-1.5K","$1.5-2K","$2-3K","$3-5K","$5K+"];
-  const cts = bls.map((_,i) => d.filter(s => s.l4w >= bins[i] && s.l4w < bins[i+1]).length);
+  const cts = bls.map((_,i)=>d.filter(s=>s.l4w>=bins[i]&&s.l4w<bins[i+1]).length);
   CHS["c1"] = new Chart(document.getElementById("c1"),{type:"bar",data:{labels:bls,datasets:[{data:cts,backgroundColor:"rgba(10,110,90,.7)",borderRadius:4,borderSkipped:false}]},options:JSON.parse(JSON.stringify(CD))});
 
   dc("c2");
-  const rd = REGIONS.map(r => { const ss=d.filter(s=>s.region===r); return {r, a:ss.length?Math.round(ss.reduce((x,s)=>x+s.l4w,0)/ss.length):0}; }).filter(x=>x.a>0).sort((a,b)=>b.a-a.a);
-  const o2 = JSON.parse(JSON.stringify(CD)); o2.scales.y.ticks.callback = v => "$" + Math.round(v/1000) + "K";
+  const rd = REGIONS.map(r=>{const ss=d.filter(s=>s.region===r);return{r,a:ss.length?Math.round(ss.reduce((x,s)=>x+s.l4w,0)/ss.length):0};}).filter(x=>x.a>0).sort((a,b)=>b.a-a.a);
+  const o2 = JSON.parse(JSON.stringify(CD)); o2.scales.y.ticks.callback = v=>"$"+Math.round(v/1000)+"K";
   CHS["c2"] = new Chart(document.getElementById("c2"),{type:"bar",data:{labels:rd.map(x=>x.r),datasets:[{data:rd.map(x=>x.a),backgroundColor:"rgba(10,110,90,.7)",borderRadius:4,borderSkipped:false}]},options:o2});
 
   dc("c3");
-  const gd = [...d].sort((a,b) => a.gap_pct - b.gap_pct);
+  const gd = [...d].sort((a,b)=>a.gap_pct-b.gap_pct);
   const o3 = JSON.parse(JSON.stringify(CD));
-  o3.scales.x.ticks = {color:"#cccccc",font:{size:7},maxRotation:55,autoSkip:true};
-  o3.scales.y.ticks.callback = v => v + "%";
+  o3.scales.x.ticks={color:"#ccc",font:{size:7},maxRotation:55,autoSkip:true};
+  o3.scales.y.ticks.callback=v=>v+"%";
   CHS["c3"] = new Chart(document.getElementById("c3"),{type:"bar",data:{labels:gd.map(s=>s.name.length>18?s.name.substring(0,17)+"…":s.name),datasets:[{data:gd.map(s=>s.gap_pct),backgroundColor:gd.map(s=>s.gap_pct>=0?"rgba(10,110,90,.7)":s.gap_pct>=-30?"rgba(196,122,26,.7)":"rgba(184,50,50,.7)"),borderRadius:2,borderSkipped:false}]},options:o3});
 
   dc("c4");
-  const tid = [1,2,3,4,5].map(t=>{ const ss=d.filter(s=>s.tier===t); return {t,a:ss.length?Math.round(ss.reduce((x,s)=>x+s.l4w,0)/ss.length):0,n:ss.length}; }).filter(x=>x.n>0);
-  const o4 = JSON.parse(JSON.stringify(CD)); o4.scales.y.ticks.callback = v => "$" + v.toLocaleString();
-  CHS["c4"] = new Chart(document.getElementById("c4"),{type:"bar",data:{labels:tid.map(x=>"T"+x.t+" ("+x.n+")"),datasets:[{data:tid.map(x=>x.a),backgroundColor:tid.map(x=>TC[x.t]+"cc"),borderRadius:4,borderSkipped:false}]},options:o4});
+  const tid=[1,2,3,4,5].map(t=>{const ss=d.filter(s=>s.tier===t);return{t,a:ss.length?Math.round(ss.reduce((x,s)=>x+s.l4w,0)/ss.length):0,n:ss.length};}).filter(x=>x.n>0);
+  const o4=JSON.parse(JSON.stringify(CD)); o4.scales.y.ticks.callback=v=>"$"+v.toLocaleString();
+  CHS["c4"] = new Chart(document.getElementById("c4"),{type:"bar",data:{labels:tid.map(x=>TL[x.t].split("—")[0].trim()+" ("+x.n+")"),datasets:[{data:tid.map(x=>x.a),backgroundColor:tid.map(x=>TC[x.t]+"cc"),borderRadius:4,borderSkipped:false}]},options:o4});
 
   dc("c5");
   const mb=[0,40,60,80,100,120,150,9999], mbl=["<40%","40-60%","60-80%","80-100%","100-120%","120-150%","150%+"];
-  const mbc = mbl.map((_,i) => d.filter(s => s.momentum > 0 && s.momentum >= mb[i] && s.momentum < mb[i+1]).length);
+  const mbc=mbl.map((_,i)=>d.filter(s=>s.momentum>0&&s.momentum>=mb[i]&&s.momentum<mb[i+1]).length);
   CHS["c5"] = new Chart(document.getElementById("c5"),{type:"bar",data:{labels:mbl,datasets:[{data:mbc,backgroundColor:mbl.map((_,i)=>i<2?"rgba(184,50,50,.7)":i<4?"rgba(196,122,26,.7)":"rgba(10,110,90,.7)"),borderRadius:4,borderSkipped:false}]},options:JSON.parse(JSON.stringify(CD))});
 }
 
-// ── INSIGHTS ──────────────────────────────────────────────────────────────
+// ── INSIGHTS ────────────────────────────────────────────────────────────────
 function renderInsights() {
   const d = filt();
-  const wD = d.filter(s => s.tier >= 1 && s.tier <= 3);
-  const nD = d.filter(s => s.tier >= 4);
-  const aW = wD.length ? Math.round(wD.reduce((a,s) => a+s.l4w, 0)/wD.length) : 0;
-  const aN = nD.length ? Math.round(nD.reduce((a,s) => a+s.l4w, 0)/nD.length) : 0;
-  const lift = aN ? Math.round((aW-aN)/aN*100) : 0;
-  const gaps = d.filter(s => s.gap_pct < -50).sort((a,b) => a.gap_pct-b.gap_pct).slice(0,6);
-  const stars = d.filter(s => s.l4w > 3000).sort((a,b) => b.l4w-a.l4w).slice(0,5);
+  const wD = d.filter(s=>s.tier>=1&&s.tier<=3);
+  const nD = d.filter(s=>s.tier>=4);
+  const aW = wD.length?Math.round(wD.reduce((a,s)=>a+s.l4w,0)/wD.length):0;
+  const aN = nD.length?Math.round(nD.reduce((a,s)=>a+s.l4w,0)/nD.length):0;
+  const lift = aN?Math.round((aW-aN)/aN*100):0;
+  const gaps = d.filter(s=>s.gap_pct<-50).sort((a,b)=>a.gap_pct-b.gap_pct).slice(0,6);
+  const stars = d.filter(s=>s.l4w>3000).sort((a,b)=>b.l4w-a.l4w).slice(0,5);
+  
+  // Same-region peer anomalies (your Point 2)
   const peers = [];
   REGIONS.forEach(r => {
-    const rs = d.filter(s => s.region === r && s.l4w > 0); if (rs.length < 2) return;
-    const mx = rs.reduce((a,s) => s.l4w > a.l4w ? s : a);
-    const mn = rs.reduce((a,s) => s.l4w < a.l4w ? s : a);
-    if (mn.l4w > 0 && mx.l4w/mn.l4w > 5) peers.push({region:r, top:mx, bot:mn, ratio:Math.round(mx.l4w/mn.l4w)});
+    const rs = d.filter(s=>s.region===r&&s.l4w>0); if (rs.length<2) return;
+    const mx = rs.reduce((a,s)=>s.l4w>a.l4w?s:a);
+    const mn = rs.reduce((a,s)=>s.l4w<a.l4w?s:a);
+    if (mn.l4w>0&&mx.l4w/mn.l4w>5) peers.push({region:r,top:mx,bot:mn,ratio:Math.round(mx.l4w/mn.l4w)});
   });
-  peers.sort((a,b) => b.ratio - a.ratio);
-  const fa = Math.round(d.filter(s=>s.l4w>0).reduce((a,s)=>a+s.l4w,0) / Math.max(1, d.filter(s=>s.l4w>0).length));
+  peers.sort((a,b)=>b.ratio-a.ratio);
+  const fa = Math.round(d.filter(s=>s.l4w>0).reduce((a,s)=>a+s.l4w,0)/Math.max(1,d.filter(s=>s.l4w>0).length));
+  
   document.getElementById("ig").innerHTML = [
-    '<div class="ic"><span class="itag itg">Placement Impact</span><div class="ih">Secondary display = +' + lift + '% revenue</div><div class="ip">Across ' + wD.length + ' visited stores with a secondary display, avg L4W is $' + aW.toLocaleString() + ' vs $' + aN.toLocaleString() + ' at shelf-only stores. Consistent across regions.</div><div class="isr"><div><div class="isv">$' + aW.toLocaleString() + '</div><div class="isl">With display</div></div><div><div class="isv" style="color:var(--red)">$' + aN.toLocaleString() + '</div><div class="isl">Shelf only</div></div><div><div class="isv">+' + lift + '%</div><div class="isl">Lift</div></div></div></div>',
-    '<div class="ic"><span class="itag itr">Gap Alerts</span><div class="ih">' + gaps.length + ' stores &gt;50% below region peers</div><div class="ip">Same products, same consumers — something specific is wrong at each location.</div>' + gaps.map(s => '<div class="sli"><span style="color:var(--ink);font-weight:500">' + s.name + '</span><span style="font-family:\'Syne Mono\',monospace;font-size:11px;color:var(--red)">' + s.gap_pct + '%</span></div>').join("") + '</div>',
-    '<div class="ic"><span class="itag ita">Peer Anomalies</span><div class="ih">Same region, wildly different results</div><div class="ip">These region pairs have spreads too large to be explained by store format alone.</div>' + peers.slice(0,4).map(p => '<div class="sli" style="flex-direction:column;align-items:flex-start;gap:2px"><div style="display:flex;justify-content:space-between;width:100%"><span style="color:var(--ink);font-weight:500">' + p.region + '</span><span style="font-family:\'Syne Mono\',monospace;font-size:11px;color:var(--amb)">' + p.ratio + '× spread</span></div><div style="font-size:10px;color:var(--ink3)">↑ ' + p.top.name + ' $' + p.top.l4w.toLocaleString() + ' · ↓ ' + p.bot.name + ' $' + p.bot.l4w.toLocaleString() + '</div></div>').join("") + '</div>',
-    '<div class="ic"><span class="itag itg">Top Performers</span><div class="ih">Fleet leaders — study these</div><div class="ip">What these stores share is the blueprint for the rest of the fleet.</div>' + stars.map(s => '<div class="sli"><span style="color:var(--ink);font-weight:500">' + s.name + '</span><span style="font-family:\'Syne Mono\',monospace;font-size:11px;color:var(--grn)">$' + s.l4w.toLocaleString() + '</span></div>').join("") + '</div>',
-    '<div class="ic" style="grid-column:1/-1"><span class="itag itg">Brand Trajectory</span><div class="ih">TSM is in a growth wave — who\'s catching it?</div><div class="ip" style="max-width:600px">Every store shows NEW for year-over-year — no WFM presence a year ago. L4W run rates are 2–5× higher than L52W averages at most stores. Underperforming stores aren\'t failing to sell TSM; they\'re failing to capture a wave already happening at their peers. Closing the gap between your bottom quartile and median stores is the single highest-ROI action available right now.</div><div class="isr" style="margin-top:12px"><div><div class="isv">' + d.length + '</div><div class="isl">Stores tracked</div></div><div><div class="isv">$' + fa.toLocaleString() + '</div><div class="isl">Fleet avg L4W</div></div><div><div class="isv">' + d.filter(s=>s.gap_pct<-50).length + '</div><div class="isl">&gt;50% below region</div></div><div><div class="isv">' + d.filter(s=>s.tier>=1&&s.tier<=5).length + '</div><div class="isl">Field-visited</div></div></div></div>'
+    `<div class="ic"><span class="itag itg">Placement impact</span><div class="ih">Secondary display = +${lift}% revenue</div><div class="ip">Across ${wD.length} visited stores with good placement, avg L4W is $${aW.toLocaleString()} vs $${aN.toLocaleString()} at stores needing attention. Consistent across regions.</div><div class="isr"><div><div class="isv">$${aW.toLocaleString()}</div><div class="isl">Good placement</div></div><div><div class="isv" style="color:var(--red)">$${aN.toLocaleString()}</div><div class="isl">Needs work</div></div><div><div class="isv">+${lift}%</div><div class="isl">Lift</div></div></div></div>`,
+    `<div class="ic"><span class="itag itr">Gap alerts</span><div class="ih">${gaps.length} stores >50% below region peers</div><div class="ip">Same products, same consumers — something specific is wrong at each. Click to drill in.</div>`+gaps.map(s=>`<div class="sli" style="cursor:pointer" onclick="openDW(${s.num})"><span style="color:var(--ink);font-weight:500">${s.name}</span><span style="font-family:"DM Sans",sans-serif;font-size:11px;color:var(--red)">${s.gap_pct}%</span></div>`).join("")+`</div>`,
+    `<div class="ic"><span class="itag ita">Same region, wildly different results</span><div class="ih">${peers.length} region pairs with 5×+ spread</div><div class="ip">These gaps can't be explained by market size — it's execution. Click a store to investigate.</div>`+peers.slice(0,4).map(p=>`<div class="sli" style="flex-direction:column;align-items:flex-start;gap:2px"><div style="display:flex;justify-content:space-between;width:100%"><span style="color:var(--ink);font-weight:500">${p.region}</span><span style="font-family:"DM Sans",sans-serif;font-size:11px;color:var(--amb)">${p.ratio}× spread</span></div><div style="font-size:10px;color:var(--ink3)">↑ <span style="cursor:pointer;text-decoration:underline" onclick="openDW(${p.top.num})">${p.top.name}</span> $${p.top.l4w.toLocaleString()} &nbsp;·&nbsp; ↓ <span style="cursor:pointer;text-decoration:underline" onclick="openDW(${p.bot.num})">${p.bot.name}</span> $${p.bot.l4w.toLocaleString()}</div></div>`).join("")+`</div>`,
+    `<div class="ic"><span class="itag itg">Blueprint stores — study these</span><div class="ih">Top performers share a playbook</div><div class="ip">What these stores have in common is the template for the rest of the fleet.</div>`+stars.map(s=>`<div class="sli" style="cursor:pointer" onclick="openDW(${s.num})"><span style="color:var(--ink);font-weight:500">${s.name}</span><span style="font-family:"DM Sans",sans-serif;font-size:11px;color:var(--grn)">$${s.l4w.toLocaleString()}</span></div>`).join("")+`</div>`,
+    `<div class="ic" style="grid-column:1/-1"><span class="itag itg">Brand trajectory</span><div class="ih">TSM is in a growth wave — who's capturing it?</div><div class="ip" style="max-width:600px">L4W run rates are 2–5× higher than L52W averages at most stores. Underperforming stores aren't failing to sell TSM — they're failing to capture a wave already happening at their peers. Closing the gap between your bottom quartile and median is the single highest-ROI action available right now.</div><div class="isr" style="margin-top:10px"><div><div class="isv">${d.length}</div><div class="isl">Stores tracked</div></div><div><div class="isv">$${fa.toLocaleString()}</div><div class="isl">Fleet avg L4W</div></div><div><div class="isv">${d.filter(s=>s.gap_pct<-50).length}</div><div class="isl">&gt;50% below region</div></div><div><div class="isv">${d.filter(s=>s.tier>=1&&s.tier<=5).length}</div><div class="isl">Field-visited</div></div></div></div>`
   ].join("");
 }
 
-// ── DRAWER ────────────────────────────────────────────────────────────────
+// ── DRAWER ──────────────────────────────────────────────────────────────────
 function openDW(num) {
-  const s = S.find(x => x.num === num); if (!s) return;
+  const s = S.find(x=>x.num===num); if (!s) return;
   document.getElementById("dn").textContent = "WFM #" + s.num;
   document.getElementById("dnm").textContent = s.name;
   document.getElementById("drg").textContent = s.region;
-  const gc = s.gap_pct >= 0 ? "var(--grn)" : s.gap_pct >= -30 ? "var(--amb)" : "var(--red)";
-  const au = s.ann_uplift != null ? (s.ann_uplift > 0 ? "+" : "") + s.ann_uplift + "%" : "—";
-  const bw = Math.min(Math.max((s.gap_pct + 100) / 200 * 100, 0), 100);
-  let html = '<span class="pbdg pb' + s.tier + '"><span style="width:7px;height:7px;border-radius:50%;background:' + TC[s.tier] + ';display:inline-block"></span>' + TL[s.tier] + '</span>'
-    + '<div class="dkpis">'
-    + '<div class="dk"><div class="dkv">$' + s.l4w.toLocaleString() + '</div><div class="dkl">L4W Revenue</div></div>'
-    + '<div class="dk"><div class="dkv">$' + s.l52w.toLocaleString() + '</div><div class="dkl">L52W Revenue</div></div>'
-    + '<div class="dk"><div class="dkv">$' + s.wkly.toLocaleString() + '</div><div class="dkl">Avg Weekly $</div></div>'
-    + '<div class="dk"><div class="dkv">' + s.wkly_u + '</div><div class="dkl">Avg Weekly Units</div></div>'
-    + '</div>'
-    + '<div class="dsec"><h4>Gap vs Region Average</h4>'
-    + '<div style="display:flex;justify-content:space-between;margin-bottom:5px;font-size:12px"><span style="color:var(--ink3)">Region avg: <strong style="color:var(--ink)">$' + s.reg_avg.toLocaleString() + '</strong></span>'
-    + '<span style="color:' + gc + ';font-family:\'Syne Mono\',monospace;font-size:13px;font-weight:600">' + (s.gap_pct >= 0 ? "+" : "") + s.gap_pct + '%</span></div>'
-    + '<div style="height:5px;background:var(--bdr);border-radius:100px;overflow:hidden"><div style="height:100%;width:' + bw + '%;background:' + gc + ';border-radius:100px"></div></div>'
-    + '<div style="display:flex;justify-content:space-between;font-family:\'Syne Mono\',monospace;font-size:10px;color:var(--ink3);margin-top:3px"><span>-100%</span><span>0%</span><span>+100%</span></div></div>'
-    + '<div class="dsec"><h4>Velocity</h4>'
-    + '<div class="drow">L1W Revenue <strong>$' + s.l1w.toLocaleString() + '</strong></div>'
-    + '<div class="drow">Momentum <strong style="color:' + (s.momentum>=90?"var(--grn)":s.momentum>=60?"var(--amb)":"var(--red)") + '">' + (s.momentum > 0 ? s.momentum + "%" : "—") + '</strong></div>'
-    + '<div class="drow">L4W Units <strong>' + s.units.toLocaleString() + '</strong></div>'
-    + '<div class="drow">Avg Weekly Units <strong>' + s.wkly_u + '</strong></div>'
-    + '<div class="drow">Annualized uplift vs L52W <strong>' + au + '</strong></div></div>'
-    + '<div class="dsec"><h4>Context</h4>'
-    + '<div class="drow">Region <strong>' + s.region + '</strong></div>'
-    + '<div class="drow">Store # <strong>' + s.num + '</strong></div>'
-    + (s.tier > 0 ? '<div class="drow">Field visit <strong>' + TL[s.tier] + '</strong></div>' : '<div class="drow">Field visit <strong style="color:var(--ink3)">Not yet visited</strong></div>')
-    + '</div>';
-  if (s.gap_pct < -50) html += '<div class="alert alert-r"><strong>Gap alert:</strong> ' + Math.abs(s.gap_pct) + '% below regional peers — worth investigating.</div>';
-  if (s.momentum > 0 && s.momentum < 60) html += '<div class="alert alert-a"><strong>Momentum dip:</strong> Last week was only ' + s.momentum + '% of the 4-week weekly avg.</div>';
+  
+  const gc = s.gap_pct>=0?"var(--grn)":s.gap_pct>=-30?"var(--amb)":"var(--red)";
+  const bw = Math.min(Math.max((s.gap_pct+100)/200*100,0),100);
+  const au = s.ann_uplift!=null?(s.ann_uplift>0?"+":"")+s.ann_uplift+"%":"—";
+  
+  // Cluster peers — same region stores
+  const peers = S.filter(x=>x.region===s.region&&x.num!==s.num&&x.l4w>0);
+  const peerAvg = peers.length ? Math.round(peers.reduce((a,x)=>a+x.l4w,0)/peers.length) : 0;
+  const clusterGap = peerAvg ? Math.round((s.l4w - peerAvg)/peerAvg*100) : 0;
+  const topPeer = peers.sort((a,b)=>b.l4w-a.l4w)[0];
+  const potential = Math.max(0, peerAvg - s.l4w);
+  
+  // Placement signals from tier
+  const tierSignal = {
+    0: {label:"Not yet visited", cls:"", note:"No field data — schedule a visit to assess placement"},
+    1: {label:"Elite placement", cls:"ok", note:"Eye level, full facings, secondary display active"},
+    2: {label:"Good placement", cls:"ok", note:"Good position with minor improvements possible"},
+    3: {label:"Fix needed", cls:"bad", note:"Placement issues identified during visit — priority fix"},
+    4: {label:"High potential", cls:"amb", note:"Strong foot traffic, needs better placement"},
+    5: {label:"Needs attention", cls:"bad", note:"Low engagement, placement and display issues"},
+  }[s.tier] || {label:"Unknown", cls:"", note:""};
+  
+  let html = `<span class="pbdg pb${s.tier}"><span style="width:7px;height:7px;border-radius:50%;background:${TC[s.tier]};display:inline-block"></span>${TL[s.tier]}</span>`;
+  
+  // Photo zone
+  html += `<div class="photo-zone">
+    <div class="photo-zone-title">📷 Shelf photos</div>
+    <div class="photo-slots">
+      <div class="photo-slot" onclick="alert('Open camera or file picker to add primary shelf photo')">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="13" rx="2"/><path d="M8 8V6a4 4 0 018 0v2"/><circle cx="12" cy="14" r="2"/></svg>
+        <div class="photo-slot-lbl">Primary shelf</div>
+      </div>
+      <div class="photo-slot" onclick="alert('Open camera or file picker to add secondary display photo')">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="13" rx="2"/><path d="M8 8V6a4 4 0 018 0v2"/><circle cx="12" cy="14" r="2"/></svg>
+        <div class="photo-slot-lbl">End-cap / secondary</div>
+      </div>
+      <div class="photo-slot" onclick="alert('Open camera or file picker to add general store photo')">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="13" rx="2"/><path d="M8 8V6a4 4 0 018 0v2"/><circle cx="12" cy="14" r="2"/></svg>
+        <div class="photo-slot-lbl">Overview</div>
+      </div>
+    </div>
+  </div>`;
+  
+  // Cluster comparison (your Point 2)
+  if (peerAvg > 0) {
+    html += `<div class="cluster-box">
+      <div class="cluster-title">Same-region cluster comparison (${peers.length} stores)</div>
+      <div class="cluster-compare">
+        <div class="cc-item"><div class="cc-val" style="color:${gc}">$${s.l4w.toLocaleString()}</div><div class="cc-lbl">This store L4W</div></div>
+        <div class="cc-item"><div class="cc-val">$${peerAvg.toLocaleString()}</div><div class="cc-lbl">Region avg L4W</div></div>
+      </div>
+      ${potential>0?`<div class="cluster-gap">↑ Closing this gap = +$${potential.toLocaleString()}/4 weeks potential</div>`:
+        `<div class="cluster-gap positive">✓ This store is ${clusterGap}% above region average</div>`}
+      ${topPeer?`<div style="font-size:10px;color:var(--ink3);margin-top:5px;padding:0 2px">Top peer: <strong style="color:var(--ink)">${topPeer.name}</strong> at $${topPeer.l4w.toLocaleString()}</div>`:""}
+    </div>`;
+  }
+  
+  // Placement signal (your Point 1 — for visited stores)
+  if (s.tier > 0) {
+    const potentialIfFixed = s.gap_pct < -10 ? Math.round((peerAvg - s.l4w)) : 0;
+    html += `<div class="place-flag ${tierSignal.cls}">
+      <div>
+        <div class="pf-label">${tierSignal.label}</div>
+        <div style="font-size:10px;color:var(--ink3);margin-top:1px">${tierSignal.note}</div>
+      </div>
+      ${potentialIfFixed>0?`<div class="pf-val bad">+$${potentialIfFixed.toLocaleString()}<br><span style="font-size:9px">if fixed</span></div>`:""}
+    </div>`;
+  }
+  
+  // Alerts
+  if (s.gap_pct < -50) html += `<div class="alert alert-r"><strong>Gap alert:</strong> ${Math.abs(s.gap_pct)}% below regional peers — investigate placement immediately.</div>`;
+  if (s.momentum > 0 && s.momentum < 60) html += `<div class="alert alert-a"><strong>Momentum dip:</strong> Last week was only ${s.momentum}% of the 4-week average.</div>`;
+  if (s.tier > 0 && s.gap_pct < -20) html += `<div class="alert alert-r"><strong>Visited store underperforming:</strong> We know this store — placement fix should be prioritised.</div>`;
+  if (s.gap_pct > 30 && s.tier === 0) html += `<div class="alert alert-g"><strong>Unvisited top performer:</strong> This store is ${s.gap_pct}% above region avg without a field visit. Schedule one to document what's working.</div>`;
+  
+  // KPIs
+  html += `<div class="dkpis" style="margin-top:10px">
+    <div class="dk"><div class="dkv">$${s.l4w.toLocaleString()}</div><div class="dkl">L4W Revenue</div></div>
+    <div class="dk"><div class="dkv">$${s.l52w.toLocaleString()}</div><div class="dkl">L52W Revenue</div></div>
+    <div class="dk"><div class="dkv">$${s.wkly.toLocaleString()}</div><div class="dkl">Avg Weekly $</div></div>
+    <div class="dk"><div class="dkv">${s.wkly_u}</div><div class="dkl">Avg Weekly Units</div></div>
+  </div>`;
+  
+  // Gap bar
+  html += `<div class="dsec"><h4>Gap vs region average</h4>
+    <div style="display:flex;justify-content:space-between;margin-bottom:4px;font-size:12px"><span style="color:var(--ink3)">Region avg: <strong style="color:var(--ink)">$${s.reg_avg.toLocaleString()}</strong></span>
+    <span style="color:${gc};font-family:"DM Sans",sans-serif;font-size:13px;font-weight:600">${s.gap_pct>=0?"+":""}${s.gap_pct}%</span></div>
+    <div style="height:5px;background:var(--bdr);border-radius:100px;overflow:hidden"><div style="height:100%;width:${bw}%;background:${gc};border-radius:100px"></div></div>
+    <div style="display:flex;justify-content:space-between;font-family:"DM Sans",sans-serif;font-size:9px;color:var(--ink3);margin-top:2px"><span>-100%</span><span>0%</span><span>+100%</span></div>
+  </div>`;
+  
+  html += `<div class="dsec"><h4>Velocity</h4>
+    <div class="drow">L1W Revenue <strong>$${s.l1w.toLocaleString()}</strong></div>
+    <div class="drow">Momentum <strong style="color:${s.momentum>=90?"var(--grn)":s.momentum>=60?"var(--amb)":"var(--red)"}">${s.momentum>0?s.momentum+"%":"—"}</strong></div>
+    <div class="drow">L4W Units <strong>${s.units.toLocaleString()}</strong></div>
+    <div class="drow">Annualised uplift vs L52W <strong>${au}</strong></div>
+  </div>`;
+  
+  html += `<div class="dsec"><h4>Context</h4>
+    <div class="drow">Region <strong>${s.region}</strong></div>
+    <div class="drow">Store # <strong>${s.num}</strong></div>
+    <div class="drow">Field visit <strong>${s.tier>0?TL[s.tier]:"<span style='color:var(--ink3)'>Not yet visited</span>"}</strong></div>
+  </div>`;
+  
   document.getElementById("db").innerHTML = html;
   document.getElementById("ov").classList.add("open");
   document.getElementById("dw").classList.add("open");
 }
+
 function closeDW() {
   document.getElementById("ov").classList.remove("open");
   document.getElementById("dw").classList.remove("open");
 }
 
-// ── TABS ──────────────────────────────────────────────────────────────────
+// ── TABS ────────────────────────────────────────────────────────────────────
 function sw(tab, btn) {
   at = tab;
-  document.querySelectorAll(".tb").forEach(b => b.classList.remove("on")); btn.classList.add("on");
-  document.querySelectorAll(".pan").forEach(p => p.classList.remove("on"));
-  document.getElementById("pan-" + tab).classList.add("on");
-  if (tab === "charts") renderCharts();
-  if (tab === "regions") renderRegions();
-  if (tab === "insights") renderInsights();
+  document.querySelectorAll(".tb").forEach(b=>b.classList.remove("on")); btn.classList.add("on");
+  document.querySelectorAll(".pan").forEach(p=>p.classList.remove("on"));
+  document.getElementById("pan-"+tab).classList.add("on");
+  if (tab==="charts") renderCharts();
+  if (tab==="regions") renderRegions();
+  if (tab==="insights") renderInsights();
 }
 
 function refresh() {
   renderTable();
-  if (at === "regions") renderRegions();
-  if (at === "charts") renderCharts();
-  if (at === "insights") renderInsights();
+  if (at==="regions") renderRegions();
+  if (at==="charts") renderCharts();
+  if (at==="insights") renderInsights();
 }
 
-document.getElementById("q").addEventListener("input", e => { sq = e.target.value; refresh(); });
-document.getElementById("gf-all").classList.add("on");
+document.getElementById("q").addEventListener("input", e=>{ sq=e.target.value; refresh(); });
 initSB();
 refresh();
-
 </script>
 </body>
 </html>
