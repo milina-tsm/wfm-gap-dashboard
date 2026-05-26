@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WFM Stores Analytics</title>
+<title>WFM Stores Analysis</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <style>
@@ -224,7 +224,7 @@ input[type=range]{flex:1;accent-color:var(--grn);cursor:pointer}
   <div class="hdr-l">
     <div class="hdr-dot"></div>
     <div>
-      <div class="hdr-t">True Sea Moss &mdash; WFM Field Intelligence</div>
+      <div class="hdr-t">WFM Stores Analysis</div>
       <div class="hdr-s">527 stores · Week ending 05/17/2026</div>
     </div>
   </div>
@@ -387,45 +387,45 @@ const STORE_IMAGES = {
 };
 
 const PLACEMENT_NOTES = {
-  10580: {cat:"Category placement looks fine — slat wall near produce is an excellent impulse-buy zone and the cate", sec:"Strong secondary placement — 2 off-shelf displays present"},
-  10637: {cat:"Planogram shelf at floor level — hard to notice from the aisle. Category shelf positioning needs to ", sec:"Well-positioned secondary display with good impulse-buy visibility"},
-  10220: {cat:"Planogram shelf at floor level — hard to notice. Both TSM shelves sit at the very bottom of the end-", sec:"Secondary display present; below eye level — low visibility, repositioning recommended"},
-  10639: {cat:"Bottom shelf in the refrigerated section — acceptable given fridge context. Bottom shelf position wi", sec:"Secondary display confirmed; favorable positioning"},
-  10273: {cat:"Category placement fine on surface — brand-specific educational signage is positive. However this st", sec:"Secondary display present; floor-level placement — low visibility, repositioning recommended"},
-  10075: {cat:"Category placement looks good — tags in place, strong rep relationship, clean visual presentation. T", sec:"Secondary display active; standard box positioning — additional merchandising opportunity exists"},
-  10294: {cat:"Category placement looks fine — good stock levels, right category context. No premium positioning bu", sec:"Secondary display confirmed; favorable positioning"},
-  10556: {cat:"Good eye-level shelf placement — one of the better ambient shelf heights in the fleet. Revenue of $4", sec:""},
-  10204: {cat:"Planogram shelf at floor level — hard to notice despite strong store team engagement. Whole body tea", sec:"Secondary display confirmed; adequate positioning"},
-  10317: {cat:"No category placement photo available — cannot assess shelf level or facing count. At $7,384 L52W wi", sec:""},
-  10238: {cat:"Category placement looks fine — featured on WFM's 'What We're Loving' end-cap with branded shelf car", sec:"Secondary display confirmed; favorable positioning"},
-  10569: {cat:"Floor level on planogram shelf, placed within refrigerated section — acceptable context. Bottom-of-f", sec:"Secondary display present; above eye level — moderate visibility, no additional off-shelf support"},
-  10366: {cat:"Really good — eye-level shelf in the refrigerator section. Ideal fridge placement. Despite this stro", sec:""},
-  10275: {cat:"Planogram shelf at floor level — hard to notice. 'Buzz Worthy' end-cap puts TSM in a high-traffic di", sec:"Secondary display confirmed; shelf space is congested, limiting brand standout"},
-  10638: {cat:"Planogram shelf at floor level — hard to notice. All 3 SKUs fully stocked but floor-level position m", sec:"Secondary display on end-cap side panel; acceptable visibility"},
-  10558: {cat:"Planogram shelf positioned at floor level — hard to notice from the aisle. Despite having a dominant", sec:"Exceptional secondary placement — 2 off-shelf displays including refrigerated cooler section"},
-  10677: {cat:"Above eye level shelf — visually noticeable but creates a potential safety issue: TSM jars are glass", sec:""},
-  10340: {cat:"Good refrigerator placement with clear visual line of sight — bottom shelf in fridge but still easy ", sec:""},
-  10602: {cat:"No category placement photo available — only secondary was photographed. Cannot assess shelf level o", sec:"Secondary display present; below eye level — reduced visibility, repositioning recommended"},
-  10476: {cat:"Mixed situation. One placement in fridge at bottom shelf — acceptable but not ideal. Second placemen", sec:"Secondary display present; overcrowded fixture limits brand visibility and differentiation"},
-  10015: {cat:"CRITICAL: TSM placed in refrigerated probiotic drink cooler — fundamental category misplacement. A s", sec:""},
-  10316: {cat:"Planogram shelf at floor level — hard to notice. Standard shelf, no featured positioning. Secondary ", sec:"Secondary display present; horizontal flavor-tiered arrangement obscures 2 of 3 SKUs — reset recomme"},
-  10059: {cat:"No category placement photo available — only secondary display was photographed. Cannot assess shelf", sec:"Secondary display on end-cap side panel; acceptable visibility"},
-  10333: {cat:"Category placement looks fine — dedicated slatwall end-cap near registers in the right wellness cont", sec:"Strong secondary placement — 2 off-shelf displays including end-cap side panel"},
-  10792: {cat:"Really good eye-level shelf placement — clean, visible, right category context. Store just added 3 n", sec:""},
-  10129: {cat:"Really good — eye-level refrigerator shelf plus solid standard ambient shelf position. Two category ", sec:""},
-  10272: {cat:"Planogram shelf at floor level — hard to notice from the aisle. Double placement (planogram + discov", sec:"Secondary display confirmed; favorable positioning"},
-  10430: {cat:"Good eye-level placement on a dedicated highlighted wellness product display — strong category setup", sec:""},
-  10545: {cat:"Shelf placement is good height-wise but category adjacency is borderline — positioned in the 'bone a", sec:""},
-  10441: {cat:"Good refrigerator placement with clear line of sight, bottom shelf. Small stock shortage visible — g", sec:""},
-  10415: {cat:"Category placement looks fine — expanded facings with 3 SKUs in the right section. No premium positi", sec:""},
-  10228: {cat:"Category placement looks good — both superfood set locations fully stocked with proper merchandising", sec:"Secondary display confirmed; favorable positioning"},
-  10534: {cat:"Planogram shelf at floor level — hard to notice despite strong store energy and sell-through. Floor-", sec:"Secondary display confirmed; favorable positioning"},
-  10566: {cat:"Good placement — shelf level is high enough to be visible from the aisle. Metro rack in the wellness", sec:"Secondary display on end-cap side panel; acceptable visibility"},
-  10280: {cat:"Floor level planogram shelf — hard to notice, especially without any secondary display to compensate", sec:""},
-  10160: {cat:"Bottom shelf in refrigerated section — acceptable but not ideal position. Bigger issue is stock shor", sec:"Secondary display confirmed; adequate positioning — inventory replenishment needed"},
-  10246: {cat:"Really good refrigerator placement — one of the few stores where cooler positioning works in TSM's f", sec:"Strong secondary placement — 2 off-shelf displays including refrigerated cooler section"},
-  10661: {cat:"Category placement looks fine visually — right section, acceptable height, nothing alarming. No seco", sec:""},
-  10231: {cat:"Category placement looks fine — fully stocked, faced up, right category context. Proof point: store ", sec:""},
+  10580: {cat:"Benchmark placement — slat wall near produce at eye level, ideal impulse-buy zone. No issues.", sec:"Strong — 2 off-shelf displays active."},
+  10637: {cat:"Floor-level shelf contradicts strong secondary. Needs mid-shelf raise to complement display.", sec:"Well-positioned, good impulse-buy visibility."},
+  10220: {cat:"Floor-level bottom-of-end-cap. Technically correct category but shoppers must look down.", sec:"Present but below eye level — repositioning recommended."},
+  10639: {cat:"Bottom shelf in fridge — acceptable context. Eye-level refrigerated position would be stronger.", sec:"Confirmed; favorable positioning."},
+  10273: {cat:"Signage present but floor-level and lowest L52W in fleet ($1,892). Deeper issue beyond placement.", sec:"Floor-level — low visibility, repositioning recommended."},
+  10075: {cat:"Clean, tags in place, strong rep relationship. Top revenue store — placement quality reflects it.", sec:"Active; additional merchandising opportunity exists."},
+  10294: {cat:"Good stock, right category context. No premium position but nothing problematic.", sec:"Confirmed; favorable positioning."},
+  10556: {cat:"Eye-level shelf — strong height. Low L4W ($491) likely due to near-OOS, not placement.", sec:""},
+  10204: {cat:"Floor-level shelf despite strong store engagement. Whole body team built off-shelf display.", sec:"Confirmed; adequate positioning."},
+  10317: {cat:"No category photo available. At $7,384 L52W with no secondary — shelf works but data missing.", sec:""},
+  10238: {cat:"Featured on WFM 'What We're Loving' end-cap with branded shelf card at eye level. No issues.", sec:"Confirmed; favorable positioning."},
+  10569: {cat:"Floor-level in refrigerated section. Cold context okay but eye-level fridge would be an upgrade.", sec:"Above eye level — moderate visibility."},
+  10366: {cat:"Eye-level fridge — ideal placement. No secondary means only one shopper touchpoint.", sec:""},
+  10275: {cat:"Floor-level shelf. 'Buzz Worthy' end-cap is good but single eye-level row gets lost in clutter.", sec:"Confirmed; shelf congestion limits brand standout."},
+  10638: {cat:"Floor-level shelf — shoppers walk past. Good inventory discipline undermined by poor shelf height.", sec:"End-cap side panel; acceptable visibility."},
+  10558: {cat:"Floor-level shelf despite fleet's largest TSM footprint (full corner end-cap). Weakest link.", sec:"Exceptional — 2 off-shelf displays incl. refrigerated cooler."},
+  10677: {cat:"Above eye level — may violate WFM safety policy for heavy glass jars. Needs buyer conversation.", sec:""},
+  10340: {cat:"Fridge bottom shelf, clear line of sight. Thin stock visible — restocking cadence is urgent fix.", sec:""},
+  10602: {cat:"No category photo. Secondary only photographed. Shelf data needed on next rep visit.", sec:"Below eye level — repositioning recommended."},
+  10476: {cat:"Fridge bottom shelf OK; second placement with yogurts is off-category. Warrants buyer talk.", sec:"Present; overcrowded fixture limits brand standout."},
+  10015: {cat:"CRITICAL: placed in refrigerated probiotic cooler — wrong category for a shelf-stable gel.", sec:""},
+  10316: {cat:"Floor-level shelf, no featured position. Secondary helps but category baseline is weak.", sec:"Horizontal flavor-tiered arrangement obscures 2 of 3 SKUs."},
+  10059: {cat:"No category photo. Secondary only. Shelf level and facing count needed on next rep visit.", sec:"End-cap side panel; acceptable visibility."},
+  10333: {cat:"Dedicated slatwall end-cap near registers — prime impulse-buy zone. All 3 SKUs, full stock.", sec:"Strong — 2 off-shelf displays incl. end-cap side panel."},
+  10792: {cat:"Eye-level shelf, clean, right context. 3 new SKUs added. Low revenue reflects small tourist store.", sec:""},
+  10129: {cat:"Eye-level fridge + solid ambient shelf — two touchpoints at good heights. Best category setup.", sec:""},
+  10272: {cat:"Floor-level shelf + discovery end-cap — strong combo but base shelf hurts discoverability.", sec:"Confirmed; favorable positioning."},
+  10430: {cat:"Eye-level on dedicated wellness display — strong setup. Revenue gap points to traffic, not placement.", sec:""},
+  10545: {cat:"Good height but adjacent to 'bone & joints' not superfood set. Worth fixing at next planogram.", sec:""},
+  10441: {cat:"Fridge bottom shelf, clear line of sight. Stock gaps visible — slow replenishment needs monitoring.", sec:""},
+  10415: {cat:"Expanded facings, 3 SKUs, right section. Weak revenue likely foot traffic not placement.", sec:""},
+  10228: {cat:"Both superfood set locations fully stocked, good merchandising. One of the stronger placements.", sec:"Confirmed; favorable positioning."},
+  10534: {cat:"Floor-level despite strong store energy. Consistent regional weakness — shelf height needs raising.", sec:"Confirmed; favorable positioning."},
+  10566: {cat:"Shelf high enough to be visible. Metro rack in wellness dept appropriate. Staff report strong sales.", sec:"End-cap side panel; acceptable visibility."},
+  10280: {cat:"Floor-level, no secondary to compensate. All 3 SKUs on promo but sitting at section bottom.", sec:""},
+  10160: {cat:"Fridge bottom shelf — acceptable. Near-OOS at visit: rep pulled last case from stockroom.", sec:"Confirmed; inventory replenishment needed."},
+  10246: {cat:"Strong fridge placement — cooler positioning works here. End-cap + fridge = dual touchpoints.", sec:"Strong — 2 off-shelf displays incl. refrigerated cooler."},
+  10661: {cat:"Right section, acceptable height, no issues. No secondary. Adding one is the main lever here.", sec:""},
+  10231: {cat:"Fully stocked, faced up, right context. Doing $11K L52W shelf-only — secondary would push higher.", sec:""},
 };
 
 
@@ -745,13 +745,13 @@ function openDW(num) {
     0: {label:"Not yet visited", cls:"", note:"No field data — schedule a visit to assess placement"},
     1: {label:"Elite placement", cls:"ok", note:"Eye level, full facings, secondary display active"},
     2: {label:"Good placement", cls:"ok", note:"Good position with minor improvements possible"},
-    3: {label:"Fix needed", cls:"bad", note:"Placement issues identified during visit — priority fix"},
+    3: {label:"Fix needed", cls:"bad", note:"Placement issues identified during visit"},
     4: {label:"High potential", cls:"amb", note:"Strong foot traffic, needs better placement"},
     5: {label:"Needs attention", cls:"bad", note:"Low engagement, placement and display issues"},
   }[s.tier] || {label:"Unknown", cls:"", note:""};
   
   const TSM_ONLY_STORES = new Set([10333,10075,10566,10558,10638,10059,10246,10580]);
-  let html = `<span class="pbdg pb${s.tier}"><span style="width:7px;height:7px;border-radius:50%;background:${TC[s.tier]};display:inline-block"></span>${TL[s.tier]}</span>`;
+  let html = ``;
   if (TSM_ONLY_STORES.has(s.num)) html += `<span class="tsm-only-badge">TSM Only Display</span> `;
   
   // Photo zone with real images
@@ -814,9 +814,6 @@ function openDW(num) {
   }
   
   // Alerts
-  if (s.gap_pct < -50) html += `<div class="alert alert-r"><strong>Gap alert:</strong> ${Math.abs(s.gap_pct)}% below regional peers — investigate placement immediately.</div>`;
-  if (s.momentum > 0 && s.momentum < 60) html += `<div class="alert alert-a"><strong>Momentum dip:</strong> Last week was only ${s.momentum}% of the 4-week average.</div>`;
-  if (s.tier > 0 && s.gap_pct < -20) html += `<div class="alert alert-r"><strong>Visited store underperforming:</strong> We know this store — placement fix should be prioritised.</div>`;
   if (s.gap_pct > 30 && s.tier === 0) html += `<div class="alert alert-g"><strong>Unvisited top performer:</strong> This store is ${s.gap_pct}% above region avg without a field visit. Schedule one to document what's working.</div>`;
   
   // KPIs
