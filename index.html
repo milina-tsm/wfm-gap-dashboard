@@ -59,7 +59,7 @@ input[type=range]{flex:1;accent-color:var(--grn);cursor:pointer}
 
 
 /* ── KPI ROW ── */
-.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:14px}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}
 .kpi{background:var(--surf);border:1px solid var(--bdr);border-radius:var(--r);padding:12px 14px;box-shadow:var(--shadow)}
 .kv{font-family:"Syne",sans-serif;font-size:20px;font-weight:700;line-height:1;margin-bottom:3px;color:var(--ink)}
 .kv.g{color:var(--grn)}.kv.a{color:var(--amb)}.kv.r{color:var(--red)}
@@ -223,7 +223,6 @@ input[type=range]{flex:1;accent-color:var(--grn);cursor:pointer}
   <div class="hdr-r">
     <div class="hdr-stat"><div class="hdr-sv" id="hdr-n">—</div><div class="hdr-sl">Stores shown</div></div>
     <div class="hdr-stat"><div class="hdr-sv r" id="hdr-gap">—</div><div class="hdr-sl">&gt;50% below region</div></div>
-    <div class="hdr-stat"><div class="hdr-sv a" id="hdr-opp">—</div><div class="hdr-sl">Est. weekly uplift</div></div>
     <div class="hdr-stat"><div class="hdr-sv g" id="hdr-visited">—</div><div class="hdr-sl">Visited stores</div></div>
   </div>
 </header>
@@ -268,7 +267,6 @@ input[type=range]{flex:1;accent-color:var(--grn);cursor:pointer}
     <div class="kpi"><div class="kv g" id="k0">—</div><div class="kl">Stores shown</div></div>
     <div class="kpi"><div class="kv" id="k1">—</div><div class="kl">Avg L4W revenue</div></div>
     <div class="kpi"><div class="kv r" id="k2">—</div><div class="kl">Stores &gt;50% below region</div></div>
-    <div class="kpi"><div class="kv a" id="k3">—</div><div class="kl">Est. weekly uplift if gaps closed</div></div>
     <div class="kpi"><div class="kv g" id="k4">—</div><div class="kl">Top store L4W</div></div>
   </div>
 
@@ -512,16 +510,13 @@ function updK(d) {
   const n = d.length;
   const avg = n ? Math.round(d.reduce((a,s)=>a+s.l4w,0)/n) : 0;
   const gaps = d.filter(s=>s.gap_pct<-50).length;
-  const opp = Math.round(d.filter(s=>s.gap_pct<-20).reduce((a,s)=>a+Math.max(0,s.reg_avg-s.l4w),0)/4);
   const top = n ? Math.max(...d.map(s=>s.l4w)) : 0;
   document.getElementById("k0").textContent = n.toLocaleString();
   document.getElementById("k1").textContent = n ? "$"+avg.toLocaleString() : "—";
   document.getElementById("k2").textContent = gaps;
-  document.getElementById("k3").textContent = "+$"+opp.toLocaleString()+"/wk";
   document.getElementById("k4").textContent = n ? "$"+top.toLocaleString() : "—";
   document.getElementById("hdr-n").textContent = n;
   document.getElementById("hdr-gap").textContent = gaps;
-  document.getElementById("hdr-opp").textContent = "+$"+opp.toLocaleString()+"/wk";
   document.getElementById("hdr-visited").textContent = d.filter(s=>s.tier>0).length;
 }
 
@@ -665,7 +660,6 @@ function openDW(num) {
   
   const gc = s.gap_pct>=0?"var(--grn)":s.gap_pct>=-30?"var(--amb)":"var(--red)";
   const bw = Math.min(Math.max((s.gap_pct+100)/200*100,0),100);
-  const au = s.ann_uplift!=null?(s.ann_uplift>0?"+":"")+s.ann_uplift+"%":"—";
   
   // Cluster peers — same region stores
   const peers = S.filter(x=>x.region===s.region&&x.num!==s.num&&x.l4w>0);
@@ -749,7 +743,6 @@ function openDW(num) {
     <div class="drow">L1W Revenue <strong>$${s.l1w.toLocaleString()}</strong></div>
     <div class="drow">Momentum <strong style="color:${s.momentum>=90?"var(--grn)":s.momentum>=60?"var(--amb)":"var(--red)"}">${s.momentum>0?s.momentum+"%":"—"}</strong></div>
     <div class="drow">L4W Units <strong>${s.units.toLocaleString()}</strong></div>
-    <div class="drow">Annualised uplift vs L52W <strong>${au}</strong></div>
   </div>`;
   
   html += `<div class="dsec"><h4>Context</h4>
