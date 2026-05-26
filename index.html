@@ -205,6 +205,9 @@ input[type=range]{flex:1;accent-color:var(--grn);cursor:pointer}
 .lb-img{max-width:90vw;max-height:88vh;border-radius:8px;box-shadow:0 8px 40px rgba(0,0,0,.5)}
 .lb-close{position:fixed;top:20px;right:24px;color:#fff;font-size:28px;cursor:pointer;opacity:.8;background:none;border:none;line-height:1}
 .lb-close:hover{opacity:1}
+.tsm-only-badge{display:inline-flex;align-items:center;gap:5px;background:#1a1a18;color:#f5f4f0;font-size:10px;font-weight:600;padding:3px 9px;border-radius:100px;margin-bottom:10px;letter-spacing:.03em}
+.tsm-only-badge::before{content:"★";font-size:9px}
+
 
 /* ── PLACEMENT NOTES ── */
 .placement-notes{background:var(--bg);border-radius:8px;padding:10px 12px;margin-bottom:10px;border:1px solid var(--bdr)}
@@ -346,18 +349,21 @@ const STORE_IMAGES = {
   "bellingham washington": {secondary:"https://drive.google.com/thumbnail?id=1d0Sn-gGGESU9glqcvN_wXbctIb9eaFFx&sz=w800", category:"https://drive.google.com/thumbnail?id=1AEtJIcbCOM5lL288SqRZF34h0dOI2pMO&sz=w800"},
   "bishops corner": {category:"https://drive.google.com/thumbnail?id=1OX9uhcAfz5RNjajb9ssZec7LFtco2EY0&sz=w800"},
   "bradburn": {category:"https://drive.google.com/thumbnail?id=1apIwgLvMhk-rZ_q344IL25kwJHP9-7Lc&sz=w800"},
-  "bridgewater": {category:"https://drive.google.com/thumbnail?id=1Wnt6Ag7LDuA68KsIUCpEZ6h_Tdt0CCY0&sz=w800"},
+  "bridgewater": {secondary:"https://drive.google.com/thumbnail?id=1KMwVohi9Khdnwpf32mLwSUfEUlqQXek6&sz=w800", category:"https://drive.google.com/thumbnail?id=1Wnt6Ag7LDuA68KsIUCpEZ6h_Tdt0CCY0&sz=w800"},
   "brighton": {category:"https://drive.google.com/thumbnail?id=12L4meewBglyuenLB73z9rsThspsy2CB5&sz=w800"},
   "brooklyn": {secondary:"https://drive.google.com/thumbnail?id=1YQI1k0NCWrjOZjDpuXcUvKQEn0gqN8L1&sz=w800", category:"https://drive.google.com/thumbnail?id=1WtIi2yW7gU-sFxLYpdH_Z-qEjNr1Ud81&sz=w800"},
+  "burbank": {category:"https://drive.google.com/thumbnail?id=163UmBNtSLCHe5wCvKsFtps_-oqa_pXrr&sz=w800"},
   "camelback": {secondary:"https://drive.google.com/thumbnail?id=1jeSuplsBNBNa2J_mypm1PRIm17hfyBVp&sz=w800", category:"https://drive.google.com/thumbnail?id=1RIztZ4xDr7T2wkzvk2KlPoDFdlzE6mP3&sz=w800"},
   "chandler": {secondary:"https://drive.google.com/thumbnail?id=137LpAtWsy2o-Y8T2sKXcQG20R2XIKvlk&sz=w800", category:"https://drive.google.com/thumbnail?id=1E34dS-MPd3OP5cZx5kkiTobC-wKG4Lo_&sz=w800"},
   "columbus circle": {secondary:"https://drive.google.com/thumbnail?id=1XUx5bd50vZczL7FUn2ebP8lvhKfNDZgf&sz=w800", category:"https://drive.google.com/thumbnail?id=1ylggkz1WDdQJEbSRiQGT5pSlBoAUGgvi&sz=w800"},
   "concord": {category:"https://drive.google.com/thumbnail?id=1EFOinJYemeyJAGdMbhfbYxNPTImzdcIr&sz=w800"},
   "cottonwood heights": {category:"https://drive.google.com/thumbnail?id=1dBC0UOWrvqSUaw4U8KdJG8B51d67tq1h&sz=w800"},
   "dayton": {secondary:"https://drive.google.com/thumbnail?id=19nYQvB7jkGAQpPg6GyupUX5dWX59g68s&sz=w800", category:"https://drive.google.com/thumbnail?id=1RkTImAzNTQXzJbp7G4l5XQz8nwW73Jbt&sz=w800"},
+  "domain": {secondary:"https://drive.google.com/thumbnail?id=1Hgw9S39672n-toNzoum_61dg05R_8jOw&sz=w800", category:"https://drive.google.com/thumbnail?id=1ph8FeItR7QV_fXT2ugS1a1G35uPPq7ke&sz=w800"},
   "elmhurst": {secondary:"https://drive.google.com/thumbnail?id=1i38UosCcZbtEiUZqxaRVRW3CQNp2_8yx&sz=w800", category:"https://drive.google.com/thumbnail?id=13l7Yd9RxhlMtUnltjlJPtA-Q7BwRJ3zd&sz=w800"},
   "eugene": {secondary:"https://drive.google.com/thumbnail?id=14J7DftYH9leZI4PPP9b6Mi0OupoRn9eP&sz=w800", category:"https://drive.google.com/thumbnail?id=1e78czyS2lWkmskR9QIDi4DjxwadPw1iy&sz=w800"},
   "fairfield": {secondary:"https://drive.google.com/thumbnail?id=1nYk5pRkLNBnPUUP_CK4y2N1ayTGeQo2b&sz=w800"},
+  "harbor east": {secondary:"https://drive.google.com/thumbnail?id=1jPMKIYDUseIeYJAJsV9DbnCq1bA8LgPa&sz=w800", category:"https://drive.google.com/thumbnail?id=1Ynd0e7g9gk3Sq3_SNCxlxPNdaCGGuCFW&sz=w800"},
   "interbay": {secondary:"https://drive.google.com/thumbnail?id=1fgYzh-VJl8-X_c_e2YC7ps6xbatgIoYg&sz=w800", category:"https://drive.google.com/thumbnail?id=1kcvx0v5MXSiiM-zhMUqv3h76AJt3-LXA&sz=w800"},
   "jackson": {category:"https://drive.google.com/thumbnail?id=1S8lB329ymo4U8JeKphi-1FelMV8sBByZ&sz=w800"},
   "jamboree": {category:"https://drive.google.com/thumbnail?id=1MTa5CPs1cakAOCXC2S6zkwTmnmugxjSG&sz=w800"},
@@ -368,12 +374,16 @@ const STORE_IMAGES = {
   "montclair": {secondary:"https://drive.google.com/thumbnail?id=1LWHX4Peu9fikWSWpOsR1t501C59rJ6UT&sz=w800"},
   "naperville": {category:"https://drive.google.com/thumbnail?id=1X4LYbOXGbrcIOEqJ3Opg0zroWAsfrCZk&sz=w800"},
   "potrero hill": {secondary:"https://drive.google.com/thumbnail?id=1YQ95EGpeeHjZKLRBw5DIheS9wh5xoGi9&sz=w800", category:"https://drive.google.com/thumbnail?id=14_7nrPNtOD4gcbRxmecAwVVozZ3pYCkP&sz=w800"},
-  "scottsdale": {secondary:"https://drive.google.com/thumbnail?id=1jRy0G-XzbJwT0-XWtKe34zqQ5ofPjwlA&sz=w800", category:"https://drive.google.com/thumbnail?id=1RkB81YxZ_8ttqPCWicHxCE2PPIUQRF7r&sz=w800"},
-  "thousand oaks": {secondary:"https://drive.google.com/thumbnail?id=1lM4TTf5qu6UiAT0m4RSK259BdSVc6mym&sz=w800", category:"https://drive.google.com/thumbnail?id=1ofnu6_XM56v0CQc-4VFuZHL7YN-9UlVf&sz=w800"},
-  "venice": {secondary:"https://drive.google.com/thumbnail?id=1mCd6ixnclR57gGXzUn1PAdKKcBCeR0wr&sz=w800", category:"https://drive.google.com/thumbnail?id=1_-q8YDsnVpHAw0ZKmVc_WtoJg5mgGk22&sz=w800"},
-  "wheaton": {category:"https://drive.google.com/thumbnail?id=1qQzrmAvr0_QCxmDjLi2nxFYJsCmbguC8&sz=w800"},
+  "scottsdale": {secondary:"https://drive.google.com/thumbnail?id=1RkB81YxZ_8ttqPCWicHxCE2PPIUQRF7r&sz=w800", category:"https://drive.google.com/thumbnail?id=1apAoxPwD9GcSNrDwr-fFVp0ZXOH41Wca&sz=w800"},
+  "southglenn": {secondary:"https://drive.google.com/thumbnail?id=1cA9NwPBfh7n1hwdCfD82O8rYZh3UUrH2&sz=w800", category:"https://drive.google.com/thumbnail?id=1p3wlQyI1aBZDUnXxgGgIZwujxDFhkYxm&sz=w800"},
+  "sugarhouse": {category:"https://drive.google.com/thumbnail?id=1HX-MthCX7fxU8zM4-lrylOfD8Hgc0EVJ&sz=w800"},
   "tarzana": {secondary:"https://drive.google.com/thumbnail?id=1emjPelfy5OFRMIxEZZqhJuct0qZXFiYc&sz=w800", category:"https://drive.google.com/thumbnail?id=1UxCVs-kBkwl-hJeduxsQU-roiv21jHKK&sz=w800"},
+  "thousand oaks": {secondary:"https://drive.google.com/thumbnail?id=1lM4TTf5qu6UiAT0m4RSK259BdSVc6mym&sz=w800", category:"https://drive.google.com/thumbnail?id=1gM4qiumJHlPK_flDmZvXLyLsfX8Xe6bd&sz=w800"},
+  "trolley square": {secondary:"https://drive.google.com/thumbnail?id=1u72CsbdAfsDu84qVgnT_2aV-zB5c0BOD&sz=w800", category:"https://drive.google.com/thumbnail?id=1r3rWu4cgtVjnyjT4Lk-2n_5cCLoBfuBp&sz=w800"},
   "valley village": {secondary:"https://drive.google.com/thumbnail?id=1wz8rBGFMOWCp2proKjQg480aJIartmWF&sz=w800", category:"https://drive.google.com/thumbnail?id=1wCHLfCDqADRczjtEcHMmbJNKh0U-87rS&sz=w800"},
+  "venice": {secondary:"https://drive.google.com/thumbnail?id=1_-q8YDsnVpHAw0ZKmVc_WtoJg5mgGk22&sz=w800", category:"https://drive.google.com/thumbnail?id=1dp-JznBrJEj0KybMaqkXY3gmsO4gHVP-&sz=w800"},
+  "wheaton": {secondary:"https://drive.google.com/thumbnail?id=1lr2KyPX82o3H_6GQzukrGRb6hVWgWXR-&sz=w800"},
+  "winter park north": {secondary:"https://drive.google.com/thumbnail?id=1lGA1mRf1tP0iWppsXR7axAIQItzwJ0I5&sz=w800", category:"https://drive.google.com/thumbnail?id=1T1L_fpkAy5CdfBSrULS_WgDn_sDDvxnA&sz=w800"},
 };
 
 const PLACEMENT_NOTES = {
@@ -740,7 +750,9 @@ function openDW(num) {
     5: {label:"Needs attention", cls:"bad", note:"Low engagement, placement and display issues"},
   }[s.tier] || {label:"Unknown", cls:"", note:""};
   
+  const TSM_ONLY_STORES = new Set([10333,10075,10566,10558,10638,10059,10246,10580]);
   let html = `<span class="pbdg pb${s.tier}"><span style="width:7px;height:7px;border-radius:50%;background:${TC[s.tier]};display:inline-block"></span>${TL[s.tier]}</span>`;
+  if (TSM_ONLY_STORES.has(s.num)) html += `<span class="tsm-only-badge">TSM Only Display</span> `;
   
   // Photo zone with real images
   const imgKey = getImgKey(s.name);
