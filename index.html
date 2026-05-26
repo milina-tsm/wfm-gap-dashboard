@@ -163,14 +163,6 @@ input[type=range]{flex:1;accent-color:var(--grn);cursor:pointer}
 .cluster-gap{background:var(--red-l);border-radius:6px;padding:7px 10px;margin-top:6px;font-size:11px;color:var(--red);font-weight:500;text-align:center}
 .cluster-gap.positive{background:var(--grn-l);color:var(--grn)}
 
-/* ── PLACEMENT FLAG ── */
-.place-flag{display:flex;align-items:center;justify-content:space-between;padding:7px 10px;border-radius:6px;font-size:11px;margin-bottom:6px}
-.place-flag.bad{background:var(--red-l)}
-.place-flag.amb{background:var(--amb-l)}
-.place-flag.ok{background:var(--grn-l)}
-.pf-label{color:var(--ink2);font-weight:500}
-.pf-val{font-family:"DM Sans",sans-serif;font-size:11px}
-.pf-val.bad{color:var(--red)}.pf-val.amb{color:var(--amb)}.pf-val.ok{color:var(--grn)}
 
 /* ── DRAWER KPIS ── */
 .dkpis{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:12px}
@@ -417,7 +409,7 @@ const PLACEMENT_NOTES = {
   10430: {cat:"Eye-level on dedicated wellness display — strong setup. Revenue gap points to traffic, not placement.", sec:""},
   10545: {cat:"Good height but adjacent to 'bone & joints' not superfood set. Worth fixing at next planogram.", sec:""},
   10441: {cat:"Fridge bottom shelf, clear line of sight. Stock gaps visible — slow replenishment needs monitoring.", sec:""},
-  10415: {cat:"Expanded facings, 3 SKUs, right section. Weak revenue likely foot traffic not placement.", sec:""},
+  10415: {cat:"Expanded facings, 3 SKUs, right section. Weak revenue likely driven by store volume, not placement.", sec:""},
   10228: {cat:"Both superfood set locations fully stocked, good merchandising. One of the stronger placements.", sec:"Confirmed; favorable positioning."},
   10534: {cat:"Floor-level despite strong store energy. Consistent regional weakness — shelf height needs raising.", sec:"Confirmed; favorable positioning."},
   10566: {cat:"Shelf high enough to be visible. Metro rack in wellness dept appropriate. Staff report strong sales.", sec:"End-cap side panel; acceptable visibility."},
@@ -533,62 +525,6 @@ function updK(d) {
   document.getElementById("hdr-visited").textContent = d.filter(s=>s.tier>0).length;
 }
 
-// ── OPPORTUNITY BAND ───────────────────────────────────────────────────────
-function renderOppBand() {
-  const d = filt();
-  // Stores with revenue > region avg but tier>0 (visited, so we know placement)
-  // These are stores that are already doing well or could do better
-  // We show: (1) high rev + visited (stars to learn from), (2) visited + bad gap (quick fix), (3) visited + no secondary implied by tier 3-5
-  
-  const visited = d.filter(s=>s.tier>0);
-  
-  // Category 1: Stars — visited, top L4W
-  const stars = [...visited].sort((a,b)=>b.l4w-a.l4w).slice(0,2);
-  
-  // Category 2: Quick wins — visited, gap < -20%, meaning they're below peers despite us knowing placement
-  const quickWins = visited.filter(s=>s.gap_pct<-20).sort((a,b)=>a.gap_pct-b.gap_pct).slice(0,2);
-  
-  // Category 3: Cluster anomalies — same region, big gap (from unvisited, high-potential)
-  const anomalies = d.filter(s=>s.gap_pct<-50&&s.l4w>500).sort((a,b)=>a.gap_pct-b.gap_pct).slice(0,2);
-  
-  const cards = [];
-  quickWins.forEach(s => {
-    cards.push(`<div class="opp-card" onclick="openDW(${s.num})">
-      <div class="opp-tag red">Fix placement</div>
-      <div class="opp-name">${s.name}</div>
-      <div class="opp-sub">${s.region} &middot; Visited · Tier ${s.tier}</div>
-      <div class="opp-rev">$${s.l4w.toLocaleString()}</div>
-      <div class="opp-delta" style="color:var(--red)">${s.gap_pct}% vs region</div>
-    </div>`);
-  });
-  anomalies.forEach(s => {
-    const potential = s.reg_avg - s.l4w;
-    cards.push(`<div class="opp-card" onclick="openDW(${s.num})">
-      <div class="opp-tag amb">Cluster gap</div>
-      <div class="opp-name">${s.name}</div>
-      <div class="opp-sub">${s.region} &middot; Same area, different results</div>
-      <div class="opp-rev">$${s.l4w.toLocaleString()}</div>
-      <div class="opp-delta" style="color:var(--amb)">+$${potential.toLocaleString()} gap to region avg</div>
-    </div>`);
-  });
-  stars.forEach(s => {
-    cards.push(`<div class="opp-card" onclick="openDW(${s.num})">
-      <div class="opp-tag grn">Blueprint store</div>
-      <div class="opp-name">${s.name}</div>
-      <div class="opp-sub">${s.region} &middot; Visited · Study this</div>
-      <div class="opp-rev">$${s.l4w.toLocaleString()}</div>
-      <div class="opp-delta" style="color:var(--grn)">+${s.gap_pct}% vs region</div>
-    </div>`);
-  });
-  
-  const grid = document.getElementById("opp-grid");
-  if (cards.length) {
-    grid.style.gridTemplateColumns = "repeat("+Math.min(cards.length,3)+",1fr)";
-    grid.innerHTML = cards.slice(0,6).join("");
-  } else {
-    grid.innerHTML = '<div style="color:var(--ink3);font-size:12px;grid-column:1/-1;padding:4px 0">No visited stores in current filter — add field visit data or clear filters.</div>';
-  }
-}
 
 // ── TABLE ──────────────────────────────────────────────────────────────────
 function mc(m) { return m >= 90 ? "var(--grn)" : m >= 60 ? "var(--amb)" : "var(--red)"; }
@@ -716,9 +652,7 @@ function renderInsights() {
   document.getElementById("ig").innerHTML = [
     `<div class="ic"><span class="itag itg">Placement impact</span><div class="ih">Secondary display = +${lift}% revenue</div><div class="ip">Across ${wD.length} visited stores with good placement, avg L4W is $${aW.toLocaleString()} vs $${aN.toLocaleString()} at stores needing attention. Consistent across regions.</div><div class="isr"><div><div class="isv">$${aW.toLocaleString()}</div><div class="isl">Good placement</div></div><div><div class="isv" style="color:var(--red)">$${aN.toLocaleString()}</div><div class="isl">Needs work</div></div><div><div class="isv">+${lift}%</div><div class="isl">Lift</div></div></div></div>`,
     `<div class="ic"><span class="itag itr">Gap alerts</span><div class="ih">${gaps.length} stores >50% below region peers</div><div class="ip">Same products, same consumers — something specific is wrong at each. Click to drill in.</div>`+gaps.map(s=>`<div class="sli" style="cursor:pointer" onclick="openDW(${s.num})"><span style="color:var(--ink);font-weight:500">${s.name}</span><span style="font-family:"DM Sans",sans-serif;font-size:11px;color:var(--red)">${s.gap_pct}%</span></div>`).join("")+`</div>`,
-    `<div class="ic"><span class="itag ita">Same region, wildly different results</span><div class="ih">${peers.length} region pairs with 5×+ spread</div><div class="ip">These gaps can't be explained by market size — it's execution. Click a store to investigate.</div>`+peers.slice(0,4).map(p=>`<div class="sli" style="flex-direction:column;align-items:flex-start;gap:2px"><div style="display:flex;justify-content:space-between;width:100%"><span style="color:var(--ink);font-weight:500">${p.region}</span><span style="font-family:"DM Sans",sans-serif;font-size:11px;color:var(--amb)">${p.ratio}× spread</span></div><div style="font-size:10px;color:var(--ink3)">↑ <span style="cursor:pointer;text-decoration:underline" onclick="openDW(${p.top.num})">${p.top.name}</span> $${p.top.l4w.toLocaleString()} &nbsp;·&nbsp; ↓ <span style="cursor:pointer;text-decoration:underline" onclick="openDW(${p.bot.num})">${p.bot.name}</span> $${p.bot.l4w.toLocaleString()}</div></div>`).join("")+`</div>`,
-    `<div class="ic"><span class="itag itg">Blueprint stores — study these</span><div class="ih">Top performers share a playbook</div><div class="ip">What these stores have in common is the template for the rest of the fleet.</div>`+stars.map(s=>`<div class="sli" style="cursor:pointer" onclick="openDW(${s.num})"><span style="color:var(--ink);font-weight:500">${s.name}</span><span style="font-family:"DM Sans",sans-serif;font-size:11px;color:var(--grn)">$${s.l4w.toLocaleString()}</span></div>`).join("")+`</div>`,
-    `<div class="ic" style="grid-column:1/-1"><span class="itag itg">Brand trajectory</span><div class="ih">TSM is in a growth wave — who's capturing it?</div><div class="ip" style="max-width:600px">L4W run rates are 2–5× higher than L52W averages at most stores. Underperforming stores aren't failing to sell TSM — they're failing to capture a wave already happening at their peers. Closing the gap between your bottom quartile and median is the single highest-ROI action available right now.</div><div class="isr" style="margin-top:10px"><div><div class="isv">${d.length}</div><div class="isl">Stores tracked</div></div><div><div class="isv">$${fa.toLocaleString()}</div><div class="isl">Fleet avg L4W</div></div><div><div class="isv">${d.filter(s=>s.gap_pct<-50).length}</div><div class="isl">&gt;50% below region</div></div><div><div class="isv">${d.filter(s=>s.tier>=1&&s.tier<=5).length}</div><div class="isl">Field-visited</div></div></div></div>`
+    `<div class="ic"><span class="itag ita">Same region, wildly different results</span><div class="ih">${peers.length} region pairs with 5×+ spread</div><div class="ip">These gaps can't be explained by market size — it's execution. Click a store to investigate.</div>`+peers.slice(0,4).map(p=>`<div class="sli" style="flex-direction:column;align-items:flex-start;gap:2px"><div style="display:flex;justify-content:space-between;width:100%"><span style="color:var(--ink);font-weight:500">${p.region}</span><span style="font-family:"DM Sans",sans-serif;font-size:11px;color:var(--amb)">${p.ratio}× spread</span></div><div style="font-size:10px;color:var(--ink3)">↑ <span style="cursor:pointer;text-decoration:underline" onclick="openDW(${p.top.num})">${p.top.name}</span> $${p.top.l4w.toLocaleString()} &nbsp;·&nbsp; ↓ <span style="cursor:pointer;text-decoration:underline" onclick="openDW(${p.bot.num})">${p.bot.name}</span> $${p.bot.l4w.toLocaleString()}</div></div>`).join("")+`</div>`+stars.map(s=>`<div class="sli" style="cursor:pointer" onclick="openDW(${s.num})"><span style="color:var(--ink);font-weight:500">${s.name}</span><span style="font-family:"DM Sans",sans-serif;font-size:11px;color:var(--grn)">$${s.l4w.toLocaleString()}</span></div>`).join("")+`</div>`
   ].join("");
 }
 
@@ -740,15 +674,6 @@ function openDW(num) {
   const topPeer = peers.sort((a,b)=>b.l4w-a.l4w)[0];
   const potential = Math.max(0, peerAvg - s.l4w);
   
-  // Placement signals from tier
-  const tierSignal = {
-    0: {label:"Not yet visited", cls:"", note:"No field data — schedule a visit to assess placement"},
-    1: {label:"Elite placement", cls:"ok", note:"Eye level, full facings, secondary display active"},
-    2: {label:"Good placement", cls:"ok", note:"Good position with minor improvements possible"},
-    3: {label:"Fix needed", cls:"bad", note:"Placement issues identified during visit"},
-    4: {label:"High potential", cls:"amb", note:"Strong foot traffic, needs better placement"},
-    5: {label:"Needs attention", cls:"bad", note:"Low engagement, placement and display issues"},
-  }[s.tier] || {label:"Unknown", cls:"", note:""};
   
   const TSM_ONLY_STORES = new Set([10333,10075,10566,10558,10638,10059,10246,10580]);
   let html = ``;
@@ -795,26 +720,14 @@ function openDW(num) {
         <div class="cc-item"><div class="cc-val" style="color:${gc}">$${s.l4w.toLocaleString()}</div><div class="cc-lbl">This store L4W</div></div>
         <div class="cc-item"><div class="cc-val">$${peerAvg.toLocaleString()}</div><div class="cc-lbl">Region avg L4W</div></div>
       </div>
-      ${potential>0?`<div class="cluster-gap">↑ Closing this gap = +$${potential.toLocaleString()}/4 weeks potential</div>`:
-        `<div class="cluster-gap positive">✓ This store is ${clusterGap}% above region average</div>`}
+      ${clusterGap<0?`<div class="cluster-gap">This store is ${Math.abs(clusterGap)}% below region average</div>`:`<div class="cluster-gap positive">This store is ${clusterGap}% above region average</div>`}
       ${topPeer?`<div style="font-size:10px;color:var(--ink3);margin-top:5px;padding:0 2px">Top peer: <strong style="color:var(--ink)">${topPeer.name}</strong> at $${topPeer.l4w.toLocaleString()}</div>`:""}
     </div>`;
   }
   
-  // Placement signal (your Point 1 — for visited stores)
-  if (s.tier > 0) {
-    const potentialIfFixed = s.gap_pct < -10 ? Math.round((peerAvg - s.l4w)) : 0;
-    html += `<div class="place-flag ${tierSignal.cls}">
-      <div>
-        <div class="pf-label">${tierSignal.label}</div>
-        <div style="font-size:10px;color:var(--ink3);margin-top:1px">${tierSignal.note}</div>
-      </div>
-      ${potentialIfFixed>0?`<div class="pf-val bad">+$${potentialIfFixed.toLocaleString()}<br><span style="font-size:9px">if fixed</span></div>`:""}
-    </div>`;
-  }
+
   
   // Alerts
-  if (s.gap_pct > 30 && s.tier === 0) html += `<div class="alert alert-g"><strong>Unvisited top performer:</strong> This store is ${s.gap_pct}% above region avg without a field visit. Schedule one to document what's working.</div>`;
   
   // KPIs
   html += `<div class="dkpis" style="margin-top:10px">
