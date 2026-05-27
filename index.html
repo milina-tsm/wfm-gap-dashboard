@@ -115,17 +115,6 @@ input[type=range]{flex:1;accent-color:var(--grn);cursor:pointer}
 .cw{position:relative;height:190px}
 .cw.tall{height:240px}
 
-/* ── INSIGHTS ── */
-.ig{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.ic{background:var(--surf);border:1px solid var(--bdr);border-radius:var(--r);padding:14px;box-shadow:var(--shadow)}
-.itag{font-family:"DM Sans",sans-serif;font-size:11px;font-weight:600;padding:2px 9px;border-radius:100px;margin-bottom:7px;display:inline-block}
-.itg{background:var(--grn-l);color:var(--grn)}.ita{background:var(--amb-l);color:var(--amb)}.itr{background:var(--red-l);color:var(--red)}
-.ih{font-family:"Syne",sans-serif;font-size:14px;font-weight:700;line-height:1.3;margin-bottom:6px;color:var(--ink)}
-.ip{font-size:12px;color:var(--ink2);line-height:1.6;margin-bottom:8px}
-.isr{display:flex;gap:14px;margin-top:6px;flex-wrap:wrap}
-.isv{font-family:"DM Sans",sans-serif;font-size:15px;color:var(--grn)}
-.isl{font-size:10px;color:var(--ink3)}
-.sli{display:flex;justify-content:space-between;align-items:center;padding:5px 8px;background:var(--bg);border-radius:5px;font-size:12px;margin-top:3px}
 
 /* ── DRAWER ── */
 .ov{position:fixed;inset:0;background:rgba(0,0,0,.3);z-index:200;display:none;backdrop-filter:blur(2px)}
@@ -275,7 +264,7 @@ input[type=range]{flex:1;accent-color:var(--grn);cursor:pointer}
     <button class="tb on" onclick="sw('table',this)">Store list</button>
     <button class="tb" onclick="sw('regions',this)">By region</button>
     <button class="tb" onclick="sw('charts',this)">Charts</button>
-    <button class="tb" onclick="sw('insights',this)">Key insights</button>
+    
   </div>
 
   <!-- STORE TABLE -->
@@ -309,8 +298,7 @@ input[type=range]{flex:1;accent-color:var(--grn);cursor:pointer}
     </div>
   </div>
 
-  <!-- INSIGHTS -->
-  <div class="pan" id="pan-insights"><div class="ig" id="ig"></div></div>
+  
 
 </main>
 </div>
@@ -619,34 +607,7 @@ function renderCharts() {
   CHS["c5"] = new Chart(document.getElementById("c5"),{type:"bar",data:{labels:mbl,datasets:[{data:mbc,backgroundColor:mbl.map((_,i)=>i<2?"rgba(184,50,50,.7)":i<4?"rgba(196,122,26,.7)":"rgba(10,110,90,.7)"),borderRadius:4,borderSkipped:false}]},options:JSON.parse(JSON.stringify(CD))});
 }
 
-// ── INSIGHTS ────────────────────────────────────────────────────────────────
-function renderInsights() {
-  const d = filt();
-  const wD = d.filter(s=>s.tier>=1&&s.tier<=3);
-  const nD = d.filter(s=>s.tier>=4);
-  const aW = wD.length?Math.round(wD.reduce((a,s)=>a+s.l4w,0)/wD.length):0;
-  const aN = nD.length?Math.round(nD.reduce((a,s)=>a+s.l4w,0)/nD.length):0;
-  const lift = aN?Math.round((aW-aN)/aN*100):0;
-  const gaps = d.filter(s=>s.gap_pct<-50).sort((a,b)=>a.gap_pct-b.gap_pct).slice(0,6);
-  const stars = d.filter(s=>s.l4w>3000).sort((a,b)=>b.l4w-a.l4w).slice(0,5);
-  
-  // Same-region peer anomalies (your Point 2)
-  const peers = [];
-  REGIONS.forEach(r => {
-    const rs = d.filter(s=>s.region===r&&s.l4w>0); if (rs.length<2) return;
-    const mx = rs.reduce((a,s)=>s.l4w>a.l4w?s:a);
-    const mn = rs.reduce((a,s)=>s.l4w<a.l4w?s:a);
-    if (mn.l4w>0&&mx.l4w/mn.l4w>5) peers.push({region:r,top:mx,bot:mn,ratio:Math.round(mx.l4w/mn.l4w)});
-  });
-  peers.sort((a,b)=>b.ratio-a.ratio);
-  const fa = Math.round(d.filter(s=>s.l4w>0).reduce((a,s)=>a+s.l4w,0)/Math.max(1,d.filter(s=>s.l4w>0).length));
-  
-  document.getElementById("ig").innerHTML = [
-    `<div class="ic"><span class="itag itg">Placement impact</span><div class="ih">Secondary display = +${lift}% revenue</div><div class="ip">Across ${wD.length} visited stores with good placement, avg L4W is $${aW.toLocaleString()} vs $${aN.toLocaleString()} at stores needing attention. Consistent across regions.</div><div class="isr"><div><div class="isv">$${aW.toLocaleString()}</div><div class="isl">Good placement</div></div><div><div class="isv" style="color:var(--red)">$${aN.toLocaleString()}</div><div class="isl">Needs work</div></div><div><div class="isv">+${lift}%</div><div class="isl">Lift</div></div></div></div>`,
-    `<div class="ic"><span class="itag itr">Gap alerts</span><div class="ih">${gaps.length} stores >50% below region peers</div><div class="ip">Same products, same consumers — something specific is wrong at each. Click to drill in.</div>`+gaps.map(s=>`<div class="sli" style="cursor:pointer" onclick="openDW(${s.num})"><span style="color:var(--ink);font-weight:500">${s.name}</span><span style="font-family:"DM Sans",sans-serif;font-size:11px;color:var(--red)">${s.gap_pct}%</span></div>`).join("")+`</div>`,
-    `<div class="ic"><span class="itag ita">Same region, wildly different results</span><div class="ih">${peers.length} region pairs with 5×+ spread</div><div class="ip">These gaps can't be explained by market size — it's execution. Click a store to investigate.</div>`+peers.slice(0,4).map(p=>`<div class="sli" style="flex-direction:column;align-items:flex-start;gap:2px"><div style="display:flex;justify-content:space-between;width:100%"><span style="color:var(--ink);font-weight:500">${p.region}</span><span style="font-family:"DM Sans",sans-serif;font-size:11px;color:var(--amb)">${p.ratio}× spread</span></div><div style="font-size:10px;color:var(--ink3)">↑ <span style="cursor:pointer;text-decoration:underline" onclick="openDW(${p.top.num})">${p.top.name}</span> $${p.top.l4w.toLocaleString()} &nbsp;·&nbsp; ↓ <span style="cursor:pointer;text-decoration:underline" onclick="openDW(${p.bot.num})">${p.bot.name}</span> $${p.bot.l4w.toLocaleString()}</div></div>`).join("")+`</div>`+stars.map(s=>`<div class="sli" style="cursor:pointer" onclick="openDW(${s.num})"><span style="color:var(--ink);font-weight:500">${s.name}</span><span style="font-family:"DM Sans",sans-serif;font-size:11px;color:var(--grn)">$${s.l4w.toLocaleString()}</span></div>`).join("")+`</div>`
-  ].join("");
-}
+
 
 // ── DRAWER ──────────────────────────────────────────────────────────────────
 function openDW(num) {
@@ -759,14 +720,12 @@ function sw(tab, btn) {
   document.getElementById("pan-"+tab).classList.add("on");
   if (tab==="charts") renderCharts();
   if (tab==="regions") renderRegions();
-  if (tab==="insights") renderInsights();
 }
 
 function refresh() {
   renderTable();
   if (at==="regions") renderRegions();
   if (at==="charts") renderCharts();
-  if (at==="insights") renderInsights();
 }
 
 document.getElementById("q").addEventListener("input", e=>{ sq=e.target.value; refresh(); });
