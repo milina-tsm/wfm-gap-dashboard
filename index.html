@@ -699,13 +699,7 @@ function openDW(num) {
     html += '<div class="photo-zone"><div class="photo-zone-title">📷 Shelf photos</div><div style="font-size:12px;color:var(--ink3);padding:4px 2px">No photos on file for this store yet.</div></div>';
   }
   
-  // Placement comments from Notion
-  if (pn && (pn.cat || pn.sec)) {
-    html += '<div class="placement-notes">';
-    if (pn.cat) html += `<div class="pn-row"><div class="pn-label">Category placement</div><div class="pn-text">${pn.cat}</div></div>`;
-    if (pn.sec) html += `<div class="pn-row" style="margin-top:6px"><div class="pn-label">Secondary display</div><div class="pn-text">${pn.sec}</div></div>`;
-    html += '</div>';
-  }
+  // Placement notes removed
   
   // Cluster comparison (your Point 2)
   if (peerAvg > 0) {
