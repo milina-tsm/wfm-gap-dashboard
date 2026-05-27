@@ -91,7 +91,7 @@ input[type=range]{flex:1;accent-color:var(--grn);cursor:pointer}
 .ga{background:var(--amb-l);color:var(--amb)}
 .gr{background:var(--red-l);color:var(--red)}
 .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;display:inline-block}
-.d0{background:#ddd}.d1{background:#0a6e5a}.d2{background:#5a9e72}.d3{background:#c47a1a}.d4{background:#d86e2e}.d5{background:#b83232}
+.d0{background:#ddd}.d1{background:#5a9e72}.d2{background:#5a9e72}.d3{background:#5a9e72}.d4{background:#5a9e72}.d5{background:#5a9e72}
 .empty{padding:36px;text-align:center;color:var(--ink3);font-size:13px}
 
 /* ── REGIONS ── */
@@ -365,6 +365,7 @@ const STORE_IMAGES = {
   "naperville": {category:"https://drive.google.com/thumbnail?id=1X4LYbOXGbrcIOEqJ3Opg0zroWAsfrCZk&sz=w800"},
   "potrero hill": {secondary:"https://drive.google.com/thumbnail?id=1YQ95EGpeeHjZKLRBw5DIheS9wh5xoGi9&sz=w800", category:"https://drive.google.com/thumbnail?id=14_7nrPNtOD4gcbRxmecAwVVozZ3pYCkP&sz=w800"},
   "scottsdale": {secondary:"https://drive.google.com/thumbnail?id=1RkB81YxZ_8ttqPCWicHxCE2PPIUQRF7r&sz=w800", category:"https://drive.google.com/thumbnail?id=1apAoxPwD9GcSNrDwr-fFVp0ZXOH41Wca&sz=w800"},
+  "south weymouth": {secondary:"https://drive.google.com/thumbnail?id=1lJV2-opbiGiZRIsV-eMycoWzkZa_bv4e&sz=w800", category:"https://drive.google.com/thumbnail?id=1VWN0b3GuhRD3oaIoVpC_MWR_QuAI-6Tg&sz=w800"},
   "southglenn": {secondary:"https://drive.google.com/thumbnail?id=1cA9NwPBfh7n1hwdCfD82O8rYZh3UUrH2&sz=w800", category:"https://drive.google.com/thumbnail?id=1p3wlQyI1aBZDUnXxgGgIZwujxDFhkYxm&sz=w800"},
   "sugarhouse": {category:"https://drive.google.com/thumbnail?id=1HX-MthCX7fxU8zM4-lrylOfD8Hgc0EVJ&sz=w800"},
   "tarzana": {secondary:"https://drive.google.com/thumbnail?id=1emjPelfy5OFRMIxEZZqhJuct0qZXFiYc&sz=w800", category:"https://drive.google.com/thumbnail?id=1UxCVs-kBkwl-hJeduxsQU-roiv21jHKK&sz=w800"},
@@ -456,7 +457,7 @@ function filt() {
     if (gF === "u50" && s.gap_pct > -50) return false;
     if (gF === "u30" && s.gap_pct > -20) return false;
     if (gF === "a20" && s.gap_pct < 20) return false;
-    if (gF === "visited" && s.tier === 0) return false;
+    if (gF === "visited" && !getImgKey(s.name)) return false;
     return true;
   });
 }
@@ -477,7 +478,7 @@ function initSB() {
     u50: S.filter(s=>s.gap_pct<-50).length,
     u30: S.filter(s=>s.gap_pct<-20).length,
     a20: S.filter(s=>s.gap_pct>20).length,
-    visited: S.filter(s=>s.tier>0).length
+    visited: S.filter(s=>getImgKey(s.name)).length
   };
   Object.entries(counts).forEach(([k,v]) => { const el = document.getElementById("gc-"+k); if(el) el.textContent = v; });
 }
@@ -517,7 +518,7 @@ function updK(d) {
   document.getElementById("k4").textContent = n ? "$"+top.toLocaleString() : "—";
   document.getElementById("hdr-n").textContent = n;
   document.getElementById("hdr-gap").textContent = gaps;
-  document.getElementById("hdr-visited").textContent = d.filter(s=>s.tier>0).length;
+  document.getElementById("hdr-visited").textContent = d.filter(s=>getImgKey(s.name)).length;
 }
 
 
@@ -537,7 +538,7 @@ function renderTable() {
     const gs = (s.gap_pct >= 0 ? "+" : "") + s.gap_pct + "%";
     const ms = s.momentum > 0 ? s.momentum + "%" : "—";
     return `<div class="tr" onclick="openDW(${s.num})">
-      <div class="tc"><span class="dot d${s.tier}"></span></div>
+      <div class="tc"><span class="dot ${getImgKey(s.name) ? 'd1' : 'd0'}"></span></div>
       <div class="tc nm" title="${s.name}">${s.name}</div>
       <div class="tc rg">${s.region}</div>
       <div class="tc mn rt">$${s.l4w.toLocaleString()}</div>
