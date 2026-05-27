@@ -304,7 +304,7 @@ input[type=range]{flex:1;accent-color:var(--grn);cursor:pointer}
       <div class="cc"><div class="ct">L4W revenue distribution</div><div class="cs">How stores spread across revenue bands</div><div class="cw"><canvas id="c1" role="img" aria-label="Revenue distribution"></canvas></div></div>
       <div class="cc"><div class="ct">Regional average L4W</div><div class="cs">Where revenue is strongest</div><div class="cw"><canvas id="c2" role="img" aria-label="Regional averages"></canvas></div></div>
       <div class="cc full"><div class="ct">Gap vs region average — every store</div><div class="cs">Green = above avg &middot; Red = below &middot; Sorted by gap</div><div class="cw tall"><canvas id="c3" role="img" aria-label="Store gaps"></canvas></div></div>
-      <div class="cc"><div class="ct">Placement tier vs revenue (visited stores)</div><div class="cs">Does better placement = more revenue?</div><div class="cw"><canvas id="c4" role="img" aria-label="Tier vs revenue"></canvas></div></div>
+      
       <div class="cc"><div class="ct">Momentum distribution</div><div class="cs">L1W as % of 4-week average</div><div class="cw"><canvas id="c5" role="img" aria-label="Momentum"></canvas></div></div>
     </div>
   </div>
@@ -612,10 +612,6 @@ function renderCharts() {
   o3.scales.y.ticks.callback=v=>v+"%";
   CHS["c3"] = new Chart(document.getElementById("c3"),{type:"bar",data:{labels:gd.map(s=>s.name.length>18?s.name.substring(0,17)+"…":s.name),datasets:[{data:gd.map(s=>s.gap_pct),backgroundColor:gd.map(s=>s.gap_pct>=0?"rgba(10,110,90,.7)":s.gap_pct>=-30?"rgba(196,122,26,.7)":"rgba(184,50,50,.7)"),borderRadius:2,borderSkipped:false}]},options:o3});
 
-  dc("c4");
-  const tid=[1,2,3,4,5].map(t=>{const ss=d.filter(s=>s.tier===t);return{t,a:ss.length?Math.round(ss.reduce((x,s)=>x+s.l4w,0)/ss.length):0,n:ss.length};}).filter(x=>x.n>0);
-  const o4=JSON.parse(JSON.stringify(CD)); o4.scales.y.ticks.callback=v=>"$"+v.toLocaleString();
-  CHS["c4"] = new Chart(document.getElementById("c4"),{type:"bar",data:{labels:tid.map(x=>TL[x.t].split("—")[0].trim()+" ("+x.n+")"),datasets:[{data:tid.map(x=>x.a),backgroundColor:tid.map(x=>TC[x.t]+"cc"),borderRadius:4,borderSkipped:false}]},options:o4});
 
   dc("c5");
   const mb=[0,40,60,80,100,120,150,9999], mbl=["<40%","40-60%","60-80%","80-100%","100-120%","120-150%","150%+"];
@@ -743,7 +739,6 @@ function openDW(num) {
   html += `<div class="dsec"><h4>Context</h4>
     <div class="drow">Region <strong>${s.region}</strong></div>
     <div class="drow">Store # <strong>${s.num}</strong></div>
-    <div class="drow">Field visit <strong>${s.tier>0?TL[s.tier]:"<span style='color:var(--ink3)'>Not yet visited</span>"}</strong></div>
   </div>`;
   
   document.getElementById("db").innerHTML = html;
