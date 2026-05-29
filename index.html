@@ -338,7 +338,7 @@ const STORE_IMAGES = {
   "cottonwood heights": {category:"https://drive.google.com/thumbnail?id=1dBC0UOWrvqSUaw4U8KdJG8B51d67tq1h&sz=w800"},
   "dayton": {secondary:"https://drive.google.com/thumbnail?id=19nYQvB7jkGAQpPg6GyupUX5dWX59g68s&sz=w800", category:"https://drive.google.com/thumbnail?id=1RkTImAzNTQXzJbp7G4l5XQz8nwW73Jbt&sz=w800"},
   "domain": {secondary:"https://drive.google.com/thumbnail?id=1Hgw9S39672n-toNzoum_61dg05R_8jOw&sz=w800", category:"https://drive.google.com/thumbnail?id=1ph8FeItR7QV_fXT2ugS1a1G35uPPq7ke&sz=w800"},
-  "elmhurst": {secondary:"https://drive.google.com/thumbnail?id=1i38UosCcZbtEiUZqxaRVRW3CQNp2_8yx&sz=w800", category:"https://drive.google.com/thumbnail?id=13l7Yd9RxhlMtUnltjlJPtA-Q7BwRJ3zd&sz=w800"},
+  "elmhurst": {secondary:"https://drive.google.com/thumbnail?id=1i38UosCcZbtEiUZqxaRVRW3CQNp2_8yx&sz=w800", category:"https://drive.google.com/thumbnail?id=1DeAah6K2tRlnQYVjTqv3qTo3OgZ5nkfS&sz=w800"},
   "eugene": {secondary:"https://drive.google.com/thumbnail?id=14J7DftYH9leZI4PPP9b6Mi0OupoRn9eP&sz=w800", category:"https://drive.google.com/thumbnail?id=1e78czyS2lWkmskR9QIDi4DjxwadPw1iy&sz=w800"},
   "fairfield": {secondary:"https://drive.google.com/thumbnail?id=1nYk5pRkLNBnPUUP_CK4y2N1ayTGeQo2b&sz=w800"},
   "harbor east": {secondary:"https://drive.google.com/thumbnail?id=1jPMKIYDUseIeYJAJsV9DbnCq1bA8LgPa&sz=w800", category:"https://drive.google.com/thumbnail?id=1Ynd0e7g9gk3Sq3_SNCxlxPNdaCGGuCFW&sz=w800"},
@@ -376,6 +376,10 @@ const STORE_IMAGES = {
   "woodcliff lake": {category:"https://drive.google.com/thumbnail?id=1tgXRrBjSVZfApkuaCXgIORWeck9TXI19&sz=w800"},
   "wynnewood": {secondary:"https://drive.google.com/thumbnail?id=1UThfz0YNFn63VSNHbRr9z0kBvjWDA09e&sz=w800", category:"https://drive.google.com/thumbnail?id=1CJZbrUFlQpzxBvHc-GnaI9GrsU3GHtWP&sz=w800"},
   "ygnacio valley road": {secondary:"https://drive.google.com/thumbnail?id=1HwR-FXT1xnXqIFSj0nCuKaABRGyNq1a5&sz=w800", category:"https://drive.google.com/thumbnail?id=12dOGN6x8EzWq9331xjNoXdxf9j_G6RlX&sz=w800"},
+  "hinsdale": {secondary:"https://drive.google.com/thumbnail?id=1QKkZsg7uEMekg249sihiD6WQkQ5abWZg&sz=w800"},
+  "pittsburg": {secondary:"https://drive.google.com/thumbnail?id=1BLf0IfprXauZDRaK5qXlxYaZ0Nnw6iLa&sz=w800"},
+  "stonestown galleria": {secondary:"https://drive.google.com/thumbnail?id=1J1fLgNahDei2mT1q9zdzyTMlZ0FwlksJ&sz=w800"},
+  "woodbury": {secondary:"https://drive.google.com/thumbnail?id=1vugYaLLaPVlRNQFM4DDcs1D0BaFIN_6m&sz=w800", category:"https://drive.google.com/thumbnail?id=1zyLI8YKmckgUQjGNRRRAelZqFLs5y8J-&sz=w800"},
 };
 
 const PLACEMENT_NOTES = {
@@ -640,7 +644,7 @@ function openDW(num) {
   const potential = Math.max(0, peerAvg - s.l4w);
   
   
-  const TSM_ONLY_STORES = new Set([10333,10075,10566,10558,10638,10059,10246,10580]);
+  const TSM_ONLY_STORES = new Set([10333,10075,10566,10558,10638,10059,10246,10580,10628]);
   let html = ``;
   if (TSM_ONLY_STORES.has(s.num)) html += `<span class="tsm-only-badge">TSM Only Display</span> `;
   
